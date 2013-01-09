@@ -25,7 +25,7 @@ namespace DataStructures.BinarySearchTreeSpace
         public Node(T data, Node<T> parent) 
         { 
             this.data = data;
-            Parent parent;
+            Parent = parent;
             Left = null;
             Right = null;
         }

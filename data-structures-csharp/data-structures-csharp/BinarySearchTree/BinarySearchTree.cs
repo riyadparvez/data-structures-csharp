@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.BinarySearchTreeSpace
 {
-    public class BinarySearchTree<T> where T : IComparable<T>
+    public class BinarySearchTree<T> where T : IComparable<T>, IEnumerable<T>
     {
         private int count;    
         private Node<T> root;
@@ -218,6 +219,25 @@ namespace DataStructures.BinarySearchTreeSpace
             }
             Predecessor(current).Left = node.Left;
             return true;
+        }
+
+        private void PushLeft(Stack<Node<T>> stack, Node<T> x)
+        {
+            while (x != null)
+            { stack.Push(x); x = x.Left; }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Stack<Node<T>> stack = new Stack<Node<T>>();
+            PushLeft(stack, root);
+            while(stack.Any())
+            {
+                Node<T> x = stack.Pop();
+                yield return x.Data;
+                PushLeft(stack, x.Right);
+            }
+            yield break;
         }
     }
 }
