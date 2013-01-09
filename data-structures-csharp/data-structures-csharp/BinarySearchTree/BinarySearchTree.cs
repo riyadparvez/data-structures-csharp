@@ -27,7 +27,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element">element to be searched</param>
         /// <returns>Returns that element, otherwise default</returns>
-        public T Find(T element) 
+        public Node<T> FindNode(T element) 
         {
             Node<T> current = root;
 
@@ -44,10 +44,17 @@ namespace DataStructures.BinarySearchTreeSpace
                 }
                 else
                 {
-                    return current.Data;
+                    return current;
                 }
             }
-            return default(T);
+            return null;
+        }
+
+
+        public T Find(T element) 
+        {
+            Node<T> node = FindNode(element);
+            return (node != null) ? node.Data : default(T); 
         }
 
 
@@ -153,7 +160,64 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>true if removed</returns>
         public bool Remove(T element) 
         { 
-        
+            Node<T> node = FindNode(element);
+            if(node == null)                            //node isn't there
+            {
+                return false;
+            }
+            if(node.Left == null && node.Right == null)     //node doesn't have any children
+            {
+                if (node.Parent.Right == node)
+                {
+                    node.Parent.Right = null;
+                }
+                else 
+                {
+                    node.Parent.Left = null;                
+                }
+                return true;
+            }
+            if(node.Left == null)                           //node has only right child
+            {
+                if (node.Parent.Right == node)
+                {
+                    node.Parent.Right = node.Right;
+                }
+                else
+                {
+                    node.Parent.Left = node.Right;
+                }
+                return true;
+            }
+            if (node.Right == null)                         //node has only right child
+            {
+                if (node.Parent.Right == node)
+                {
+                    node.Parent.Right = node.Left;
+                }
+                else
+                {
+                    node.Parent.Left = node.Left;
+                }
+                return true;
+            }
+
+            Node<T> current = node.Right;
+            //node has both children
+            if (node.Parent.Right == node)
+            {
+                node.Parent.Right = current;
+            }
+            else
+            {
+                node.Parent.Left = current;
+            }
+            if(current.Left == null)
+            {
+                current.Left = node.Left;
+            }
+            Predecessor(current).Left = node.Left;
+            return true;
         }
     }
 }
