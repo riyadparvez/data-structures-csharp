@@ -96,5 +96,64 @@ namespace DataStructures.BinarySearchTreeSpace
                 }
             }
         }
+
+
+        /// <summary>
+        /// Returns in order predecessor
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public Node<T> Predecessor(Node<T> node) 
+        { 
+            if(node.Left == null)
+            {
+                return null;
+            }
+            if(node.Left.Right == null)
+            {
+                return node.Left;
+            }
+            node = node.Left;
+            while(node.Right != null)
+            {
+                node = node.Right;
+            }
+            return node;
+        }
+
+
+        /// <summary>
+        /// Returns in order successor
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns>returns null if in order successor doesn't exist</returns>
+        public Node<T> Successor(Node<T> node) 
+        { 
+            if(node.Right == null)
+            {
+                return null;
+            }
+            if(node.Right.Left == null)
+            {
+                return node.Right;
+            }
+            node = node.Right;
+            while (node.Left != null)
+            {
+                node = node.Left;
+            }
+            return node;
+        }
+
+
+        /// <summary>
+        /// Remove specified element
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns>true if removed</returns>
+        public bool Remove(T element) 
+        { 
+        
+        }
     }
 }
