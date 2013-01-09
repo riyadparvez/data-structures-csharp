@@ -11,6 +11,7 @@ namespace DataStructures.TrieSpace
     {
         private HashSet<Node> children;
         private readonly char ch;
+        private readonly Comparer<Node> comparer = new NodeComparare();
         private readonly string wordFromRoot;
 
         public virtual char Character 
@@ -24,6 +25,10 @@ namespace DataStructures.TrieSpace
         public virtual IEnumerable<Node> Children 
         {
             get { return children.AsEnumerable(); }
+        }
+        public Comparer<Node> Comparer 
+        {
+            get { return comparer; }
         }
 
 
@@ -96,6 +101,15 @@ namespace DataStructures.TrieSpace
         public override string ToString()
         {
             return wordFromRoot;
+        }
+
+
+        private sealed class NodeComparare : Comparer<Node>
+        {
+            public override int Compare(Node x, Node y)
+            {
+                return x.Character.CompareTo(y.Character);
+            }
         }
     }
 }
