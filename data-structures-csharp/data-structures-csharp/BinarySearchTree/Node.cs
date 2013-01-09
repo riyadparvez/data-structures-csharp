@@ -30,5 +30,26 @@ namespace DataStructures.BinarySearchTreeSpace
             Left = null;
             Right = null;
         }
+
+        public override bool Equals(object obj)
+        {
+            Node<T> otherNode = obj as Node<T>;
+            if(otherNode == null)
+            {
+                return false;
+            }
+            return Data.Equals(otherNode.Data);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                // Suitable nullity checks etc, of course :)
+                hash = hash * 23 + data.GetHashCode();
+                return hash;
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 using System.Threading.Tasks;
 using DataStructures.BinarySearchTreeSpace;
 
@@ -18,9 +19,15 @@ namespace DataStructures.HeapSpace
         public int Count { get; set; }
 
 
-        public void Add() 
+        public void Add(T element) 
         { 
         
+        }
+
+
+        public void Remove(T element) 
+        {
+ 
         }
 
 
