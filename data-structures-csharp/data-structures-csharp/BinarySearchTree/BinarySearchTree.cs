@@ -64,7 +64,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element">true if added, false if already added</param>
         /// <returns>Newly added elements</returns>
-        public bool Add(T element)
+        public virtual bool Add(T element)
         {
             if(Root == null)
             {
@@ -159,7 +159,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element"></param>
         /// <returns>true if removed</returns>
-        public bool Remove(T element) 
+        public virtual bool Remove(T element) 
         { 
             Node<T> node = FindNode(element);
             if(node == null)                            //node isn't there

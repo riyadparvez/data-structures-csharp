@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvlTree\AvlTree.cs" />
+    <Compile Include="AvlTree\Node.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
