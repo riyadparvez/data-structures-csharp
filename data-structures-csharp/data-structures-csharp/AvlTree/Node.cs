@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DataStructures.AvlTreeSpace
 {
     /// <summary>
-    /// Node of BST, left<root<right
+    /// Node of AVL tree, left<root<right
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     public class Node<T> where T : IComparable<T>
@@ -23,12 +23,13 @@ namespace DataStructures.AvlTreeSpace
         internal Node<T> Left { get; set; }
         internal Node<T> Right { get; set; }
 
-        public Node(T data, Node<T> parent)
+        public Node(T data, Node<T> parent, int height)
         {
             this.data = data;
             Parent = parent;
             Left = null;
             Right = null;
+            Height = height;
         }
     }
 }

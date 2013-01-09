@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace DataStructures.BinarySearchTreeSpace
 {
-    public class BinarySearchTree<T> where T : IComparable<T>, IEnumerable<T>
+    public class BinarySearchTree<T> : IEnumerable<T> where T : IComparable<T>
     {
-        private int count;    
-        private Node<T> root;
+        protected int count;    
+        protected Node<T> root;
 
         public Node<T> Root 
         {
@@ -238,6 +238,12 @@ namespace DataStructures.BinarySearchTreeSpace
                 PushLeft(stack, x.Right);
             }
             yield break;
+        }
+
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

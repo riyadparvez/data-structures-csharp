@@ -43,6 +43,7 @@
     <Compile Include="AvlTree\Node.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
+    <Compile Include="Heap\Heap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trie\Node.cs" />
     <Compile Include="Trie\NullNode.cs" />

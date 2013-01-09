@@ -12,18 +12,19 @@ namespace DataStructures.BinarySearchTreeSpace
     /// <typeparam name="T">Data type</typeparam>
     public class Node<T> where T : IComparable<T>
     {
-        public readonly T data; 
+        public readonly T data;
 
         public T Data
         {
             get { return data; }
         }
+        public int Height { get; internal set; }
         internal Node<T> Parent { get; set; }
         internal Node<T> Left { get; set; }
         internal Node<T> Right { get; set; }
 
-        public Node(T data, Node<T> parent) 
-        { 
+        public Node(T data, Node<T> parent)
+        {
             this.data = data;
             Parent = parent;
             Left = null;
