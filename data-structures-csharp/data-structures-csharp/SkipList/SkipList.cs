@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,8 @@ namespace DataStructures.SkipListSpace
         /// <param name="value"></param>
         public void Insert(TKey key, TValue value) 
         {
+            Debug.Assert(key != null);
+
             SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel];
             //Start search for each level from dummy header node
             SkipNode<TKey, TValue> cursor = header;
@@ -123,6 +126,8 @@ namespace DataStructures.SkipListSpace
         /// <param name="key">Key to be deleted</param>
         public void Delete(TKey key) 
         {
+            Debug.Assert(key != null);
+
             SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel+1];
             SkipNode<TKey, TValue> cursor = header;
             
@@ -164,6 +169,8 @@ namespace DataStructures.SkipListSpace
         /// <returns>Value otherwise type default</returns>
         public TValue Search(TKey key) 
         {
+            Debug.Assert(key != null);
+
             SkipNode<TKey, TValue> cursor = header;
             for (int i = level; i <= level - 1; i--)
             {

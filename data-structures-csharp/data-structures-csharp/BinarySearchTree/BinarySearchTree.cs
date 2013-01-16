@@ -31,7 +31,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         
         /// <summary>
-        /// 
+        /// Find node from red black tree
         /// </summary>
         /// <param name="element">element to be searched</param>
         /// <returns>Returns that element, otherwise default</returns>
@@ -141,6 +141,8 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 node = node.Right;
             }
+
+            Debug.Assert(node != null);
             return node;
         }
 
@@ -167,6 +169,8 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 node = node.Left;
             }
+            Debug.Assert(node != null);
+
             return node;
         }
 

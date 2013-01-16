@@ -43,9 +43,12 @@
     <Compile Include="AvlTree\Node.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
+    <Compile Include="MoveToFrontList\MoveToFrontList.cs" />
     <Compile Include="Heap\Heap.cs" />
     <Compile Include="IntervalTree\Interval.cs" />
     <Compile Include="IntervalTree\Node.cs" />
+    <Compile Include="FrequencyList\FrequencyList.cs" />
+    <Compile Include="FrequencyList\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedBlackTree\Node.cs" />
     <Compile Include="RedBlackTree\NodeType.cs" />

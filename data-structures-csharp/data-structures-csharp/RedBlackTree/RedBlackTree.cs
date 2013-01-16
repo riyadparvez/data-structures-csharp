@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,14 @@ namespace DataStructures.RedBlackTreeSpace
             header = new Node<T>(data, nullNode, nullNode);
         }
 
+        /// <summary>
+        /// Insert key to Red Black Tree
+        /// </summary>
+        /// <param name="key"></param>
         public void Insert(T key)
         {
+            Debug.Assert(key != null);
+
             grandParent = header;
             parent = grandParent;
             current = parent;
@@ -72,17 +79,27 @@ namespace DataStructures.RedBlackTreeSpace
             HandleReorient(key);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeEmpty()
         {
             header.Right = nullNode;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool IsEmpty()
         {
             return (header.Right == nullNode);
         }
 
+        /// <summary>
+        /// Returns max element of the tree
+        /// </summary>
+        /// <returns></returns>
         public T FindMax()
         {
             if (this.IsEmpty())
@@ -90,14 +107,17 @@ namespace DataStructures.RedBlackTreeSpace
                 return default(T);
             }
             Node<T> itrNode = header.Right;
-            while (!(itrNode.Right == nullNode))
+            while (itrNode.Right != nullNode)
             {
                 itrNode = itrNode.Right;
             }
             return itrNode.Data;
         }
 
-
+        /// <summary>
+        /// Returns min element of the tree
+        /// </summary>
+        /// <returns></returns>
         public T FindMin()
         {
             if (this.IsEmpty())
@@ -107,7 +127,7 @@ namespace DataStructures.RedBlackTreeSpace
 
             Node<T> itrNode = header.Right;
 
-            while (!(itrNode.Left == nullNode))
+            while (itrNode.Left != nullNode)
             {
                 itrNode = itrNode.Left;
             }

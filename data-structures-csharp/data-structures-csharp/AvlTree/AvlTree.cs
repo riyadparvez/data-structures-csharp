@@ -120,6 +120,8 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RebalanceRight(Node<T> root)
         {
+            Debug.Assert(root != null);
+
             Node<T> left = root.Left;
             Node<T> right = root.Right;
             int leftHeight = root.Left.Height;
@@ -146,14 +148,16 @@ namespace DataStructures.AvlTreeSpace
             else
             {
                 //Tree is already balanced
-                Debug.Assert((leftHeight == rightHeight), "Tree is beyond balanved state");
+                Debug.Assert((leftHeight == rightHeight), "Tree is beyond balanced state");
                 FixHeight(root);
                 return root; 
             }
         }
 
         private Node<T> RotateLeft(Node<T> root) 
-        { 
+        {
+            Debug.Assert(root != null);
+
             Node<T> temp = root.Right;
             root.Right.Left = root;
             root.Right = temp.Left;
@@ -162,6 +166,8 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RotateRight(Node<T> root) 
         {
+            Debug.Assert(root != null);
+
             Node<T> temp = root.Left;
             root.Left.Right = root;
             root.Left = temp.Right;

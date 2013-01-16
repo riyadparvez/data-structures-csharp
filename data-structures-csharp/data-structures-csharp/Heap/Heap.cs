@@ -5,12 +5,13 @@ using System.Text;
 using System.Collections;
 using System.Threading.Tasks;
 using DataStructures.BinarySearchTreeSpace;
+using System.Diagnostics;
 
 
 namespace DataStructures.HeapSpace
 {
     /// <summary>
-    /// 
+    /// Heap
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
@@ -21,13 +22,15 @@ namespace DataStructures.HeapSpace
 
 
         public void Add(T element) 
-        { 
+        {
+            Debug.Assert(element != null, "Can't add null object to heap");
         
         }
 
 
         public void Remove(T element) 
         {
+            Debug.Assert(element != null, "Can't delete null object to heap");
  
         }
 
