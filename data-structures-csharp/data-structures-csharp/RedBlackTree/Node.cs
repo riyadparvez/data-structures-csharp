@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace DataStructures.IntervalTreeSpace
+namespace DataStructures.RedBlackTreeSpace
 {
     [Serializable]
-    public struct Interval
+    public class Node
     {
-        public int Start { get; set; }
-        public int End { get; set; }
+
     }
 }

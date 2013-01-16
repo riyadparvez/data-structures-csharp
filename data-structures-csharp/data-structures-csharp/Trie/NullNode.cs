@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.TrieSpace
 {
+    [Serializable]
     public sealed class NullNode : Node
     {
         public override char Character

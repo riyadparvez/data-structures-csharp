@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.IntervalTreeSpace
 {
+    [Serializable]
     public class Node
     {
         private List<Interval> intervals;

@@ -13,6 +13,7 @@ namespace DataStructures.HeapSpace
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [Serializable]
     public class Heap<T> where T : IComparable<T>
     {
         public Node<T> Peek { get; private set; }

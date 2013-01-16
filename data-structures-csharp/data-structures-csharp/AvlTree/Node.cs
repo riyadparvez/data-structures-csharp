@@ -10,6 +10,7 @@ namespace DataStructures.AvlTreeSpace
     /// Node of AVL tree, left<root<right
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
+    [Serializable]
     public class Node<T> where T : IComparable<T>
     {
         public readonly T data;

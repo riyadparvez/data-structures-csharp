@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace DataStructures.BinarySearchTreeSpace
 {
+    /// <summary>
+    /// Binary search tree providing O(n) worst case search time
+    /// </summary>
+    /// <typeparam name="T">Type must inherit IComparable</typeparam>
+    [Serializable]
     public class BinarySearchTree<T> : IEnumerable<T> where T : IComparable<T>
     {
         protected int count;    

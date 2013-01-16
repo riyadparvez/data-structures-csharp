@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.TrieSpace
 {
+    [Serializable]
     public class Node
     {
         private HashSet<Node> children;

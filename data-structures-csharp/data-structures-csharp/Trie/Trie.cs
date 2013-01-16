@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.TrieSpace
 {
+    [Serializable]
     public class Trie
     {
         public Node Root { get; private set; }
