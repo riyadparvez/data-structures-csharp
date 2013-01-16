@@ -57,6 +57,7 @@
     <Compile Include="SkipList\NullSkipNode.cs" />
     <Compile Include="SkipList\SkipList.cs" />
     <Compile Include="SkipList\SkipNode.cs" />
+    <Compile Include="TransportList\TransposeList.cs" />
     <Compile Include="Trie\Node.cs" />
     <Compile Include="Trie\NullNode.cs" />
     <Compile Include="Trie\Trie.cs" />

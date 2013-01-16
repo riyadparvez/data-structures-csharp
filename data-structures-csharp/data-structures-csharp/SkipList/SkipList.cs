@@ -144,7 +144,7 @@ namespace DataStructures.SkipListSpace
             //Check is this the element we want to delete?
             if (cursor.Key.CompareTo(key) == 0) 
             {
-                for(int i=0; i< level-1; i++)
+                for(int i=0; i< level; i++)
                 {
                     //If next element is our to be deleted element
                     //Check prev node point to next node
@@ -172,7 +172,7 @@ namespace DataStructures.SkipListSpace
             Debug.Assert(key != null);
 
             SkipNode<TKey, TValue> cursor = header;
-            for (int i = level; i <= level - 1; i--)
+            for (int i = 0; i < level; i--)
             {
                 SkipNode<TKey, TValue> nextElement = cursor.Links[i];
                 while (nextElement.Key.CompareTo(key) == -1)
