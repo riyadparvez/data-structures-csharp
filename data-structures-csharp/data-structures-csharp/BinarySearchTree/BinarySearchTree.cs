@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,8 @@ namespace DataStructures.BinarySearchTreeSpace
     /// </summary>
     /// <typeparam name="T">Type must inherit IComparable</typeparam>
     [Serializable]
-    public class BinarySearchTree<T> : IEnumerable<T> where T : IComparable<T>
+    public class BinarySearchTree<T> : IEnumerable<T> 
+        where T : IComparable<T>
     {
         protected int count;    
         protected Node<T> root;
@@ -56,9 +58,14 @@ namespace DataStructures.BinarySearchTreeSpace
             return null;
         }
 
-
+        /// <summary>
+        /// Find element in BST, returns null if not found
+        /// </summary>
+        /// <param name="element">Element to be found</param>
+        /// <returns></returns>
         public T Find(T element) 
         {
+            Debug.Assert(element != null, "BST can't have null values");
             Node<T> node = FindNode(element);
             return (node != null) ? node.Data : default(T); 
         }
@@ -71,7 +78,8 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>Newly added elements</returns>
         public virtual bool Add(T element)
         {
-            if(Root == null)
+            Debug.Assert(element != null, "BST can't have null values");
+            if (Root == null)
             {
                 root = new Node<T>(element, null);
                 count++;
@@ -112,12 +120,14 @@ namespace DataStructures.BinarySearchTreeSpace
 
 
         /// <summary>
-        /// Returns in order predecessor
+        /// Returns in order predecessor, returns null if it has no predecessor
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
         public Node<T> Predecessor(Node<T> node) 
-        { 
+        {
+            Debug.Assert(node != null, "Null values donesn't have predecesspr");
+
             if(node.Left == null)
             {
                 return null;
@@ -136,13 +146,15 @@ namespace DataStructures.BinarySearchTreeSpace
 
 
         /// <summary>
-        /// Returns in order successor
+        /// Returns in order successor, returns if it's the lst element
         /// </summary>
         /// <param name="node"></param>
         /// <returns>returns null if in order successor doesn't exist</returns>
         public Node<T> Successor(Node<T> node) 
-        { 
-            if(node.Right == null)
+        {
+            Debug.Assert(node != null, "Null values donesn't have successor");
+
+            if (node.Right == null)
             {
                 return null;
             }
@@ -165,7 +177,9 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <param name="element"></param>
         /// <returns>true if removed</returns>
         public virtual bool Remove(T element) 
-        { 
+        {
+            Debug.Assert(element != null, "BST doesn't contain null values");
+            
             Node<T> node = FindNode(element);
             if(node == null)                            //node isn't there
             {

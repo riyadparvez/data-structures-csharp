@@ -11,7 +11,8 @@ using DataStructures.BinarySearchTreeSpace;
 namespace DataStructures.AvlTreeSpace
 {
     [Serializable]
-    public class AvlTree<T> : IEnumerable<T> where T : IComparable<T>
+    public class AvlTree<T> : IEnumerable<T> 
+        where T : IComparable<T>
     {
         protected int count;
         protected Node<T> root;
@@ -27,6 +28,8 @@ namespace DataStructures.AvlTreeSpace
 
         public Node<T> Add(T element)
         {
+            Debug.Assert(element != null, "Can't insert null values");
+
             return Add(root, element);
         }
         
@@ -38,6 +41,8 @@ namespace DataStructures.AvlTreeSpace
         /// <returns>Newly added elements</returns>
         public Node<T> Add(Node<T> root, T element, int height = 0)
         {
+            Debug.Assert(element != null, "Can't insert null values");
+
             height++;
             if(root == null)
             {

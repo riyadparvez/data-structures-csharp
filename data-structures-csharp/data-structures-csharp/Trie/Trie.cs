@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace DataStructures.TrieSpace
         /// <returns>True if that word exists</returns>
         public bool Exists(string word) 
         {
+            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+
             Node current = Root;
             foreach (char ch in word)
             {
@@ -47,7 +50,9 @@ namespace DataStructures.TrieSpace
         /// <param name="word"></param>
         public void Add(Node node, string word) 
         {
-            foreach(char ch in word)
+            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+
+            foreach (char ch in word)
             {
                 Node childNode = node.AddChild(ch);
                 node = childNode;
@@ -60,6 +65,8 @@ namespace DataStructures.TrieSpace
         /// <param name="word"></param>
         public void Add(string word)
         {
+            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+
             Node current = Root;
             for (int i = 0; i < word.Length; i++ )
             {

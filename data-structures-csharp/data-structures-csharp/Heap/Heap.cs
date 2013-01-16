@@ -34,7 +34,7 @@ namespace DataStructures.HeapSpace
 
         public T GetMin(T element)
         {
-            
+            throw new NotImplementedException();    
         }
 
     }
