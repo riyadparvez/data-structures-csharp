@@ -49,6 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedBlackTree\Node.cs" />
     <Compile Include="RedBlackTree\NodeType.cs" />
+    <Compile Include="RedBlackTree\NullNode.cs" />
+    <Compile Include="RedBlackTree\RedBlackTree.cs" />
     <Compile Include="SkipList\NullSkipNode.cs" />
     <Compile Include="SkipList\SkipList.cs" />
     <Compile Include="SkipList\SkipNode.cs" />

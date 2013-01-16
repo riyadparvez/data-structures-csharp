@@ -10,8 +10,15 @@ namespace DataStructures.RedBlackTreeSpace
     public class Node<T> where T : IComparable<T>
     {
         public T Data { get; set; }
-        public NodeType Type { get; set; }
+        public NodeType Color { get; set; }
         public Node<T> Left { get; set; }
         public Node<T> Right { get; set; }
+
+        public Node(T data, Node<T> left, Node<T> right) 
+        {
+            Data = data;
+            Left = left;
+            Right = right;
+        }
     }
 }
