@@ -12,7 +12,8 @@ namespace DataStructures.SkipListSpace
     {
         public TKey Key { get; set; }
         public TValue Value { get; set; }
-        public IList<SkipNode<TKey, TValue>> Links;
+        //Each link contains next level successor in skip list
+        public IList<SkipNode<TKey, TValue>> Links { get; set; }
 
         public SkipNode(int level) 
         {
