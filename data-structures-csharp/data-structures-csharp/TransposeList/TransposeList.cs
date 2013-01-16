@@ -6,22 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DataStructures.FrequencyListSpace
+namespace DataStructures.TransposeListSpace
 {
-    [Serializable]
-    public class FrequencyList<T>
-        where T : IComparable<T>
+    public class TransposeList<T> : IEnumerable<T>
     {
+        private List<T> list = new List<T>();
+
         private int count;
         private Node<T> dummy = new Node<T>();
 
         public Node<T> Header { get; private set; }
         public int Count { get { return count; } }
 
-        public FrequencyList() 
+        public TransposeList() 
         {
             count = 0;
-            dummy.AccessCount = Int32.MaxValue;
             Header = dummy;
         }
 
@@ -40,20 +39,16 @@ namespace DataStructures.FrequencyListSpace
         private void Adjust(Node<T> node) 
         {
             Debug.Assert(node != null);
-
-            var current = node;
-            while(current.Previous.AccessCount <= node.AccessCount)
+            if(node.Previous == dummy)
             {
-                current = current.Previous;
+                //already at the front of the list
+                return;
             }
-            //Unlink from previous location
-            node.Previous.Next = node.Next;
-            node.Next.Previous = node.Previous;
-            //Insert into new location
-            node.Previous = current.Previous;
-            node.Next = current;
-            current.Previous = node;
-            node.Previous.Next = node;
+            var temp = node.Previous;
+            node.Previous = node.Previous.Previous;
+            temp.Next = node.Next;
+            node.Next = temp;
+            temp.Previous = node;
         }
 
 
@@ -66,7 +61,6 @@ namespace DataStructures.FrequencyListSpace
             {
                 if(current.Data.Equals(element))
                 {
-                    current.AccessCount++;
                     Adjust(current);
                     return current.Data;
                 }
@@ -104,7 +98,6 @@ namespace DataStructures.FrequencyListSpace
             }
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
-            count--;
         }
 
 
@@ -119,5 +112,14 @@ namespace DataStructures.FrequencyListSpace
             count++;
         }
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            return list.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
     }
 }
