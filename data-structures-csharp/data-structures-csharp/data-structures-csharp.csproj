@@ -43,6 +43,7 @@
     <Compile Include="AvlTree\Node.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
+    <Compile Include="IntervalTree\IntervalTree.cs" />
     <Compile Include="MoveToFrontList\MoveToFrontList.cs" />
     <Compile Include="Heap\Heap.cs" />
     <Compile Include="IntervalTree\Interval.cs" />

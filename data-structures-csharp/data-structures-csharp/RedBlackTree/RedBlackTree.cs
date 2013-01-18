@@ -20,6 +20,7 @@ namespace DataStructures.RedBlackTreeSpace
         private Node<T> greatParent;
         private Node<T> header;
 
+
         public RedBlackTree(T data)
         {
             current = new Node<T>(default(T), nullNode, nullNode);
@@ -29,6 +30,36 @@ namespace DataStructures.RedBlackTreeSpace
             nullNode.Left = nullNode;
             nullNode.Right = nullNode;
             header = new Node<T>(data, nullNode, nullNode);
+        }
+        
+        /// <summary>
+        /// Find an element, otherwise return default
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public T Find(T e)
+        {
+            nullNode.Data = e;
+            Node<T> current = header.Right;
+            while (true)
+            {
+                if (e.CompareTo(current.Data) < 0)
+                {
+                    current = current.Left;
+                }
+                else if (e.CompareTo(current.Data) > 0)
+                {
+                    current = current.Right;
+                }
+                else if (!(current == nullNode))
+                {
+                    return current.Data;
+                }
+                else
+                {
+                    return default(T);
+                }
+            }
         }
 
         /// <summary>
@@ -60,13 +91,17 @@ namespace DataStructures.RedBlackTreeSpace
                 if (current.Left.Color == NodeType.Red &&
                     current.Right.Color == NodeType.Red)
                 {
+                    //A node can't have two red children
+                    //Then HandleReorient method is called whenever a node has two red children
                     HandleReorient(key);
                 }
             }
             if (!(current == nullNode))
             {
+                //This node is already inserted in RB Tree
                 return;
             }
+            //Allocate new node
             current = new Node<T>(key, nullNode, nullNode);
             if (key.CompareTo(parent.Data) < 0)
             {
@@ -76,11 +111,13 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 parent.Right = current;
             }
+            //New child is added so
+            //Then HandleReorient method is called whenever a node has two red children
             HandleReorient(key);
         }
 
         /// <summary>
-        /// 
+        /// Clear current tree
         /// </summary>
         public void MakeEmpty()
         {
@@ -88,7 +125,7 @@ namespace DataStructures.RedBlackTreeSpace
         }
 
         /// <summary>
-        /// 
+        /// Check if the tree is empty
         /// </summary>
         /// <returns></returns>
         public bool IsEmpty()
@@ -106,6 +143,7 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 return default(T);
             }
+            //Rightmost child is the max child
             Node<T> itrNode = header.Right;
             while (itrNode.Right != nullNode)
             {
@@ -124,7 +162,7 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 return default(T);
             }
-
+            //Leftmost child is the min child
             Node<T> itrNode = header.Right;
 
             while (itrNode.Left != nullNode)
@@ -156,8 +194,10 @@ namespace DataStructures.RedBlackTreeSpace
             }
         }
 
-        public void HandleReorient(T item)
+        private void HandleReorient(T item)
         {
+            Debug.Assert(item != null);
+
             current.Color = NodeType.Red;
             current.Left.Color = NodeType.Black;
             current.Right.Color = NodeType.Black;
@@ -167,6 +207,7 @@ namespace DataStructures.RedBlackTreeSpace
                 if ((item.CompareTo(grandParent.Data) < 0) !=
                     (item.CompareTo(parent.Data)))
                 {
+                    //Balance grandParent subtree by item
                     current = Rotate(item, grandParent);
                     current.Color = NodeType.Black ;
                 }
@@ -174,45 +215,56 @@ namespace DataStructures.RedBlackTreeSpace
             }
         }
 
-        public Node<T> Rotate(T item, Node<T> parent) 
+        private Node<T> Rotate(T item, Node<T> parent) 
         {
+            Debug.Assert(item != null);
+
+            //Left subtree is unbalanced
             if (item.CompareTo(parent.Data) < 0)
             {
                 if (item.CompareTo(parent.Left.Data) < 0)
                 {
-                    parent.Left = RotateWithLeftChild(parent.Left);
+                    //Left subtree of Right Left subtree is unbalanced
+                    parent.Left = RotateRight(parent.Left);
                 }
                 else
                 {
-                    parent.Left = RotateWithRightChild(parent.Left);
+                    //Right subtree of Left subtree is unbalanced
+                    parent.Left = RotateLeft(parent.Left);
                 }
                 return parent.Left;
             }
-
+            //Right subtree is unbalanced
             else
             {
                 if (item.CompareTo(parent.Right.Data) < 0)
                 {
-                    parent.Right = RotateWithLeftChild(parent.Right);
+                    //Left subtree of Right subtree is unbalanced
+                    parent.Right = RotateRight(parent.Right);
                 }
                 else
                 {
-                    parent.Right = RotateWithRightChild(parent.Right);
+                    //Right subtree of Left subtree is unbalanced 
+                    parent.Right = RotateLeft(parent.Right);
                 }
                 return parent.Right;
             }
         }
 
-        public Node<T> RotateWithLeftChild(Node<T> k2)
+        public Node<T> RotateRight(Node<T> k2)
         {
+            Debug.Assert(k2 != null);
+
             Node<T> k1 = k2.Left;
             k2.Left = k1.Right;
             k1.Right = k2;
             return k1;
         }
 
-        public Node<T> RotateWithRightChild(Node<T> k1)
+        public Node<T> RotateLeft(Node<T> k1)
         {
+            Debug.Assert(k1 != null);
+
             Node<T> k2 = k1.Right;
             k1.Right = k2.Left;
             k2.Left = k1;

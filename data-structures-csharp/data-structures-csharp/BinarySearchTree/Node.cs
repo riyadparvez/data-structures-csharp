@@ -11,7 +11,7 @@ namespace DataStructures.BinarySearchTreeSpace
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
-    public class Node<T> where T : IComparable<T>
+    public class Node<T> where T : IComparable<T>, IEquatable<T>
     {
         public readonly T data;
 
@@ -30,6 +30,15 @@ namespace DataStructures.BinarySearchTreeSpace
             Parent = parent;
             Left = null;
             Right = null;
+        }
+
+        public bool Equals(Node<T> otherNode) 
+        {
+            if(otherNode == null)
+            {
+                return false;
+            }
+            return data.Equals(otherNode.Data);
         }
 
         public override bool Equals(object obj)

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace DataStructures.TransposeListSpace
 {
     [Serializable]
-    public class Node<T> 
+    public class Node<T> : IEquatable<T>
+    {
         public T Data { get; set; }
         public Node<T> Previous { get; set; }
         public Node<T> Next { get; set; }
@@ -31,6 +32,14 @@ namespace DataStructures.TransposeListSpace
             }
         }
 
+        public bool Equals(Node<T> otherNode)
+        {
+            if (otherNode == null)
+            {
+                return false;
+            }
+            return Data.Equals(otherNode.Data);
+        }
 
         public override bool Equals(object obj)
         {
