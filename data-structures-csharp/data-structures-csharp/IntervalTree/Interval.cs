@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DataStructures.IntervalTreeSpace
@@ -12,5 +9,21 @@ namespace DataStructures.IntervalTreeSpace
     {
         public int Start { get; set; }
         public int End { get; set; }
+    }
+
+    public class StartComparison : Comparer<Interval>
+    {
+        public override int Compare(Interval x, Interval y)
+        {
+            return x.Start.CompareTo(y.Start);
+        }
+    }
+
+    public class EndComparison : Comparer<Interval>
+    {
+        public override int Compare(Interval x, Interval y)
+        {
+            return x.End.CompareTo(y.End);
+        }
     }
 }

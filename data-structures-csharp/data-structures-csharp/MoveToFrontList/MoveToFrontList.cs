@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructures.MoveToFrontListSpace
 {
@@ -14,8 +12,12 @@ namespace DataStructures.MoveToFrontListSpace
 
         public int Count { get { return list.Count; } }
 
-
-        public T Get(T node) 
+        /// <summary>
+        /// Retrieves specific node and updates that node position
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public T Get(T node)
         {
             T element = list.Where(e => e.Equals(node)).FirstOrDefault();
             list.Remove(element);
@@ -28,7 +30,11 @@ namespace DataStructures.MoveToFrontListSpace
             list.Add(element);
         }
 
-        public void Remove(T element) 
+        /// <summary>
+        /// Removes element from list, throws exception
+        /// </summary>
+        /// <param name="element"></param>
+        public void Remove(T element)
         {
             list.Remove(element);
         }
