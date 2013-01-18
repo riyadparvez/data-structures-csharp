@@ -9,12 +9,12 @@ namespace DataStructures.IntervalTreeSpace
     /// Node for interval tree
     /// </summary>
     [Serializable]
-    public class Node : IEquatable<Node>
+    public class Node : IEquatable<Node>, IComparable<Interval>
     {
         private List<Interval> rightSortedIntervals;
         private List<Interval> leftSortedIntervals;
 
-        public int X { get; set; }
+        public double X { get; set; }
         public IEnumerable<Interval> Intervals
         {
             get { return leftSortedIntervals.AsEnumerable(); }
@@ -23,7 +23,7 @@ namespace DataStructures.IntervalTreeSpace
         public Node Right { get; set; }
 
 
-        public Node(int x)
+        public Node(double x)
         {
             this.X = x;
             rightSortedIntervals = new List<Interval>();
@@ -38,10 +38,28 @@ namespace DataStructures.IntervalTreeSpace
             leftSortedIntervals.Sort(new StartComparison());
         }
 
+        public bool IsInInterval(Interval interval)
+        {
+            return X >= interval.Start && X <= interval.End;
+        }
+
         public bool Equals(Node other)
         {
 
             throw new NotImplementedException();
+        }
+
+        public int CompareTo(Interval other)
+        {
+            if (other.Start > X)
+            {
+                return -1;
+            }
+            else if (other.End < X)
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }

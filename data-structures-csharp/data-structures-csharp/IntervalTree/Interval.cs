@@ -9,6 +9,7 @@ namespace DataStructures.IntervalTreeSpace
     {
         public int Start { get; set; }
         public int End { get; set; }
+        public double Median { get { return (Start + End) / 2; } }
     }
 
     public class StartComparison : Comparer<Interval>
