@@ -56,14 +56,74 @@ namespace DataStructures.IntervalTreeSpace
             }
         }
 
-        public IEnumerable<Interval> Find()
+        private List<Interval> Find(Node treeNode, double x)
+        {
+            if (treeNode == null)
+            {
+                return new List<Interval>();
+            }
+
+            if (x < treeNode.X)
+            {
+                var intervals = treeNode.GetIntervals(x);
+                intervals.AddRange(Find(treeNode.Left, x));
+                return intervals;
+            }
+            else if (x > treeNode.X)
+            {
+                var intervals = treeNode.GetIntervals(x);
+                intervals.AddRange(Find(treeNode.Right, x));
+                return intervals;
+            }
+            else
+            {
+                //all the intervals
+                var intervals = new List<Interval>(treeNode.Intervals);
+                return intervals;
+            }
+        }
+
+        private Node FindNode(Interval interval)
         {
             Node current = Root;
 
-            while()
+            while (current != null)
             {
-                
+                if (current.X < interval.Start)
+                {
+                    current = current.Left;
+                }
+                else if (current.X > interval.End)
+                {
+                    current = current.Right;
+                }
+                else
+                {
+                    return current;
+                }
             }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Remove an interval from tree if it exists, otherwise ignore
+        /// </summary>
+        /// <param name="interval">Interval to be removed</param>
+        public void Remove(Interval interval)
+        {
+            Node node = FindNode(interval);
+            if (node == null)
+            {
+                return;
+            }
+            node.Remove(interval);
+        }
+
+        public IEnumerable<Interval> Find(double x)
+        {
+            Node current = Root;
+            return Find(current, x);
         }
     }
 }
