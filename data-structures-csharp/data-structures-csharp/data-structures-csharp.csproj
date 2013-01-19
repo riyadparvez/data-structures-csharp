@@ -44,6 +44,9 @@
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTreeTranspose.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
+    <Compile Include="DAWG\DirectedAcyclicWordGraph.cs" />
+    <Compile Include="DAWG\Edge.cs" />
+    <Compile Include="DAWG\Node.cs" />
     <Compile Include="IntervalTree\IntervalTree.cs" />
     <Compile Include="MoveToFrontList\MoveToFrontList.cs" />
     <Compile Include="Heap\Heap.cs" />
@@ -67,6 +70,9 @@
     <Compile Include="Trie\Node.cs" />
     <Compile Include="Trie\NullNode.cs" />
     <Compile Include="Trie\Trie.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SuffixArray\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
