@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DataStructures.BinarySearchTreeSpace
@@ -14,28 +12,28 @@ namespace DataStructures.BinarySearchTreeSpace
     /// </summary>
     /// <typeparam name="T">Type must inherit IComparable</typeparam>
     [Serializable]
-    public class BinarySearchTree<T> : IEnumerable<T> 
-        where T : IComparable<T>
+    public class BinarySearchTree<T> : IEnumerable<T>
+        where T : IComparable<T>, IEquatable<T>
     {
-        protected int count;    
+        protected int count;
         protected Node<T> root;
 
-        public Node<T> Root 
+        public Node<T> Root
         {
             get { return root; }
         }
-        public int Count 
+        public int Count
         {
             get { return count; }
         }
 
-        
+
         /// <summary>
         /// Find node from red black tree
         /// </summary>
         /// <param name="element">element to be searched</param>
         /// <returns>Returns that element, otherwise default</returns>
-        public Node<T> FindNode(T element) 
+        public Node<T> FindNode(T element)
         {
             Node<T> current = root;
 
@@ -63,11 +61,11 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element">Element to be found</param>
         /// <returns></returns>
-        public T Find(T element) 
+        public virtual T Find(T element)
         {
             Debug.Assert(element != null, "BST can't have null values");
             Node<T> node = FindNode(element);
-            return (node != null) ? node.Data : default(T); 
+            return (node != null) ? node.Data : default(T);
         }
 
 
@@ -87,11 +85,11 @@ namespace DataStructures.BinarySearchTreeSpace
             }
 
             Node<T> current = root;
-            
-            while(true)
+
+            while (true)
             {
-                int i= current.Data.CompareTo(element);
-                if(i < 0)
+                int i = current.Data.CompareTo(element);
+                if (i < 0)
                 {
                     if (current.Right == null)
                     {
@@ -101,7 +99,7 @@ namespace DataStructures.BinarySearchTreeSpace
                     }
                     current = current.Right;
                 }
-                else if(i > 0)
+                else if (i > 0)
                 {
                     if (current.Left == null)
                     {
@@ -124,20 +122,20 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public Node<T> Predecessor(Node<T> node) 
+        public Node<T> Predecessor(Node<T> node)
         {
-            Debug.Assert(node != null, "Null values donesn't have predecesspr");
+            Debug.Assert(node != null, "Null values doesn't have predecesspr");
 
-            if(node.Left == null)
+            if (node.Left == null)
             {
                 return null;
             }
-            if(node.Left.Right == null)
+            if (node.Left.Right == null)
             {
                 return node.Left;
             }
             node = node.Left;
-            while(node.Right != null)
+            while (node.Right != null)
             {
                 node = node.Right;
             }
@@ -152,15 +150,15 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="node"></param>
         /// <returns>returns null if in order successor doesn't exist</returns>
-        public Node<T> Successor(Node<T> node) 
+        public Node<T> Successor(Node<T> node)
         {
-            Debug.Assert(node != null, "Null values donesn't have successor");
+            Debug.Assert(node != null, "Null values doesn't have successor");
 
             if (node.Right == null)
             {
                 return null;
             }
-            if(node.Right.Left == null)
+            if (node.Right.Left == null)
             {
                 return node.Right;
             }
@@ -180,28 +178,28 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element"></param>
         /// <returns>true if removed</returns>
-        public virtual bool Remove(T element) 
+        public virtual bool Remove(T element)
         {
             Debug.Assert(element != null, "BST doesn't contain null values");
-            
+
             Node<T> node = FindNode(element);
-            if(node == null)                            //node isn't there
+            if (node == null)                            //node isn't there
             {
                 return false;
             }
-            if(node.Left == null && node.Right == null)     //node doesn't have any children
+            if (node.Left == null && node.Right == null)     //node doesn't have any children
             {
                 if (node.Parent.Right == node)
                 {
                     node.Parent.Right = null;
                 }
-                else 
+                else
                 {
-                    node.Parent.Left = null;                
+                    node.Parent.Left = null;
                 }
                 return true;
             }
-            if(node.Left == null)                           //node has only right child
+            if (node.Left == null)                           //node has only right child
             {
                 if (node.Parent.Right == node)
                 {
@@ -236,7 +234,7 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 node.Parent.Left = current;
             }
-            if(current.Left == null)
+            if (current.Left == null)
             {
                 current.Left = node.Left;
             }
@@ -254,7 +252,7 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Stack<Node<T>> stack = new Stack<Node<T>>();
             PushLeft(stack, root);
-            while(stack.Any())
+            while (stack.Any())
             {
                 Node<T> x = stack.Pop();
                 yield return x.Data;

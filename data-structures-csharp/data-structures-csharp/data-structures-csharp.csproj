@@ -42,6 +42,7 @@
     <Compile Include="AvlTree\AvlTree.cs" />
     <Compile Include="AvlTree\Node.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
+    <Compile Include="BinarySearchTree\BinarySearchTreeTranspose.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
     <Compile Include="IntervalTree\IntervalTree.cs" />
     <Compile Include="MoveToFrontList\MoveToFrontList.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="FrequencyList\FrequencyList.cs" />
     <Compile Include="FrequencyList\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue\Deque.cs" />
     <Compile Include="RedBlackTree\Node.cs" />
     <Compile Include="RedBlackTree\NodeType.cs" />
     <Compile Include="RedBlackTree\NullNode.cs" />
