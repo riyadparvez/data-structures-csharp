@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 
+//TODO: Add word
 namespace DataStructures.DAWGSpace
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class DirectedAcyclicWordGraph
     {

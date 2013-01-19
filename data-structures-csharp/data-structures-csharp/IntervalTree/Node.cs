@@ -99,5 +99,10 @@ namespace DataStructures.IntervalTreeSpace
             }
             return 0;
         }
+
+        public int CompareTo(Node other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

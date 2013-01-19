@@ -17,7 +17,7 @@ namespace DataStructures.HeapSpace
     [Serializable]
     public class Heap<T> where T : IComparable<T>
     {
-        public Node<T> Peek { get; private set; }
+        public T Peek { get; private set; }
         public int Count { get; set; }
 
 
