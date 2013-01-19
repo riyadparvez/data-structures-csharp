@@ -58,7 +58,12 @@ namespace DataStructures.IntervalTreeSpace
 
         public IEnumerable<Interval> Find()
         {
+            Node current = Root;
 
+            while()
+            {
+                
+            }
         }
     }
 }

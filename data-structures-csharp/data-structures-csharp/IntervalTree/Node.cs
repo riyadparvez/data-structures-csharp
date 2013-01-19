@@ -9,7 +9,7 @@ namespace DataStructures.IntervalTreeSpace
     /// Node for interval tree
     /// </summary>
     [Serializable]
-    public class Node : IEquatable<Node>, IComparable<Interval>
+    public class Node : IEquatable<Node>, IComparable<Interval>, IComparable<Node>
     {
         private List<Interval> rightSortedIntervals;
         private List<Interval> leftSortedIntervals;
@@ -36,6 +36,38 @@ namespace DataStructures.IntervalTreeSpace
             rightSortedIntervals.Sort(new EndComparison());
             leftSortedIntervals.Add(interval);
             leftSortedIntervals.Sort(new StartComparison());
+        }
+
+        public IEnumerable<Interval> GetIntervals(double x)
+        {
+            IList<Interval> intervals = new List<Interval>();
+            if (x < X)
+            {
+                foreach (var interval in leftSortedIntervals)
+                {
+                    if (interval.Start > x)
+                    {
+                        break;
+                    }
+                    intervals.Add(interval);
+                }
+            }
+            else if (x > X)
+            {
+                foreach (var interval in rightSortedIntervals)
+                {
+                    if (interval.End < x)
+                    {
+                        break;
+                    }
+                    intervals.Add(interval);
+                }
+            }
+            else
+            {
+                intervals.Concat(leftSortedIntervals);
+            }
+            return intervals;
         }
 
         public bool IsInInterval(Interval interval)
