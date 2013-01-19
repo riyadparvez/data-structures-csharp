@@ -38,9 +38,9 @@ namespace DataStructures.IntervalTreeSpace
             leftSortedIntervals.Sort(new StartComparison());
         }
 
-        public IEnumerable<Interval> GetIntervals(double x)
+        public List<Interval> GetIntervals(double x)
         {
-            IList<Interval> intervals = new List<Interval>();
+            List<Interval> intervals = new List<Interval>();
             if (x < X)
             {
                 foreach (var interval in leftSortedIntervals)
@@ -73,6 +73,12 @@ namespace DataStructures.IntervalTreeSpace
         public bool IsInInterval(Interval interval)
         {
             return X >= interval.Start && X <= interval.End;
+        }
+
+        public void Remove(Interval interval)
+        {
+            rightSortedIntervals.Remove(interval);
+            leftSortedIntervals.Remove(interval);
         }
 
         public bool Equals(Node other)
