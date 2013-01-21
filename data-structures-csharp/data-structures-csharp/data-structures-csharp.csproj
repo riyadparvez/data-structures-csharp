@@ -44,6 +44,9 @@
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTreeTranspose.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
+    <Compile Include="CompressedTrie\CompressedTrie.cs" />
+    <Compile Include="CompressedTrie\Node.cs" />
+    <Compile Include="CompressedTrie\NullNode.cs" />
     <Compile Include="DAWG\DirectedAcyclicWordGraph.cs" />
     <Compile Include="DAWG\Edge.cs" />
     <Compile Include="DAWG\Node.cs" />
@@ -70,9 +73,9 @@
     <Compile Include="Trie\Node.cs" />
     <Compile Include="Trie\NullNode.cs" />
     <Compile Include="Trie\Trie.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CompressedTrie\" />
     <Folder Include="SuffixArray\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
