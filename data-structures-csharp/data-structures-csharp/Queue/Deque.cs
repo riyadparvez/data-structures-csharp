@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 namespace DataStructures.QueueSpace
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class Deque<T>
+    public class Deque<T> : IEnumerable<T>
     {
         private List<T> internalList;
 
@@ -26,6 +30,25 @@ namespace DataStructures.QueueSpace
         public Deque(int capacity)
         {
             internalList = new List<T>(capacity);
+        }
+
+        /// <summary>
+        /// Adds an item to deque
+        /// </summary>
+        /// <param name="item"></param>
+        public void Add(T item)
+        {
+            internalList.Add(item);
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return internalList.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

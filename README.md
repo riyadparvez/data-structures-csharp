@@ -10,6 +10,7 @@ Implemented data structures are:
 - Red Black Tree
 - AVL Tree
 - Interval Tree
+- Splay Tree
 - Skip List
 - List (Move to front heuristics)
 - List (Frequency count heuristics)

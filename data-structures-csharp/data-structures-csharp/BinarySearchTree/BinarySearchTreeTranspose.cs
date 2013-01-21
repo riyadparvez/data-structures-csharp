@@ -28,6 +28,7 @@ namespace DataStructures.BinarySearchTreeSpace
             else
             {
                 Debug.Assert(false);
+                return null;
             }
         }
 
@@ -84,6 +85,7 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Debug.Assert(element != null, "BST can't have null values");
             Node<T> node = FindNode(element);
+            Reorient(node);
             return (node != null) ? node.Data : default(T);
         }
     }
