@@ -5,7 +5,8 @@ using System.Diagnostics;
 namespace DataStructures.CompressedTrieSpace
 {
     /// <summary>
-    /// 
+    /// Compressed trie which saves node space by compressing non branching
+    /// nodes into one node
     /// </summary>
     [Serializable]
     public class CompressedTrie
@@ -29,33 +30,19 @@ namespace DataStructures.CompressedTrieSpace
             Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             Node current = Root;
-            for (int i = 0; i < word.Length; i++)
+            int count = 0;
+            for (int i = 0; i < word.Length; i++, count++)
             {
-                Node childNode = current.HasChild(ch);
-                if (childNode == null)
+                if (current.MoveToChildren(word.Substring(i)))
                 {
-                    return false;
+                    current = current.GetChild(word.Substring(i));
                 }
-                current = childNode;
+                else
+                {
+                    break;
+                }
             }
-            return true;
-        }
-
-
-        /// <summary>
-        /// Adds word to the end of speicified node
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="word"></param>
-        public void Add(Node node, string word)
-        {
-            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
-
-            foreach (char ch in word)
-            {
-                Node childNode = node.AddChild(ch);
-                node = childNode;
-            }
+            return (count == word.Length);
         }
 
         /// <summary>
@@ -67,15 +54,22 @@ namespace DataStructures.CompressedTrieSpace
             Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             Node current = Root;
-            for (int i = 0; i < word.Length; i++)
+            int count = 0;
+            for (int i = 0; i < word.Length; i++, count++)
             {
-                Node childNode = current.HasChild(word[i]);
-                if (childNode == null)
+                if (current.MoveToChildren(word.Substring(i)))
                 {
-                    Add(current, word.Substring(i));
-                    break;
+                    current = current.GetChild(word.Substring(i));
                 }
-                current = childNode;
+                else
+                {
+                    current.AddChild(word.Substring(i));
+                }
+            }
+
+            if (count == word.Length)
+            {
+                current.AddNullNode();
             }
         }
     }

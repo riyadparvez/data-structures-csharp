@@ -53,7 +53,7 @@ namespace DataStructures.CompressedTrieSpace
         /// </summary>
         /// <param name="ch">character to search in children</param>
         /// <returns>Null if that children is not present otherwise node having param character</returns>
-        public Node HasChild(string str)
+        public Node GetChild(string str)
         {
             Debug.Assert(str != null);
             int n = children.Select(child => child.StringFragment.CommonPrefixLength(str)).Max();
@@ -90,13 +90,16 @@ namespace DataStructures.CompressedTrieSpace
                 string node2String = str.Substring(n);
                 Node node1 = new Node(node1String, rootWord);
                 Node node2 = new Node(node2String, rootWord);
+
                 node1.children = new HashSet<Node>(children);
+                node1.children.Add(new NullNode(wordFromRoot));
                 node2.children.Add(new NullNode(str));
                 //clear children of current node
                 //add newly created two children
-                children.Clear();
-                children.Add(node1);
-                children.Add(node2);
+                this.stringFragment = prefix;
+                this.children.Clear();
+                this.children.Add(node1);
+                this.children.Add(node2);
             }
             return this;
         }
@@ -119,6 +122,11 @@ namespace DataStructures.CompressedTrieSpace
                 }
             }
             return (count == stringFragment.Length);
+        }
+
+        public void AddNullNode()
+        {
+            this.children.Add(new NullNode(wordFromRoot));
         }
 
         public override int GetHashCode()
