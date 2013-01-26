@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.SkipListSpace
@@ -28,6 +24,8 @@ namespace DataStructures.SkipListSpace
 
         private SkipList(double probable, int maxLevel)
         {
+            Contract.Requires(probable < 1);
+
             this.probability = probable;
             this.maxLevel = maxLevel;
             level = 0;
@@ -43,10 +41,10 @@ namespace DataStructures.SkipListSpace
         public static SkipList<TKey, TValue> CreateInstance(long maxNodes)
         {
             return new SkipList<TKey, TValue>(Probability, (int)(Math.Ceiling(Math.Log(maxNodes) /
-                                                Math.Log(1/Probability)-1)));
+                                                Math.Log(1 / Probability) - 1)));
         }
 
-        private int GetRandomLevel() 
+        private int GetRandomLevel()
         {
             int newLevel = 0;
             double ran = random.NextDouble();
@@ -62,16 +60,16 @@ namespace DataStructures.SkipListSpace
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Insert(TKey key, TValue value) 
+        public void Insert(TKey key, TValue value)
         {
-            Debug.Assert(key != null);
+            Contract.Requires(key != null);
 
             SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel];
             //Start search for each level from dummy header node
             SkipNode<TKey, TValue> cursor = header;
-            
+
             //Start from current max initialized header
-            for(int i=level; i>=0 ; i--) 
+            for (int i = level; i >= 0; i--)
             {
                 //Find the node which is previous node to current code in any level
                 while (cursor.Links[i].Key.CompareTo(key) == -1)
@@ -88,14 +86,14 @@ namespace DataStructures.SkipListSpace
                 //Assign new value to corrosponding key
                 cursor.Value = value;
             }
-            else 
+            else
             {
                 //If this is new node, then
                 //Find random level for insertion
                 int newLevel = GetRandomLevel();
                 //New node level is greater then current level
                 //Update intermediate nodes 
-                if (newLevel > level) 
+                if (newLevel > level)
                 {
                     //This is a specila case, where dummy header links aren't initialized yet
                     for (int i = level + 1; i < newLevel; i++)
@@ -107,7 +105,7 @@ namespace DataStructures.SkipListSpace
                     level = newLevel;
                 }
                 //New node which will be inserted into new level, also nedds newLevel number of forward edges 
-                cursor = new SkipNode<TKey, TValue>(newLevel, key, value); 
+                cursor = new SkipNode<TKey, TValue>(newLevel, key, value);
                 //Insert the node
                 for (int i = 0; i < newLevel; i++)
                 {
@@ -124,14 +122,14 @@ namespace DataStructures.SkipListSpace
         /// Delete from skip list if element exists
         /// </summary>
         /// <param name="key">Key to be deleted</param>
-        public void Delete(TKey key) 
+        public void Delete(TKey key)
         {
-            Debug.Assert(key != null);
+            Contract.Requires(key != null);
 
-            SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel+1];
+            SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel + 1];
             SkipNode<TKey, TValue> cursor = header;
-            
-            for(int i=level; i>=level; i--) 
+
+            for (int i = level; i >= level; i--)
             {
                 while (cursor.Links[i].Key.CompareTo(key) == -1)
                 {
@@ -139,12 +137,12 @@ namespace DataStructures.SkipListSpace
                 }
                 update[i] = cursor;
             }
-            
+
             cursor = cursor.Links[0];
             //Check is this the element we want to delete?
-            if (cursor.Key.CompareTo(key) == 0) 
+            if (cursor.Key.CompareTo(key) == 0)
             {
-                for(int i=0; i< level; i++)
+                for (int i = 0; i < level; i++)
                 {
                     //If next element is our to be deleted element
                     //Check prev node point to next node
@@ -167,9 +165,9 @@ namespace DataStructures.SkipListSpace
         /// </summary>
         /// <param name="key">Key to be searched</param>
         /// <returns>Value otherwise type default</returns>
-        public TValue Search(TKey key) 
+        public TValue Search(TKey key)
         {
-            Debug.Assert(key != null);
+            Contract.Requires(key != null);
 
             SkipNode<TKey, TValue> cursor = header;
             for (int i = 0; i < level; i--)
@@ -195,4 +193,4 @@ namespace DataStructures.SkipListSpace
             }
         }
     }
- }
+}

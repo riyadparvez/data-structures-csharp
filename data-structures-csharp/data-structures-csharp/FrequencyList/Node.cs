@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace DataStructures.FrequencyListSpace
 {
     [Serializable]
-    public class Node<T> where T : IComparable<T>
+    public class Node<T>
+        where T : IComparable<T>
     {
         public int AccessCount { get; set; }
         public T Data { get; set; }
@@ -18,14 +16,20 @@ namespace DataStructures.FrequencyListSpace
         {
         }
 
-        public Node(T data) 
+        public Node(T data)
         {
             Data = data;
         }
 
-        public override int GetHashCode() 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
         {
-            unchecked 
+            Contract.Invariant(AccessCount >= 0);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
             {
                 int hash = 17;
                 hash = 23 * Data.GetHashCode();
@@ -37,7 +41,7 @@ namespace DataStructures.FrequencyListSpace
         public override bool Equals(object obj)
         {
             Node<T> otherObject = obj as Node<T>;
-            if(otherObject == null)
+            if (otherObject == null)
             {
                 return false;
             }

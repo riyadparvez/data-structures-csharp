@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 namespace DataStructures.SplayTreeSpace
 {
@@ -7,7 +8,8 @@ namespace DataStructures.SplayTreeSpace
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
-    public class Node<T> where T : IComparable<T>, IEquatable<T>
+    public class Node<T>
+        where T : IComparable<T>, IEquatable<T>
     {
         public readonly T data;
 
@@ -22,6 +24,8 @@ namespace DataStructures.SplayTreeSpace
 
         public Node(T data, Node<T> parent)
         {
+            Contract.Requires(parent != null);
+
             this.data = data;
             Parent = parent;
             Left = null;

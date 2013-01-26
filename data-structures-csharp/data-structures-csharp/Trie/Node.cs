@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DataStructures.TrieSpace
@@ -15,34 +14,40 @@ namespace DataStructures.TrieSpace
         private readonly Comparer<Node> comparer = new NodeComparare();
         private readonly string wordFromRoot;
 
-        public virtual char Character 
+        public virtual char Character
         {
             get { return ch; }
         }
-        public virtual string WordFromRoot 
+        public virtual string WordFromRoot
         {
             get { return wordFromRoot; }
         }
-        public virtual IEnumerable<Node> Children 
+        public virtual IEnumerable<Node> Children
         {
             get { return children.AsEnumerable(); }
         }
-        public Comparer<Node> Comparer 
+        public Comparer<Node> Comparer
         {
             get { return comparer; }
         }
 
 
-        public Node() 
-        { 
+        public Node()
+        {
         }
 
 
-        public Node(char ch, string wordFromRoot) 
+        public Node(char ch, string wordFromRoot)
         {
             children = new HashSet<Node>();
             this.ch = ch;
             this.wordFromRoot = wordFromRoot + ch;
+        }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(!string.IsNullOrEmpty(wordFromRoot));
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace DataStructures.TrieSpace
         /// </summary>
         /// <param name="ch">character to search in children</param>
         /// <returns>Null if that children is not present otherwise node having param character</returns>
-        public Node HasChild(char ch) 
+        public Node HasChild(char ch)
         {
             return children.SingleOrDefault(n => n.ch.Equals(ch));
         }
@@ -61,10 +66,10 @@ namespace DataStructures.TrieSpace
         /// </summary>
         /// <param name="ch">Character to be added to children list</param>
         /// <returns>Newly added child</returns>
-        public Node AddChild(char ch) 
-        { 
+        public Node AddChild(char ch)
+        {
             Node n = HasChild(ch);
-            if(n == null)
+            if (n == null)
             {
                 Node newNode = new Node(ch, wordFromRoot);
                 children.Add(newNode);
@@ -90,7 +95,7 @@ namespace DataStructures.TrieSpace
         public override bool Equals(object obj)
         {
             Node otherNode = obj as Node;
-            if(otherNode == null || this == null)
+            if (otherNode == null || this == null)
             {
                 return false;
             }

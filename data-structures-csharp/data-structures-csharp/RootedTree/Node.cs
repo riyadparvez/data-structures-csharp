@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
-namespace DataStructures.BinarySearchTreeSpace
+namespace DataStructures.RootedTreeSpace
 {
     /// <summary>
-    /// Node of BST
+    /// Node of rooted tree
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
@@ -21,8 +22,18 @@ namespace DataStructures.BinarySearchTreeSpace
         internal Node<T> Left { get; set; }
         internal Node<T> Right { get; set; }
 
+        public Node<T> Root { get; set; }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Requires(Root != null);
+        }
+
         public Node(T data, Node<T> parent)
         {
+            Contract.Requires(parent != null);
+
             this.data = data;
             Parent = parent;
             Left = null;

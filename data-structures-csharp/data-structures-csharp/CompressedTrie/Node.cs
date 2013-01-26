@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using DataStructures.Utils;
 
@@ -55,7 +55,7 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>Null if that children is not present otherwise node having param character</returns>
         public Node GetChild(string str)
         {
-            Debug.Assert(str != null);
+            Contract.Requires(str != null);
             int n = children.Select(child => child.StringFragment.CommonPrefixLength(str)).Max();
             if (n > 0)
             {
@@ -71,7 +71,7 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>Newly added child</returns>
         public Node AddChild(string str)
         {
-            Debug.Assert(str != null);
+            Contract.Requires(str != null);
             int n = stringFragment.CommonPrefixLength(str);
             if (n == str.Length)
             {

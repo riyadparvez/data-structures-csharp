@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.FrequencyListSpace
@@ -32,14 +32,14 @@ namespace DataStructures.FrequencyListSpace
             {
                 current = current.Next;
             }
-            Debug.Assert(current != null);
+            Contract.Ensures(current != null);
             return current;
         }
 
 
         private void Adjust(Node<T> node)
         {
-            Debug.Assert(node != null);
+            Contract.Requires(node != null);
 
             var current = node;
             while (current.Previous.AccessCount <= node.AccessCount)
@@ -65,7 +65,7 @@ namespace DataStructures.FrequencyListSpace
         /// <returns></returns>
         public T Get(T element)
         {
-            Debug.Assert(element != null);
+            Contract.Requires(element != null);
 
             var current = Header;
             while (current != null)
@@ -89,7 +89,7 @@ namespace DataStructures.FrequencyListSpace
         /// <returns></returns>
         public Node<T> GetNode(T element)
         {
-            Debug.Assert(element != null);
+            Contract.Requires(element != null);
 
             var current = Header;
             while (current != null)
@@ -110,7 +110,7 @@ namespace DataStructures.FrequencyListSpace
         /// <param name="element"></param>
         public void Remove(T element)
         {
-            Debug.Assert(element != null);
+            Contract.Requires(element != null);
 
             var node = GetNode(element);
             if (node == null)
@@ -122,13 +122,13 @@ namespace DataStructures.FrequencyListSpace
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
             count--;
-            Debug.Assert(count >= 0);
+            Contract.Ensures(count >= 0);
         }
 
 
         public void Add(T data)
         {
-            Debug.Assert(data != null);
+            Contract.Requires(data != null);
 
             Node<T> node = new Node<T>(data);
             var lastNode = GetLastNode();

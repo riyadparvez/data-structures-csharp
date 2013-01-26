@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
+
 
 namespace DataStructures.DAWGSpace
 {
@@ -16,6 +18,9 @@ namespace DataStructures.DAWGSpace
 
         public Edge(char ch, Node startNode, Node endNode)
         {
+            Contract.Requires(startNode != null);
+            Contract.Requires(endNode != null);
+
             this.ch = ch;
             StartNode = startNode;
             EndNode = endNode;

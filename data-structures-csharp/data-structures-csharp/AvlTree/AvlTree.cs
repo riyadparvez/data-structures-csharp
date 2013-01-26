@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataStructures.BinarySearchTreeSpace;
 
 
 namespace DataStructures.AvlTreeSpace
 {
+    /// <summary>
+    /// Balanced binary search tree
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class AvlTree<T> : IEnumerable<T> 
+    public class AvlTree<T> : IEnumerable<T>
         where T : IComparable<T>
     {
         protected int count;
@@ -26,13 +27,19 @@ namespace DataStructures.AvlTreeSpace
             get { return count; }
         }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(count >= 0);
+        }
+
         public Node<T> Add(T element)
         {
-            Debug.Assert(element != null, "Can't insert null values");
+            Contract.Requires(element != null, "Can't insert null values");
 
             return Add(root, element);
         }
-        
+
         /// <summary>
         /// Adds newly added element
         /// </summary>
@@ -41,10 +48,10 @@ namespace DataStructures.AvlTreeSpace
         /// <returns>Newly added elements</returns>
         public Node<T> Add(Node<T> root, T element, int height = 0)
         {
-            Debug.Assert(element != null, "Can't insert null values");
+            Contract.Requires(element != null, "Can't insert null values");
 
             height++;
-            if(root == null)
+            if (root == null)
             {
                 root = new Node<T>(element, root, height);
                 return root;
@@ -53,7 +60,7 @@ namespace DataStructures.AvlTreeSpace
             {
                 int i = root.Data.CompareTo(element);
 
-                if(i < 0)
+                if (i < 0)
                 {
                     root.Left = Add(root.Left, element);
                     root = RebalanceLeft(root);
@@ -63,16 +70,16 @@ namespace DataStructures.AvlTreeSpace
                     root.Right = Add(root.Right, element);
                     root = RebalanceRight(root);
                 }
-                
+
                 return root;
             }
         }
 
 
-        private void FixHeight(Node<T> root) 
+        private void FixHeight(Node<T> root)
         {
-            List<Node<T>> queue = new List<Node<T>>{root};
-            while(queue.Any())
+            List<Node<T>> queue = new List<Node<T>> { root };
+            while (queue.Any())
             {
                 Node<T> node = queue[0];
                 queue.Remove(node);
@@ -84,7 +91,7 @@ namespace DataStructures.AvlTreeSpace
         }
 
 
-        private Node<T> RebalanceLeft(Node<T> root) 
+        private Node<T> RebalanceLeft(Node<T> root)
         {
             Node<T> left = root.Left;
             Node<T> right = root.Right;
@@ -93,17 +100,17 @@ namespace DataStructures.AvlTreeSpace
 
             if (leftHeight > (rightHeight + 1))
             {
-                Debug.Assert((leftHeight == rightHeight + 2), "Tree is unbalanced already");
+                Contract.Assert((leftHeight == rightHeight + 2), "Tree is unbalanced already");
                 //Check which one of the left subtree is greater
                 if (left.Left.Height > left.Right.Height)
                 {
-                    Debug.Assert((left.Left.Height == left.Right.Height + 1), "Tree is unbalanced already");
+                    Contract.Assert((left.Left.Height == left.Right.Height + 1), "Tree is unbalanced already");
                     root = RotateRight(root);
                     return root;
                 }
                 else
                 {
-                    Debug.Assert((left.Right.Height == left.Left.Height + 1), "Tree is unbalanced already");
+                    Contract.Assert((left.Right.Height == left.Left.Height + 1), "Tree is unbalanced already");
                     root.Left = RotateLeft(root);
                     root = RotateRight(root);
                     return root;
@@ -112,7 +119,7 @@ namespace DataStructures.AvlTreeSpace
             else
             {
                 //Tree is already balanced
-                Debug.Assert((leftHeight == rightHeight), "Tree is beyond balanved state");
+                Contract.Assert((leftHeight == rightHeight), "Tree is beyond balanved state");
                 FixHeight(root);
                 return root;
             }
@@ -120,7 +127,7 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RebalanceRight(Node<T> root)
         {
-            Debug.Assert(root != null);
+            Contract.Requires(root != null);
 
             Node<T> left = root.Left;
             Node<T> right = root.Right;
@@ -129,17 +136,17 @@ namespace DataStructures.AvlTreeSpace
 
             if (rightHeight > (leftHeight + 1))
             {
-                Debug.Assert((rightHeight == leftHeight + 2), "Tree is unbalanced already");
+                Contract.Assert((rightHeight == leftHeight + 2), "Tree is unbalanced already");
 
                 if (right.Right.Height > right.Left.Height)
                 {
-                    Debug.Assert((right.Right.Height == right.Left.Height + 1), "Tree is unbalanced already");
+                    Contract.Assert((right.Right.Height == right.Left.Height + 1), "Tree is unbalanced already");
                     root = RotateLeft(root);
                     return root;
                 }
                 else
                 {
-                    Debug.Assert((right.Left.Height == right.Right.Height + 1), "Tree is unbalanced already");
+                    Contract.Assert((right.Left.Height == right.Right.Height + 1), "Tree is unbalanced already");
                     root.Right = RotateRight(root.Right);
                     root = RotateLeft(root);
                     return root;
@@ -148,29 +155,31 @@ namespace DataStructures.AvlTreeSpace
             else
             {
                 //Tree is already balanced
-                Debug.Assert((leftHeight == rightHeight), "Tree is beyond balanced state");
+                Contract.Assert((leftHeight == rightHeight), "Tree is beyond balanced state");
                 FixHeight(root);
-                return root; 
+                return root;
             }
         }
 
-        private Node<T> RotateLeft(Node<T> root) 
+        private Node<T> RotateLeft(Node<T> root)
         {
-            Debug.Assert(root != null);
+            Contract.Requires(root != null);
 
             Node<T> temp = root.Right;
             root.Right.Left = root;
             root.Right = temp.Left;
+            Contract.Ensures(temp != null);
             return temp;
         }
 
-        private Node<T> RotateRight(Node<T> root) 
+        private Node<T> RotateRight(Node<T> root)
         {
-            Debug.Assert(root != null);
+            Contract.Requires(root != null);
 
             Node<T> temp = root.Left;
             root.Left.Right = root;
             root.Left = temp.Right;
+            Contract.Ensures(temp != null);
             return temp;
         }
 
@@ -204,7 +213,7 @@ namespace DataStructures.AvlTreeSpace
         {
             Stack<Node<T>> stack = new Stack<Node<T>>();
             PushLeft(stack, root);
-            while(stack.Any())
+            while (stack.Any())
             {
                 Node<T> x = stack.Pop();
                 yield return x.Data;

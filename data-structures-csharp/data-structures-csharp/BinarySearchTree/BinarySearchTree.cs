@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 
@@ -27,6 +27,11 @@ namespace DataStructures.BinarySearchTreeSpace
             get { return count; }
         }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(count >= 0);
+        }
 
         /// <summary>
         /// Find node from red black tree
@@ -35,6 +40,8 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>Returns that element, otherwise default</returns>
         public Node<T> FindNode(T element)
         {
+            Contract.Requires(element != null);
+
             Node<T> current = root;
 
             while (current != null)
@@ -63,7 +70,8 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns></returns>
         public virtual T Find(T element)
         {
-            Debug.Assert(element != null, "BST can't have null values");
+            Contract.Requires(element != null, "BST can't have null values");
+
             Node<T> node = FindNode(element);
             return (node != null) ? node.Data : default(T);
         }
@@ -76,7 +84,8 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>Newly added elements</returns>
         public virtual bool Add(T element)
         {
-            Debug.Assert(element != null, "BST can't have null values");
+            Contract.Requires(element != null, "BST can't have null values");
+
             if (Root == null)
             {
                 root = new Node<T>(element, null);
@@ -114,8 +123,8 @@ namespace DataStructures.BinarySearchTreeSpace
                     return false;
                 }
             }
+            Contract.Ensures(count == (Contract.OldValue(count) + 1));
         }
-
 
         /// <summary>
         /// Returns in order predecessor, returns null if it has no predecessor
@@ -124,7 +133,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns></returns>
         public Node<T> Predecessor(Node<T> node)
         {
-            Debug.Assert(node != null, "Null values doesn't have predecesspr");
+            Contract.Requires(node != null, "Null values doesn't have predecesspr");
 
             if (node.Left == null)
             {
@@ -140,7 +149,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 node = node.Right;
             }
 
-            Debug.Assert(node != null);
+            Contract.Ensures(node != null);
             return node;
         }
 
@@ -152,7 +161,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>returns null if in order successor doesn't exist</returns>
         public Node<T> Successor(Node<T> node)
         {
-            Debug.Assert(node != null, "Null values doesn't have successor");
+            Contract.Requires(node != null, "Null values doesn't have successor");
 
             if (node.Right == null)
             {
@@ -167,7 +176,7 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 node = node.Left;
             }
-            Debug.Assert(node != null);
+            Contract.Ensures(node != null);
 
             return node;
         }
@@ -180,7 +189,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>true if removed</returns>
         public virtual bool Remove(T element)
         {
-            Debug.Assert(element != null, "BST doesn't contain null values");
+            Contract.Requires(element != null, "BST doesn't contain null values");
 
             Node<T> node = FindNode(element);
             if (node == null)                            //node isn't there

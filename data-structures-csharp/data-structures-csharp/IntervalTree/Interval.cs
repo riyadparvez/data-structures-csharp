@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.IntervalTreeSpace
@@ -10,6 +11,12 @@ namespace DataStructures.IntervalTreeSpace
         public int Start { get; set; }
         public int End { get; set; }
         public double Median { get { return (Start + End) / 2; } }
+
+        [ContractInvariantMethod]
+        private void StructInvariant()
+        {
+            Contract.Invariant(Start <= End);
+        }
 
         public bool Equals(Interval otherInterval)
         {

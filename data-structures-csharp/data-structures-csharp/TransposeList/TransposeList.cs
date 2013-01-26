@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.TransposeListSpace
@@ -18,28 +14,35 @@ namespace DataStructures.TransposeListSpace
         public Node<T> Header { get; private set; }
         public int Count { get { return count; } }
 
-        public TransposeList() 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(dummy != null);
+            Contract.Invariant(count >= 0);
+        }
+
+        public TransposeList()
         {
             count = 0;
             Header = dummy;
         }
 
-        private Node<T> GetLastNode() 
+        private Node<T> GetLastNode()
         {
             Node<T> current = Header;
-            while(current.Next != null)
+            while (current.Next != null)
             {
                 current = current.Next;
             }
-            Debug.Assert(current != null);
+            Contract.Ensures(current != null);
             return current;
         }
 
 
-        private void Adjust(Node<T> node) 
+        private void Adjust(Node<T> node)
         {
-            Debug.Assert(node != null);
-            if(node.Previous == dummy)
+            Contract.Requires(node != null);
+            if (node.Previous == dummy)
             {
                 //already at the front of the list
                 return;
@@ -52,14 +55,14 @@ namespace DataStructures.TransposeListSpace
         }
 
 
-        public T Get(T element) 
+        public T Get(T element)
         {
-            Debug.Assert(element != null);
+            Contract.Requires(element != null);
 
             var current = Header;
-            while(current != null)
+            while (current != null)
             {
-                if(current.Data.Equals(element))
+                if (current.Data.Equals(element))
                 {
                     Adjust(current);
                     return current.Data;
@@ -72,7 +75,7 @@ namespace DataStructures.TransposeListSpace
 
         public Node<T> GetNode(T element)
         {
-            Debug.Assert(element != null);
+            Contract.Requires(element != null);
 
             var current = Header;
             while (current != null)
@@ -87,23 +90,24 @@ namespace DataStructures.TransposeListSpace
             return null;
         }
 
-        public void Remove(T element) 
+        public void Remove(T element)
         {
-            Debug.Assert(element != null);
+            Contract.Requires(element != null);
 
             var node = GetNode(element);
-            if(node == null)
+            if (node == null)
             {
                 return;
             }
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
+            count--;
         }
 
 
-        public void Add(T data) 
+        public void Add(T data)
         {
-            Debug.Assert(data != null);
+            Contract.Requires(data != null);
 
             Node<T> node = new Node<T>(data);
             var lastNode = GetLastNode();

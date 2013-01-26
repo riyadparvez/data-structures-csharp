@@ -9,6 +9,7 @@ namespace DataStructures.RedBlackTreeSpace
 {
     [Serializable]
     public class NullNode<T> : Node<T>
+        where T : IComparable<T>
     {
 
     }

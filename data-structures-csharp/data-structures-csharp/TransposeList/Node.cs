@@ -50,5 +50,14 @@ namespace DataStructures.TransposeListSpace
             }
             return Data.Equals(otherObject.Data);
         }
+
+        public bool Equals(T other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return Data.Equals(other);
+        }
     }
 }

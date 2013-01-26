@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.CompressedTrieSpace
@@ -27,7 +27,7 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>True if that word exists</returns>
         public bool Exists(string word)
         {
-            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             Node current = Root;
             int count = 0;
@@ -51,7 +51,7 @@ namespace DataStructures.CompressedTrieSpace
         /// <param name="word"></param>
         public void Add(string word)
         {
-            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             Node current = Root;
             int count = 0;

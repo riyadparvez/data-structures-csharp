@@ -13,6 +13,14 @@ namespace DataStructures.RedBlackTreeSpace
         public NodeType Color { get; set; }
         public Node<T> Left { get; set; }
         public Node<T> Right { get; set; }
+        
+        public Node()
+        {
+            Color = NodeType.Black;
+            Data = default(T);
+            Left = null;
+            Right = null;
+        }
 
         public Node(T data, Node<T> left, Node<T> right) 
         {
