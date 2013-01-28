@@ -12,6 +12,12 @@ namespace DataStructures.FrequencyListSpace
         public Node<T> Previous { get; set; }
         public Node<T> Next { get; set; }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(AccessCount >= 0);
+        }
+
         public Node()
         {
         }
@@ -21,11 +27,6 @@ namespace DataStructures.FrequencyListSpace
             Data = data;
         }
 
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(AccessCount >= 0);
-        }
 
         public override int GetHashCode()
         {

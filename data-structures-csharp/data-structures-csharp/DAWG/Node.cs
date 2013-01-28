@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 
@@ -18,11 +18,17 @@ namespace DataStructures.DAWGSpace
 
         public void AddEdge(Edge e)
         {
-            Debug.Assert((e.StartNode.Equals(this)) ||
+            //Edge should have this node as one of the end nodes
+            Contract.Requires((e.StartNode.Equals(this)) ||
                           (e.EndNode.Equals(this)));
             edges.Add(e);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ch"></param>
+        /// <returns>Null if there is no such edge</returns>
         public Edge FindEdge(char ch)
         {
             return edges.Where(e => e.Char.Equals(ch)).SingleOrDefault();

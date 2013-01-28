@@ -27,9 +27,10 @@ namespace DataStructures.MoveToFrontListSpace
         /// Retrieves specific node and updates that node position
         /// </summary>
         /// <param name="node"></param>
-        /// <returns></returns>
+        /// <returns>null if element isn't in the list</returns>
         public T Get(T node)
         {
+            Contract.Requires(node != null);
             T element = list.Where(e => e.Equals(node)).FirstOrDefault();
             if (element == null)
             {
@@ -46,6 +47,7 @@ namespace DataStructures.MoveToFrontListSpace
         /// <param name="element"></param>
         public void Add(T element)
         {
+            Contract.Requires(element != null);
             list.Add(element);
         }
 
@@ -55,6 +57,7 @@ namespace DataStructures.MoveToFrontListSpace
         /// <param name="element"></param>
         public void Remove(T element)
         {
+            Contract.Requires(element != null);
             list.Remove(element);
         }
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.IntervalTreeSpace
@@ -10,7 +12,19 @@ namespace DataStructures.IntervalTreeSpace
     [Serializable]
     public class IntervalTree
     {
+        private int count;
+
+        public int Count
+        {
+            get { return count; }
+        }
         public Node Root { get; set; }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(count >= 0);
+        }
 
         public IntervalTree()
         {
@@ -22,11 +36,16 @@ namespace DataStructures.IntervalTreeSpace
         /// <param name="interval"></param>
         public void Add(Interval interval)
         {
+            Contract.Ensures(count == Contract.OldValue(count) + 1);
+
             if (Root == null)
             {
                 Root = new Node(interval.Median);
                 Root.AddInterval(interval);
+                count++;
+                return;
             }
+
             Node current = Root;
             while (true)
             {
@@ -37,6 +56,7 @@ namespace DataStructures.IntervalTreeSpace
                     {
                         current.Right = new Node(interval.Median);
                         current.Right.AddInterval(interval);
+                        count++;
                         break;
                     }
                     current = current.Right;
@@ -47,39 +67,46 @@ namespace DataStructures.IntervalTreeSpace
                     {
                         current.Left = new Node(interval.Median);
                         current.Left.AddInterval(interval);
+                        count++;
                         break;
                     }
                     current = current.Left;
                 }
-                current.AddInterval(interval);
-                break;
+                else
+                {
+                    current.AddInterval(interval);
+                    count++;
+                    break;
+                }
             }
         }
 
-        private List<Interval> Find(Node treeNode, double x)
+        private ReadOnlyCollection<Interval> Find(Node treeNode, double x)
         {
+            Contract.Ensures(Contract.Result<List<Interval>>() != null);
+
             if (treeNode == null)
             {
-                return new List<Interval>();
+                return new ReadOnlyCollection<Interval>(new List<Interval>());
             }
 
             if (x < treeNode.X)
             {
                 var intervals = treeNode.GetIntervals(x);
                 intervals.AddRange(Find(treeNode.Left, x));
-                return intervals;
+                return new ReadOnlyCollection<Interval>(intervals);
             }
             else if (x > treeNode.X)
             {
                 var intervals = treeNode.GetIntervals(x);
                 intervals.AddRange(Find(treeNode.Right, x));
-                return intervals;
+                return new ReadOnlyCollection<Interval>(intervals);
             }
             else
             {
                 //all the intervals
                 var intervals = new List<Interval>(treeNode.Intervals);
-                return intervals;
+                return new ReadOnlyCollection<Interval>(intervals);
             }
         }
 
@@ -118,6 +145,7 @@ namespace DataStructures.IntervalTreeSpace
                 return;
             }
             node.Remove(interval);
+            count--;
         }
 
         public IEnumerable<Interval> Find(double x)

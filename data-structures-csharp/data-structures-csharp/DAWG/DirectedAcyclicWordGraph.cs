@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 //TODO: Add word
 namespace DataStructures.DAWGSpace
@@ -12,9 +12,9 @@ namespace DataStructures.DAWGSpace
     {
         public Node Root { get; private set; }
 
-        public void AddWord()
+        public void Add(string word)
         {
-
+            Contract.Requires(!string.IsNullOrEmpty(word));
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace DataStructures.DAWGSpace
         /// <returns></returns>
         public bool Find(string word)
         {
-            Debug.Assert(!string.IsNullOrEmpty(word));
+            Contract.Requires(!string.IsNullOrEmpty(word));
 
             Node currentNode = Root;
             foreach (var ch in word)
@@ -34,7 +34,7 @@ namespace DataStructures.DAWGSpace
                 {
                     return false;
                 }
-                Debug.Assert(e.StartNode.Equals(currentNode));
+                Contract.Assert(e.StartNode.Equals(currentNode));
                 currentNode = e.EndNode;
             }
             return true;

@@ -49,11 +49,12 @@ namespace DataStructures.AvlTreeSpace
         public Node<T> Add(Node<T> root, T element, int height = 0)
         {
             Contract.Requires(element != null, "Can't insert null values");
+            Contract.Requires(height >= 0);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
-            height++;
             if (root == null)
             {
-                root = new Node<T>(element, root, height);
+                root = new Node<T>(element, root, height + 1);
                 return root;
             }
             else
@@ -62,15 +63,15 @@ namespace DataStructures.AvlTreeSpace
 
                 if (i < 0)
                 {
-                    root.Left = Add(root.Left, element);
+                    root.Left = Add(root.Left, element, height + 1);
                     root = RebalanceLeft(root);
                 }
                 else if (i > 0)
                 {
-                    root.Right = Add(root.Right, element);
+                    root.Right = Add(root.Right, element, height + 1);
                     root = RebalanceRight(root);
                 }
-
+                //Element is already added to the tree
                 return root;
             }
         }
@@ -78,21 +79,32 @@ namespace DataStructures.AvlTreeSpace
 
         private void FixHeight(Node<T> root)
         {
+            Contract.Requires(root != null);
+
             List<Node<T>> queue = new List<Node<T>> { root };
             while (queue.Any())
             {
                 Node<T> node = queue[0];
                 queue.Remove(node);
-                node.Left.Height = node.Height + 1;
-                node.Right.Height = node.Height + 1;
-                queue.Add(node.Left);
-                queue.Add(node.Right);
+                if (node.Left != null)
+                {
+                    node.Left.Height = node.Height + 1;
+                    queue.Add(node.Left);
+                }
+                if (node.Right != null)
+                {
+                    node.Right.Height = node.Height + 1;
+                    queue.Add(node.Right);
+                }
             }
         }
 
 
         private Node<T> RebalanceLeft(Node<T> root)
         {
+            Contract.Requires(root != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
+
             Node<T> left = root.Left;
             Node<T> right = root.Right;
             int leftHeight = root.Left.Height;
@@ -128,6 +140,7 @@ namespace DataStructures.AvlTreeSpace
         private Node<T> RebalanceRight(Node<T> root)
         {
             Contract.Requires(root != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> left = root.Left;
             Node<T> right = root.Right;
@@ -164,22 +177,22 @@ namespace DataStructures.AvlTreeSpace
         private Node<T> RotateLeft(Node<T> root)
         {
             Contract.Requires(root != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Right;
             root.Right.Left = root;
             root.Right = temp.Left;
-            Contract.Ensures(temp != null);
             return temp;
         }
 
         private Node<T> RotateRight(Node<T> root)
         {
             Contract.Requires(root != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Left;
             root.Left.Right = root;
             root.Left = temp.Right;
-            Contract.Ensures(temp != null);
             return temp;
         }
 
@@ -205,6 +218,8 @@ namespace DataStructures.AvlTreeSpace
 
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)
         {
+            Contract.Requires(stack != null);
+
             while (x != null)
             { stack.Push(x); x = x.Left; }
         }

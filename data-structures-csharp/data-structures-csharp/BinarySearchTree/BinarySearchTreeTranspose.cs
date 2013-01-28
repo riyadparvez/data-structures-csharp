@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.BinarySearchTreeSpace
@@ -27,13 +27,15 @@ namespace DataStructures.BinarySearchTreeSpace
             }
             else
             {
-                Debug.Assert(false);
+                Contract.Assert(false);
                 return null;
             }
         }
 
         private void Reorient(Node<T> node)
         {
+            Contract.Requires(node != null);
+
             Node<T> parent = node.Parent;
             if (parent == Root)
             {
@@ -51,14 +53,15 @@ namespace DataStructures.BinarySearchTreeSpace
                 }
                 else
                 {
-                    Debug.Assert(false);
+                    Contract.Assert(false);
                 }
             }
         }
 
         private Node<T> RotateLeft(Node<T> root)
         {
-            Debug.Assert(root != null);
+            Contract.Requires(root != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Right;
             root.Right.Left = root;
@@ -68,7 +71,8 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private Node<T> RotateRight(Node<T> root)
         {
-            Debug.Assert(root != null);
+            Contract.Requires(root != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Left;
             root.Left.Right = root;
@@ -83,7 +87,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns></returns>
         public virtual T Find(T element)
         {
-            Debug.Assert(element != null, "BST can't have null values");
+            Contract.Requires(element != null, "BST can't have null values");
             Node<T> node = FindNode(element);
             Reorient(node);
             return (node != null) ? node.Data : default(T);

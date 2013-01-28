@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace DataStructures.AvlTreeSpace
 {
@@ -11,7 +8,8 @@ namespace DataStructures.AvlTreeSpace
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
-    public class Node<T> where T : IComparable<T>
+    public class Node<T>
+        where T : IComparable<T>
     {
         public readonly T data;
 
@@ -24,8 +22,18 @@ namespace DataStructures.AvlTreeSpace
         internal Node<T> Left { get; set; }
         internal Node<T> Right { get; set; }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(Height >= 0);
+        }
+
         public Node(T data, Node<T> parent, int height)
         {
+            Contract.Requires(data != null);
+            Contract.Requires(parent != null);
+            Contract.Requires(height >= 0);
+
             this.data = data;
             Parent = parent;
             Left = null;

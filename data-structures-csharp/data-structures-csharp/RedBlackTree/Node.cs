@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace DataStructures.RedBlackTreeSpace
 {
@@ -13,7 +10,7 @@ namespace DataStructures.RedBlackTreeSpace
         public NodeType Color { get; set; }
         public Node<T> Left { get; set; }
         public Node<T> Right { get; set; }
-        
+
         public Node()
         {
             Color = NodeType.Black;
@@ -22,8 +19,10 @@ namespace DataStructures.RedBlackTreeSpace
             Right = null;
         }
 
-        public Node(T data, Node<T> left, Node<T> right) 
+        public Node(T data, Node<T> left, Node<T> right)
         {
+            Contract.Requires(data != null);
+
             Data = data;
             Left = left;
             Right = right;

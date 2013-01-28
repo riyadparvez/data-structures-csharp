@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.SplayTreeSpace
@@ -14,14 +15,20 @@ namespace DataStructures.SplayTreeSpace
     {
         public Node<T> Root { get; set; }
 
-        public void Add()
+        public void Add(T data)
         {
+            Contract.Requires(data != null);
 
+        }
+
+        public void Remove(T data)
+        {
+            Contract.Requires(data != null);
         }
 
         public T Find(T data)
         {
-
+            Contract.Requires(data != null);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.RedBlackTreeSpace
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [Serializable]
     public class RedBlackTree<T>
         where T : IComparable<T>
@@ -23,6 +23,8 @@ namespace DataStructures.RedBlackTreeSpace
 
         public RedBlackTree(T data)
         {
+            Contract.Requires(data != null);
+
             current = new Node<T>(default(T), nullNode, nullNode);
             parent = new Node<T>(default(T), nullNode, nullNode);
             grandParent = new Node<T>(default(T), nullNode, nullNode);
@@ -31,7 +33,7 @@ namespace DataStructures.RedBlackTreeSpace
             nullNode.Right = nullNode;
             header = new Node<T>(data, nullNode, nullNode);
         }
-        
+
         /// <summary>
         /// Find an element, otherwise return default
         /// </summary>
@@ -39,6 +41,8 @@ namespace DataStructures.RedBlackTreeSpace
         /// <returns></returns>
         public T Find(T e)
         {
+            Contract.Requires(e != null);
+
             nullNode.Data = e;
             Node<T> current = header.Right;
             while (true)
@@ -68,7 +72,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// <param name="key"></param>
         public void Insert(T key)
         {
-            Debug.Assert(key != null);
+            Contract.Requires(key != null);
 
             grandParent = header;
             parent = grandParent;
@@ -186,6 +190,7 @@ namespace DataStructures.RedBlackTreeSpace
 
         public void Print(Node<T> n)
         {
+            Contract.Requires(n != null);
             if (n != nullNode)
             {
                 Print(n.Left);
@@ -196,7 +201,7 @@ namespace DataStructures.RedBlackTreeSpace
 
         private void HandleReorient(T item)
         {
-            Debug.Assert(item != null);
+            Contract.Requires(item != null);
 
             current.Color = NodeType.Red;
             current.Left.Color = NodeType.Black;
@@ -205,19 +210,19 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 grandParent.Color = NodeType.Red;
                 if ((item.CompareTo(grandParent.Data) < 0) !=
-                    (item.CompareTo(parent.Data)))
+                    (item.CompareTo(parent.Data) == 0))
                 {
                     //Balance grandParent subtree by item
                     current = Rotate(item, grandParent);
-                    current.Color = NodeType.Black ;
+                    current.Color = NodeType.Black;
                 }
                 header.Right.Color = NodeType.Black;
             }
         }
 
-        private Node<T> Rotate(T item, Node<T> parent) 
+        private Node<T> Rotate(T item, Node<T> parent)
         {
-            Debug.Assert(item != null);
+            Contract.Requires(item != null);
 
             //Left subtree is unbalanced
             if (item.CompareTo(parent.Data) < 0)
@@ -249,25 +254,28 @@ namespace DataStructures.RedBlackTreeSpace
                 }
                 return parent.Right;
             }
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
         }
 
         public Node<T> RotateRight(Node<T> k2)
         {
-            Debug.Assert(k2 != null);
+            Contract.Requires(k2 != null);
 
             Node<T> k1 = k2.Left;
             k2.Left = k1.Right;
             k1.Right = k2;
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
             return k1;
         }
 
         public Node<T> RotateLeft(Node<T> k1)
         {
-            Debug.Assert(k1 != null);
+            Contract.Requires(k1 != null);
 
             Node<T> k2 = k1.Right;
             k1.Right = k2.Left;
             k2.Left = k1;
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
             return k2;
         }
 

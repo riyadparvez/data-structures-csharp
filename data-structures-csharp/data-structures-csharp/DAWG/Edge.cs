@@ -16,12 +16,12 @@ namespace DataStructures.DAWGSpace
         public Node StartNode { get; private set; }
         public Node EndNode { get; private set; }
 
-        public Edge(char ch, Node startNode, Node endNode)
+        public Edge(char character, Node startNode, Node endNode)
         {
             Contract.Requires(startNode != null);
             Contract.Requires(endNode != null);
 
-            this.ch = ch;
+            ch = character;
             StartNode = startNode;
             EndNode = endNode;
         }

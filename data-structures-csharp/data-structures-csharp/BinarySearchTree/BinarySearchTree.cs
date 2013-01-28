@@ -37,7 +37,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// Find node from red black tree
         /// </summary>
         /// <param name="element">element to be searched</param>
-        /// <returns>Returns that element, otherwise default</returns>
+        /// <returns>Returns that element, otherwise default of that type</returns>
         public Node<T> FindNode(T element)
         {
             Contract.Requires(element != null);
@@ -85,6 +85,7 @@ namespace DataStructures.BinarySearchTreeSpace
         public virtual bool Add(T element)
         {
             Contract.Requires(element != null, "BST can't have null values");
+            Contract.Ensures(count == (Contract.OldValue(count) + 1));
 
             if (Root == null)
             {
@@ -123,7 +124,6 @@ namespace DataStructures.BinarySearchTreeSpace
                     return false;
                 }
             }
-            Contract.Ensures(count == (Contract.OldValue(count) + 1));
         }
 
         /// <summary>
@@ -149,7 +149,6 @@ namespace DataStructures.BinarySearchTreeSpace
                 node = node.Right;
             }
 
-            Contract.Ensures(node != null);
             return node;
         }
 
@@ -176,7 +175,6 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 node = node.Left;
             }
-            Contract.Ensures(node != null);
 
             return node;
         }
@@ -253,6 +251,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)
         {
+            Contract.Requires(stack != null);
             while (x != null)
             { stack.Push(x); x = x.Left; }
         }

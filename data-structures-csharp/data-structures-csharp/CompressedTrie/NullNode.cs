@@ -15,8 +15,8 @@ namespace DataStructures.CompressedTrieSpace
         }
 
         public NullNode(string wordFromRoot)
+            : base(wordFromRoot)
         {
-            this.WordFromRoot = wordFromRoot;
         }
     }
 }

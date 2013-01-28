@@ -36,13 +36,17 @@ namespace DataStructures.CompressedTrieSpace
         }
 
 
-        public Node()
+        public Node(string wordFromRoot)
         {
+            this.wordFromRoot = wordFromRoot;
+            this.stringFragment = string.Empty;
         }
 
 
         public Node(string stringFragment, string wordFromRoot)
         {
+            Contract.Requires(!string.IsNullOrEmpty(stringFragment));
+
             children = new HashSet<Node>();
             this.stringFragment = stringFragment;
             this.wordFromRoot = wordFromRoot + stringFragment;
@@ -55,7 +59,7 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>Null if that children is not present otherwise node having param character</returns>
         public Node GetChild(string str)
         {
-            Contract.Requires(str != null);
+            Contract.Requires(!string.IsNullOrEmpty(str));
             int n = children.Select(child => child.StringFragment.CommonPrefixLength(str)).Max();
             if (n > 0)
             {
@@ -71,7 +75,8 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>Newly added child</returns>
         public Node AddChild(string str)
         {
-            Contract.Requires(str != null);
+            Contract.Requires(!string.IsNullOrEmpty(str));
+
             int n = stringFragment.CommonPrefixLength(str);
             if (n == str.Length)
             {
@@ -113,11 +118,10 @@ namespace DataStructures.CompressedTrieSpace
         {
             int count = 0;
 
-            for (int i = 0; i < stringFragment.Length && i < other.Length; i++)
+            for (int i = 0; i < stringFragment.Length && i < other.Length; i++, count++)
             {
                 if (stringFragment[i] != other[i])
                 {
-                    count = i;
                     break;
                 }
             }

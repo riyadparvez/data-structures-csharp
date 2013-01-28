@@ -13,10 +13,16 @@ namespace DataStructures.FrequencyListSpace
         where T : IComparable<T>
     {
         private int count;
-        private Node<T> dummy = new Node<T>();
+        private readonly Node<T> dummy = new Node<T>();
 
         public Node<T> Header { get; private set; }
         public int Count { get { return count; } }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(count >= 0);
+        }
 
         public FrequencyList()
         {
@@ -27,12 +33,13 @@ namespace DataStructures.FrequencyListSpace
 
         private Node<T> GetLastNode()
         {
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
+
             Node<T> current = Header;
             while (current.Next != null)
             {
                 current = current.Next;
             }
-            Contract.Ensures(current != null);
             return current;
         }
 
@@ -111,6 +118,7 @@ namespace DataStructures.FrequencyListSpace
         public void Remove(T element)
         {
             Contract.Requires(element != null);
+            Contract.Ensures(count >= 0);
 
             var node = GetNode(element);
             if (node == null)
@@ -122,13 +130,13 @@ namespace DataStructures.FrequencyListSpace
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
             count--;
-            Contract.Ensures(count >= 0);
         }
 
 
         public void Add(T data)
         {
             Contract.Requires(data != null);
+            Contract.Ensures(count == Contract.OldValue<int>(count) + 1);
 
             Node<T> node = new Node<T>(data);
             var lastNode = GetLastNode();

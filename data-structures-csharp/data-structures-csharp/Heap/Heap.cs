@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
-using System.Threading.Tasks;
-using DataStructures.BinarySearchTreeSpace;
-using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.HeapSpace
@@ -20,24 +14,29 @@ namespace DataStructures.HeapSpace
         public T Peek { get; private set; }
         public int Count { get; set; }
 
-
-        public void Add(T element) 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
         {
-            Debug.Assert(element != null, "Can't add null object to heap");
-        
+            Contract.Invariant(Count >= 0);
+        }
+
+        public void Add(T element)
+        {
+            Contract.Requires(element != null, "Can't add null object to heap");
+
         }
 
 
-        public void Remove(T element) 
+        public void Remove(T element)
         {
-            Debug.Assert(element != null, "Can't delete null object to heap");
- 
+            Contract.Requires(element != null, "Can't delete null object to heap");
+
         }
 
 
         public T GetMin(T element)
         {
-            throw new NotImplementedException();    
+            throw new NotImplementedException();
         }
 
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
+
 
 namespace DataStructures.BinarySearchTreeSpace
 {
@@ -23,6 +25,9 @@ namespace DataStructures.BinarySearchTreeSpace
 
         public Node(T data, Node<T> parent)
         {
+            Contract.Requires(data != null);
+            Contract.Requires(parent != null);
+
             this.data = data;
             Parent = parent;
             Left = null;
