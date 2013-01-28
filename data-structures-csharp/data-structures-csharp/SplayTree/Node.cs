@@ -22,6 +22,12 @@ namespace DataStructures.SplayTreeSpace
         internal Node<T> Left { get; set; }
         internal Node<T> Right { get; set; }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(Height >= 0);
+        }
+
         public Node(T data, Node<T> parent)
         {
             Contract.Requires(parent != null);

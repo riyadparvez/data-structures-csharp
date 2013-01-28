@@ -3,6 +3,9 @@
 
 namespace DataStructures.CompressedTrieSpace
 {
+    /// <summary>
+    /// Null object pattern for Node
+    /// </summary>
     [Serializable]
     public sealed class NullNode : Node
     {

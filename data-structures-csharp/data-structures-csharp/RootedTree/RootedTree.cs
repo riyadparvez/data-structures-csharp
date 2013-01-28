@@ -12,6 +12,8 @@ namespace DataStructures.RootedTreeSpace
     {
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)
         {
+            Contract.Requires(stack != null);
+
             while (x != null)
             { stack.Push(x); x = x.Left; }
         }

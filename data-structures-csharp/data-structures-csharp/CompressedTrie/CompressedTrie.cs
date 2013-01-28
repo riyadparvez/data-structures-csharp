@@ -13,6 +13,11 @@ namespace DataStructures.CompressedTrieSpace
     {
         public Node Root { get; private set; }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(Root != null);
+        }
 
         public CompressedTrie()
         {

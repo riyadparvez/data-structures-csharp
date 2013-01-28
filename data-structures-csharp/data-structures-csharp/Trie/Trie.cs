@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.TrieSpace
@@ -14,7 +10,7 @@ namespace DataStructures.TrieSpace
         public Node Root { get; private set; }
 
 
-        public Trie() 
+        public Trie()
         {
             Root = new NullNode();
         }
@@ -25,9 +21,9 @@ namespace DataStructures.TrieSpace
         /// </summary>
         /// <param name="word">word to search for</param>
         /// <returns>True if that word exists</returns>
-        public bool Exists(string word) 
+        public bool Exists(string word)
         {
-            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             Node current = Root;
             foreach (char ch in word)
@@ -35,6 +31,7 @@ namespace DataStructures.TrieSpace
                 Node childNode = current.HasChild(ch);
                 if (childNode == null)
                 {
+                    //Element doesn't exist
                     return false;
                 }
                 current = childNode;
@@ -48,9 +45,9 @@ namespace DataStructures.TrieSpace
         /// </summary>
         /// <param name="node"></param>
         /// <param name="word"></param>
-        public void Add(Node node, string word) 
+        public void Add(Node node, string word)
         {
-            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             foreach (char ch in word)
             {
@@ -65,10 +62,10 @@ namespace DataStructures.TrieSpace
         /// <param name="word"></param>
         public void Add(string word)
         {
-            Debug.Assert(string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             Node current = Root;
-            for (int i = 0; i < word.Length; i++ )
+            for (int i = 0; i < word.Length; i++)
             {
                 Node childNode = current.HasChild(word[i]);
                 if (childNode == null)
@@ -77,7 +74,7 @@ namespace DataStructures.TrieSpace
                     break;
                 }
                 current = childNode;
-            }    
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using DataStructures.Utils;
@@ -26,18 +27,26 @@ namespace DataStructures.CompressedTrieSpace
         {
             get { return wordFromRoot; }
         }
-        public virtual IEnumerable<Node> Children
+        public virtual ReadOnlyCollection<Node> Children
         {
-            get { return children.AsEnumerable(); }
+            get { return new ReadOnlyCollection<Node>(children.ToList()); }
         }
         public Comparer<Node> Comparer
         {
             get { return comparer; }
         }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(!string.IsNullOrEmpty(wordFromRoot));
+        }
 
         public Node(string wordFromRoot)
         {
+            Contract.Requires(wordFromRoot != null);
+
+            children = new HashSet<Node>();
             this.wordFromRoot = wordFromRoot;
             this.stringFragment = string.Empty;
         }
@@ -46,6 +55,7 @@ namespace DataStructures.CompressedTrieSpace
         public Node(string stringFragment, string wordFromRoot)
         {
             Contract.Requires(!string.IsNullOrEmpty(stringFragment));
+            Contract.Requires(wordFromRoot != null);
 
             children = new HashSet<Node>();
             this.stringFragment = stringFragment;
@@ -168,6 +178,9 @@ namespace DataStructures.CompressedTrieSpace
         {
             public override int Compare(Node x, Node y)
             {
+                Contract.Requires(x != null);
+                Contract.Requires(y != null);
+
                 return x.StringFragment.CompareTo(y.StringFragment);
             }
         }

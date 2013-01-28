@@ -21,6 +21,13 @@ namespace DataStructures.SkipListSpace
         private const double Probability = 0.5;
         private readonly Random random = new Random();
 
+        public int Count { get; private set; }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(probability >= 0 && probability <= 1);
+        }
 
         private SkipList(double probable, int maxLevel)
         {
@@ -115,6 +122,7 @@ namespace DataStructures.SkipListSpace
                     //Update forward edges of predecessor to currently inserted node 
                     update[i].Links[i] = cursor;
                 }
+                Count++;
             }
         }
 
@@ -156,6 +164,7 @@ namespace DataStructures.SkipListSpace
                 {
                     level--;
                 }
+                Count--;
             }
             //Element isn't in the list, just return
         }

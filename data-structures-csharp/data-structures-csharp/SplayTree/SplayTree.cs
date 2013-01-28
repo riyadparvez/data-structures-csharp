@@ -13,6 +13,7 @@ namespace DataStructures.SplayTreeSpace
     public class SplayTree<T>
         where T : IComparable<T>, IEquatable<T>
     {
+        public int Count { get; set; }
         public Node<T> Root { get; set; }
 
         public void Add(T data)

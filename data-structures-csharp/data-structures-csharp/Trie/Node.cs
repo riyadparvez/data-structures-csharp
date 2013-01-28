@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
@@ -22,15 +23,20 @@ namespace DataStructures.TrieSpace
         {
             get { return wordFromRoot; }
         }
-        public virtual IEnumerable<Node> Children
+        public virtual ReadOnlyCollection<Node> Children
         {
-            get { return children.AsEnumerable(); }
+            get { return new ReadOnlyCollection<Node>(children.ToList()); }
         }
         public Comparer<Node> Comparer
         {
             get { return comparer; }
         }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(!string.IsNullOrEmpty(wordFromRoot));
+        }
 
         public Node()
         {
@@ -39,15 +45,11 @@ namespace DataStructures.TrieSpace
 
         public Node(char ch, string wordFromRoot)
         {
+            Contract.Requires(wordFromRoot != null);
+
             children = new HashSet<Node>();
             this.ch = ch;
             this.wordFromRoot = wordFromRoot + ch;
-        }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(!string.IsNullOrEmpty(wordFromRoot));
         }
 
         /// <summary>
@@ -65,9 +67,11 @@ namespace DataStructures.TrieSpace
         /// Add current node to children if it doesn't exist; otherwise return that child node
         /// </summary>
         /// <param name="ch">Character to be added to children list</param>
-        /// <returns>Newly added child</returns>
+        /// <returns>Newly added child if it doesn't exist</returns>
         public Node AddChild(char ch)
         {
+            Contract.Ensures(Contract.Result<Node>() != null);
+
             Node n = HasChild(ch);
             if (n == null)
             {
@@ -114,6 +118,9 @@ namespace DataStructures.TrieSpace
         {
             public override int Compare(Node x, Node y)
             {
+                Contract.Requires(x != null);
+                Contract.Requires(y != null);
+
                 return x.Character.CompareTo(y.Character);
             }
         }
