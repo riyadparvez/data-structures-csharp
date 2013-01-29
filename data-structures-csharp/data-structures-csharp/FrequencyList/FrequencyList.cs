@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.FrequencyListSpace
 {
     /// <summary>
-    /// Linked List which places frequently accessed items near to the root
+    /// Linked List which places frequently accessed items near the head
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]

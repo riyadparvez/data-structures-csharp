@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.TransposeListSpace
 {
+    /// <summary>
+    /// Linked list which makes most recently accessed element head of the list
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    [Serializable]
     public class TransposeList<T> : IEnumerable<T>
     {
         private List<T> list = new List<T>();
@@ -29,12 +35,13 @@ namespace DataStructures.TransposeListSpace
 
         private Node<T> GetLastNode()
         {
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
+
             Node<T> current = Header;
             while (current.Next != null)
             {
                 current = current.Next;
             }
-            Contract.Ensures(current != null);
             return current;
         }
 

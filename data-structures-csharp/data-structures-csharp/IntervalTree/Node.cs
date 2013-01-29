@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 
@@ -15,9 +17,9 @@ namespace DataStructures.IntervalTreeSpace
         private List<Interval> leftSortedIntervals;
 
         public double X { get; set; }
-        public IEnumerable<Interval> Intervals
+        public ReadOnlyCollection<Interval> Intervals
         {
-            get { return leftSortedIntervals.AsEnumerable(); }
+            get { return new ReadOnlyCollection<Interval>(leftSortedIntervals.ToList()); }
         }
         public Node Left { get; set; }
         public Node Right { get; set; }
@@ -102,7 +104,17 @@ namespace DataStructures.IntervalTreeSpace
 
         public int CompareTo(Node other)
         {
-            throw new NotImplementedException();
+            Contract.Requires(other != null);
+
+            if (other.X > X)
+            {
+                return -1;
+            }
+            else if (other.X < X)
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }

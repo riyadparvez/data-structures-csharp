@@ -8,7 +8,7 @@ namespace DataStructures.DAWGSpace
     /// Every edge corrosponds to different edge between two nodes of graph
     /// </summary>
     [Serializable]
-    public struct Edge
+    public class Edge
     {
         private readonly char ch;
 
@@ -28,7 +28,11 @@ namespace DataStructures.DAWGSpace
 
         public override bool Equals(object obj)
         {
-            Edge otherEdge = (Edge)obj;
+            Edge otherEdge = obj as Edge;
+            if (otherEdge == null)
+            {
+                return false;
+            }
             return ch.Equals(otherEdge.ch) &&
                     StartNode.Equals(otherEdge.StartNode) &&
                     EndNode.Equals(otherEdge.EndNode);

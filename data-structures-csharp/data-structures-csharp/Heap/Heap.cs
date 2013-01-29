@@ -12,7 +12,7 @@ namespace DataStructures.HeapSpace
     public class Heap<T> where T : IComparable<T>
     {
         public T Peek { get; private set; }
-        public int Count { get; set; }
+        public int Count { get; private set; }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
