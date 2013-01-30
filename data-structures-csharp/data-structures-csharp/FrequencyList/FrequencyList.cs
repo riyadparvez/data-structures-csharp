@@ -46,7 +46,7 @@ namespace DataStructures.FrequencyListSpace
 
         private void Adjust(Node<T> node)
         {
-            Contract.Requires(node != null);
+            Contract.Requires<ArgumentNullException>(node != null);
 
             var current = node;
             while (current.Previous.AccessCount <= node.AccessCount)
@@ -72,7 +72,7 @@ namespace DataStructures.FrequencyListSpace
         /// <returns></returns>
         public T Get(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
 
             var current = Header;
             while (current != null)
@@ -96,7 +96,7 @@ namespace DataStructures.FrequencyListSpace
         /// <returns></returns>
         public Node<T> GetNode(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
 
             var current = Header;
             while (current != null)
@@ -117,7 +117,7 @@ namespace DataStructures.FrequencyListSpace
         /// <param name="element"></param>
         public void Remove(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
             Contract.Ensures(count >= 0);
 
             var node = GetNode(element);
@@ -135,7 +135,7 @@ namespace DataStructures.FrequencyListSpace
 
         public void Add(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
             Contract.Ensures(count == Contract.OldValue<int>(count) + 1);
 
             Node<T> node = new Node<T>(data);

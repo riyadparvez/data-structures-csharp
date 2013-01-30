@@ -19,7 +19,7 @@ namespace DataStructures.IntervalTreeSpace
         public double X { get; set; }
         public ReadOnlyCollection<Interval> Intervals
         {
-            get { return new ReadOnlyCollection<Interval>(leftSortedIntervals.ToList()); }
+            get { return new ReadOnlyCollection<Interval>(leftSortedIntervals); }
         }
         public Node Left { get; set; }
         public Node Right { get; set; }

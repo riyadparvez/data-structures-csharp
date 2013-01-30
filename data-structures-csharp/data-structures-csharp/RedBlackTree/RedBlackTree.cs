@@ -23,7 +23,7 @@ namespace DataStructures.RedBlackTreeSpace
 
         public RedBlackTree(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
 
             current = new Node<T>(default(T), nullNode, nullNode);
             parent = new Node<T>(default(T), nullNode, nullNode);
@@ -41,7 +41,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// <returns></returns>
         public T Find(T e)
         {
-            Contract.Requires(e != null);
+            Contract.Requires<ArgumentNullException>(e != null);
 
             nullNode.Data = e;
             Node<T> current = header.Right;
@@ -72,7 +72,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// <param name="key"></param>
         public void Insert(T key)
         {
-            Contract.Requires(key != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
             grandParent = header;
             parent = grandParent;
@@ -201,7 +201,8 @@ namespace DataStructures.RedBlackTreeSpace
 
         private void HandleReorient(T item)
         {
-            Contract.Requires(item != null);
+            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Ensures(Contract.Result<T>() != null);
 
             current.Color = NodeType.Red;
             current.Left.Color = NodeType.Black;
@@ -222,7 +223,8 @@ namespace DataStructures.RedBlackTreeSpace
 
         private Node<T> Rotate(T item, Node<T> parent)
         {
-            Contract.Requires(item != null);
+            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             //Left subtree is unbalanced
             if (item.CompareTo(parent.Data) < 0)
@@ -254,28 +256,27 @@ namespace DataStructures.RedBlackTreeSpace
                 }
                 return parent.Right;
             }
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
         }
 
-        public Node<T> RotateRight(Node<T> k2)
+        public Node<T> RotateRight(Node<T> root)
         {
-            Contract.Requires(k2 != null);
-
-            Node<T> k1 = k2.Left;
-            k2.Left = k1.Right;
-            k1.Right = k2;
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
+
+            Node<T> k1 = root.Left;
+            root.Left = k1.Right;
+            k1.Right = root;
             return k1;
         }
 
-        public Node<T> RotateLeft(Node<T> k1)
+        public Node<T> RotateLeft(Node<T> root)
         {
-            Contract.Requires(k1 != null);
-
-            Node<T> k2 = k1.Right;
-            k1.Right = k2.Left;
-            k2.Left = k1;
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
+
+            Node<T> k2 = root.Right;
+            root.Right = k2.Left;
+            k2.Left = root;
             return k2;
         }
 

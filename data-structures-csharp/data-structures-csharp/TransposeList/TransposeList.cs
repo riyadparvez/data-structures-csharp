@@ -12,12 +12,10 @@ namespace DataStructures.TransposeListSpace
     [Serializable]
     public class TransposeList<T> : IEnumerable<T>
     {
-        private List<T> list = new List<T>();
-
         private int count;
         private Node<T> dummy = new Node<T>();
 
-        public Node<T> Header { get; private set; }
+        public Node<T> Head { get; private set; }
         public int Count { get { return count; } }
 
         [ContractInvariantMethod]
@@ -30,14 +28,14 @@ namespace DataStructures.TransposeListSpace
         public TransposeList()
         {
             count = 0;
-            Header = dummy;
+            Head = dummy;
         }
 
         private Node<T> GetLastNode()
         {
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
-            Node<T> current = Header;
+            Node<T> current = Head;
             while (current.Next != null)
             {
                 current = current.Next;
@@ -48,7 +46,7 @@ namespace DataStructures.TransposeListSpace
 
         private void Adjust(Node<T> node)
         {
-            Contract.Requires(node != null);
+            Contract.Requires<ArgumentNullException>(node != null);
             if (node.Previous == dummy)
             {
                 //already at the front of the list
@@ -64,9 +62,9 @@ namespace DataStructures.TransposeListSpace
 
         public T Get(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
 
-            var current = Header;
+            var current = Head;
             while (current != null)
             {
                 if (current.Data.Equals(element))
@@ -82,9 +80,9 @@ namespace DataStructures.TransposeListSpace
 
         public Node<T> GetNode(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
 
-            var current = Header;
+            var current = Head;
             while (current != null)
             {
                 if (current.Data.Equals(element))
@@ -99,7 +97,7 @@ namespace DataStructures.TransposeListSpace
 
         public void Remove(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
 
             var node = GetNode(element);
             if (node == null)
@@ -114,7 +112,7 @@ namespace DataStructures.TransposeListSpace
 
         public void Add(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
 
             Node<T> node = new Node<T>(data);
             var lastNode = GetLastNode();
@@ -125,7 +123,12 @@ namespace DataStructures.TransposeListSpace
 
         public IEnumerator<T> GetEnumerator()
         {
-            return list.GetEnumerator();
+            var current = Head;
+            while (current != null)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

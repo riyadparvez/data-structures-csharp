@@ -40,7 +40,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>Returns that element, otherwise default of that type</returns>
         public Node<T> FindNode(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
 
             Node<T> current = root;
 
@@ -57,6 +57,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 }
                 else
                 {
+                    Contract.Assert(current != null);
                     return current;
                 }
             }
@@ -70,7 +71,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns></returns>
         public virtual T Find(T element)
         {
-            Contract.Requires(element != null, "BST can't have null values");
+            Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
 
             Node<T> node = FindNode(element);
             return (node != null) ? node.Data : default(T);
@@ -84,7 +85,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>Newly added elements</returns>
         public virtual bool Add(T element)
         {
-            Contract.Requires(element != null, "BST can't have null values");
+            Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
             Contract.Ensures(count == (Contract.OldValue(count) + 1));
 
             if (Root == null)
@@ -133,7 +134,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns></returns>
         public Node<T> Predecessor(Node<T> node)
         {
-            Contract.Requires(node != null, "Null values doesn't have predecesspr");
+            Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have predecesspr");
 
             if (node.Left == null)
             {

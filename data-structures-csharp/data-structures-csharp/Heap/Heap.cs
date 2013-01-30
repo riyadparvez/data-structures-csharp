@@ -22,14 +22,14 @@ namespace DataStructures.HeapSpace
 
         public void Add(T element)
         {
-            Contract.Requires(element != null, "Can't add null object to heap");
+            Contract.Requires<ArgumentNullException>(element != null, "element");
 
         }
 
 
         public void Remove(T element)
         {
-            Contract.Requires(element != null, "Can't delete null object to heap");
+            Contract.Requires<ArgumentNullException>(element != null, "element");
 
         }
 
