@@ -18,18 +18,18 @@ namespace DataStructures.SplayTreeSpace
 
         public void Add(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
 
         }
 
         public void Remove(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
         }
 
         public T Find(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace DataStructures.MoveToFrontListSpace
         /// <returns>null if element isn't in the list</returns>
         public T Get(T node)
         {
-            Contract.Requires(node != null);
+            Contract.Requires<ArgumentNullException>(node != null);
             T element = list.Where(e => e.Equals(node)).FirstOrDefault();
             if (element == null)
             {
@@ -47,7 +47,7 @@ namespace DataStructures.MoveToFrontListSpace
         /// <param name="element"></param>
         public void Add(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
             list.Add(element);
         }
 
@@ -57,7 +57,7 @@ namespace DataStructures.MoveToFrontListSpace
         /// <param name="element"></param>
         public void Remove(T element)
         {
-            Contract.Requires(element != null);
+            Contract.Requires<ArgumentNullException>(element != null);
             list.Remove(element);
         }
 

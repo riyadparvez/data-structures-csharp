@@ -12,7 +12,7 @@ namespace DataStructures.RootedTreeSpace
     {
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)
         {
-            Contract.Requires(stack != null);
+            Contract.Requires<ArgumentNullException>(stack != null);
 
             while (x != null)
             { stack.Push(x); x = x.Left; }
@@ -24,8 +24,8 @@ namespace DataStructures.RootedTreeSpace
         /// <returns>Returned merged tree node</returns>
         public Node<T> Merge(Node<T> root1, Node<T> root2)
         {
-            Contract.Requires(root1 != null);
-            Contract.Requires(root2 != null);
+            Contract.Requires<ArgumentNullException>(root1 != null);
+            Contract.Requires<ArgumentNullException>(root2 != null);
 
             Stack<Node<T>> stack = new Stack<Node<T>>();
             PushLeft(stack, root2);

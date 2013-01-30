@@ -26,7 +26,8 @@ namespace DataStructures.SkipListSpace
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(probability >= 0 && probability <= 1);
+            Contract.Invariant(probability >= 0);
+            Contract.Invariant(probability <= 1);
         }
 
         private SkipList(double probable, int maxLevel)
@@ -53,6 +54,9 @@ namespace DataStructures.SkipListSpace
 
         private int GetRandomLevel()
         {
+            Contract.Ensures(Contract.Result<int>() >= 0);
+            Contract.Ensures(Contract.Result<int>() <= maxLevel);
+
             int newLevel = 0;
             double ran = random.NextDouble();
             while ((newLevel < maxLevel) && (ran < probability))
@@ -69,7 +73,7 @@ namespace DataStructures.SkipListSpace
         /// <param name="value"></param>
         public void Insert(TKey key, TValue value)
         {
-            Contract.Requires(key != null);
+            Contract.Requires<ArgumentNullException>(key != null, "key");
 
             SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel];
             //Start search for each level from dummy header node
@@ -132,7 +136,7 @@ namespace DataStructures.SkipListSpace
         /// <param name="key">Key to be deleted</param>
         public void Delete(TKey key)
         {
-            Contract.Requires(key != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
             SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel + 1];
             SkipNode<TKey, TValue> cursor = header;
@@ -176,7 +180,7 @@ namespace DataStructures.SkipListSpace
         /// <returns>Value otherwise type default</returns>
         public TValue Search(TKey key)
         {
-            Contract.Requires(key != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
             SkipNode<TKey, TValue> cursor = header;
             for (int i = 0; i < level; i--)

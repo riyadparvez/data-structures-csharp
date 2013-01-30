@@ -123,7 +123,7 @@ namespace DataStructures.TransposeListSpace
 
         public IEnumerator<T> GetEnumerator()
         {
-            var current = Head;
+            var current = Head.Next;
             while (current != null)
             {
                 yield return current.Data;

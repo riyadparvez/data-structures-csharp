@@ -161,7 +161,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>returns null if in order successor doesn't exist</returns>
         public Node<T> Successor(Node<T> node)
         {
-            Contract.Requires(node != null, "Null values doesn't have successor");
+            Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have successor");
 
             if (node.Right == null)
             {
@@ -188,7 +188,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>true if removed</returns>
         public virtual bool Remove(T element)
         {
-            Contract.Requires(element != null, "BST doesn't contain null values");
+            Contract.Requires<ArgumentNullException>(element != null, "BST doesn't contain null values");
 
             Node<T> node = FindNode(element);
             if (node == null)                            //node isn't there
@@ -252,7 +252,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)
         {
-            Contract.Requires(stack != null);
+            Contract.Requires<ArgumentNullException>(stack != null);
             while (x != null)
             { stack.Push(x); x = x.Left; }
         }

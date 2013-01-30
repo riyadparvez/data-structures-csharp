@@ -24,7 +24,7 @@ namespace DataStructures.FrequencyListSpace
 
         public Node(T data)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
             Data = data;
         }
 

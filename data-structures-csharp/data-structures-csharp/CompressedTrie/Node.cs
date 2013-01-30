@@ -44,7 +44,7 @@ namespace DataStructures.CompressedTrieSpace
 
         public Node(string wordFromRoot)
         {
-            Contract.Requires(wordFromRoot != null);
+            Contract.Requires<ArgumentNullException>(wordFromRoot != null);
 
             children = new HashSet<Node>();
             this.wordFromRoot = wordFromRoot;
@@ -55,7 +55,7 @@ namespace DataStructures.CompressedTrieSpace
         public Node(string stringFragment, string wordFromRoot)
         {
             Contract.Requires(!string.IsNullOrEmpty(stringFragment));
-            Contract.Requires(wordFromRoot != null);
+            Contract.Requires<ArgumentNullException>(wordFromRoot != null);
 
             children = new HashSet<Node>();
             this.stringFragment = stringFragment;
@@ -69,7 +69,7 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>Null if that children is not present otherwise node having param character</returns>
         public Node GetChild(string str)
         {
-            Contract.Requires(!string.IsNullOrEmpty(str));
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(str));
             int n = children.Select(child => child.StringFragment.CommonPrefixLength(str)).Max();
             if (n > 0)
             {
@@ -85,7 +85,8 @@ namespace DataStructures.CompressedTrieSpace
         /// <returns>Newly added child</returns>
         public Node AddChild(string str)
         {
-            Contract.Requires(!string.IsNullOrEmpty(str));
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(str));
+            Contract.Ensures(Contract.Result<Node>() != null);
 
             int n = stringFragment.CommonPrefixLength(str);
             if (n == str.Length)
