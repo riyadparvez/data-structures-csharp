@@ -25,7 +25,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         public Node(T data, Node<T> parent)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
             Contract.Requires(parent != null);
 
             this.data = data;

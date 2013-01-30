@@ -32,7 +32,8 @@ namespace DataStructures.SkipListSpace
 
         private SkipList(double probable, int maxLevel)
         {
-            Contract.Requires(probable < 1);
+            Contract.Requires<ArgumentOutOfRangeException>(probable < 1);
+            Contract.Requires<ArgumentOutOfRangeException>(probable >= 0);
 
             this.probability = probable;
             this.maxLevel = maxLevel;
@@ -141,7 +142,7 @@ namespace DataStructures.SkipListSpace
             SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel + 1];
             SkipNode<TKey, TValue> cursor = header;
 
-            for (int i = level; i >= level; i--)
+            for (int i = level; i >= 0; i--)
             {
                 while (cursor.Links[i].Key.CompareTo(key) == -1)
                 {
@@ -183,7 +184,7 @@ namespace DataStructures.SkipListSpace
             Contract.Requires<ArgumentNullException>(key != null);
 
             SkipNode<TKey, TValue> cursor = header;
-            for (int i = 0; i < level; i--)
+            for (int i = 0; i < level; i++)
             {
                 SkipNode<TKey, TValue> nextElement = cursor.Links[i];
                 while (nextElement.Key.CompareTo(key) == -1)
