@@ -26,12 +26,13 @@ namespace DataStructures.AvlTreeSpace
         private void ObjectInvariant()
         {
             Contract.Invariant(Height >= 0);
+            Contract.Invariant(data != null);
         }
 
         public Node(T data, Node<T> parent, int height)
         {
-            Contract.Requires(data != null);
-            Contract.Requires(parent != null);
+            Contract.Requires<ArgumentNullException>(data != null);
+            Contract.Requires<ArgumentNullException>(parent != null);
             Contract.Requires(height >= 0);
 
             this.data = data;

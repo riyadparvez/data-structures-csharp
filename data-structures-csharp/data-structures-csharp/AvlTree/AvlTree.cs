@@ -35,7 +35,7 @@ namespace DataStructures.AvlTreeSpace
 
         public Node<T> Add(T element)
         {
-            Contract.Requires(element != null, "Can't insert null values");
+            Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
 
             return Add(root, element);
         }
@@ -48,8 +48,8 @@ namespace DataStructures.AvlTreeSpace
         /// <returns>Newly added elements</returns>
         public Node<T> Add(Node<T> root, T element, int height = 0)
         {
-            Contract.Requires(element != null, "Can't insert null values");
-            Contract.Requires(height >= 0);
+            Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
+            Contract.Requires<ArgumentOutOfRangeException>(height >= 0);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             if (root == null)
@@ -79,7 +79,7 @@ namespace DataStructures.AvlTreeSpace
 
         private void FixHeight(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
 
             List<Node<T>> queue = new List<Node<T>> { root };
             while (queue.Any())
@@ -102,7 +102,7 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RebalanceLeft(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> left = root.Left;
@@ -139,7 +139,7 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RebalanceRight(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> left = root.Left;
@@ -176,7 +176,7 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RotateLeft(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Right;
@@ -187,7 +187,7 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RotateRight(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Left;
@@ -218,7 +218,7 @@ namespace DataStructures.AvlTreeSpace
 
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)
         {
-            Contract.Requires(stack != null);
+            Contract.Requires<ArgumentNullException>(stack != null);
 
             while (x != null)
             { stack.Push(x); x = x.Left; }

@@ -26,14 +26,16 @@ namespace DataStructures.SkipListSpace
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(probability >= 0);
-            Contract.Invariant(probability <= 1);
+            Contract.Invariant(probability > 0);
+            Contract.Invariant(probability < 1);
+            Contract.Invariant(maxLevel > 0);
         }
 
         private SkipList(double probable, int maxLevel)
         {
+            Contract.Requires<ArgumentOutOfRangeException>(maxLevel > 0);
             Contract.Requires<ArgumentOutOfRangeException>(probable < 1);
-            Contract.Requires<ArgumentOutOfRangeException>(probable >= 0);
+            Contract.Requires<ArgumentOutOfRangeException>(probable > 0);
 
             this.probability = probable;
             this.maxLevel = maxLevel;
@@ -56,7 +58,7 @@ namespace DataStructures.SkipListSpace
         private int GetRandomLevel()
         {
             Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() <= maxLevel);
+            Contract.Ensures(Contract.Result<int>() < maxLevel);
 
             int newLevel = 0;
             double ran = random.NextDouble();

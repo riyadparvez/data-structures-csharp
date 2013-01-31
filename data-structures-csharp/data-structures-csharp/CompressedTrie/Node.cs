@@ -40,6 +40,7 @@ namespace DataStructures.CompressedTrieSpace
         private void ObjectInvariant()
         {
             Contract.Invariant(!string.IsNullOrEmpty(wordFromRoot));
+            Contract.Invariant(children != null);
         }
 
         public Node(string wordFromRoot)
