@@ -26,12 +26,39 @@ namespace DataStructures.HeapSpace
             Contract.Invariant(Count >= 0);
         }
 
+        /// <summary>
+        /// Adds an element to the heap
+        /// </summary>
+        /// <param name="element"></param>
         public void Add(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null, "element");
             Contract.Ensures(Count == Contract.OldValue<int>(Count) + 1);
 
             Queue<Node<T>> queue = new Queue<Node<T>>();
+            queue.Enqueue(root);
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                if (node.Left == null)
+                {
+                    node.Left = new Node<T>(element, node);
+                    break;
+                }
+                else
+                {
+                    queue.Enqueue(node.Left);
+                }
+                if (node.Right == null)
+                {
+                    node.Left = new Node<T>(element, node);
+                    break;
+                }
+                else
+                {
+                    queue.Enqueue(node.Right);
+                }
+            }
             //Restore heap property
             root = Heapify(root);
         }
