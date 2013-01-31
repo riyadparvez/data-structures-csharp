@@ -27,12 +27,12 @@ namespace DataStructures.RootedTreeSpace
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Requires(Root != null);
+            Contract.Invariant(Root != null);
         }
 
         public Node(T data, Node<T> parent)
         {
-            Contract.Requires(parent != null);
+            Contract.Requires<ArgumentNullException>(parent != null);
 
             this.data = data;
             Parent = parent;

@@ -31,6 +31,7 @@ namespace DataStructures.TransposeListSpace
             Head = dummy;
         }
 
+        [Pure]
         private Node<T> GetLastNode()
         {
             Contract.Ensures(Contract.Result<Node<T>>() != null);
@@ -59,7 +60,7 @@ namespace DataStructures.TransposeListSpace
             temp.Previous = node;
         }
 
-
+        [Pure]
         public T Get(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
@@ -78,6 +79,7 @@ namespace DataStructures.TransposeListSpace
             return default(T);
         }
 
+        [Pure]
         public Node<T> GetNode(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
@@ -121,6 +123,7 @@ namespace DataStructures.TransposeListSpace
             count++;
         }
 
+        [Pure]
         public IEnumerator<T> GetEnumerator()
         {
             var current = Head.Next;

@@ -21,7 +21,7 @@ namespace DataStructures.RedBlackTreeSpace
 
         public Node(T data, Node<T> left, Node<T> right)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
 
             Data = data;
             Left = left;

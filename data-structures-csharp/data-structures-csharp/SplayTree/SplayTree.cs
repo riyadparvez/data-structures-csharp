@@ -27,9 +27,11 @@ namespace DataStructures.SplayTreeSpace
             Contract.Requires<ArgumentNullException>(data != null);
         }
 
+        [Pure]
         public T Find(T data)
         {
             Contract.Requires<ArgumentNullException>(data != null);
+            return default(T);
         }
     }
 }

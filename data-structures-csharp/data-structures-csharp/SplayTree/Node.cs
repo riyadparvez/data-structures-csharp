@@ -30,7 +30,7 @@ namespace DataStructures.SplayTreeSpace
 
         public Node(T data, Node<T> parent)
         {
-            Contract.Requires(data != null);
+            Contract.Requires<ArgumentNullException>(data != null);
 
             this.data = data;
             Parent = parent;

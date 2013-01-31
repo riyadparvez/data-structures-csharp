@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.Utils
@@ -13,7 +14,7 @@ namespace DataStructures.Utils
 
         public static int CommonPrefixLength(this string str1, string str2)
         {
-            Contract.Requires(str2 != null);
+            Contract.Requires<ArgumentNullException>(str2 != null);
             Contract.Ensures(Contract.Result<int>() >= 0);
 
             int count = 0;

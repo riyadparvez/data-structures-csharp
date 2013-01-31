@@ -104,7 +104,7 @@ namespace DataStructures.IntervalTreeSpace
 
         public int CompareTo(Node other)
         {
-            Contract.Requires(other != null);
+            Contract.Requires<ArgumentNullException>(other != null);
 
             if (other.X > X)
             {

@@ -34,7 +34,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private void Reorient(Node<T> node)
         {
-            Contract.Requires(node != null);
+            Contract.Requires<ArgumentNullException>(node != null);
 
             Node<T> parent = node.Parent;
             if (parent == Root)
@@ -60,7 +60,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private Node<T> RotateLeft(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Right;
@@ -71,7 +71,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private Node<T> RotateRight(Node<T> root)
         {
-            Contract.Requires(root != null);
+            Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             Node<T> temp = root.Left;
@@ -85,9 +85,10 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element">Element to be found</param>
         /// <returns></returns>
-        public virtual T Find(T element)
+        public override T Find(T element)
         {
-            Contract.Requires(element != null, "BST can't have null values");
+            Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
+
             Node<T> node = FindNode(element);
             Reorient(node);
             return (node != null) ? node.Data : default(T);

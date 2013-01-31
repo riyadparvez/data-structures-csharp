@@ -22,14 +22,14 @@ namespace DataStructures.SkipListSpace
 
         public SkipNode(int level)
         {
-            Contract.Requires(level > 0);
+            Contract.Requires<ArgumentOutOfRangeException>(level > 0);
             Links = new List<SkipNode<TKey, TValue>>(level);
         }
 
         public SkipNode(int level, TKey key, TValue value)
         {
-            Contract.Requires(key != null);
-            Contract.Requires(level > 0);
+            Contract.Requires<ArgumentNullException>(key != null);
+            Contract.Requires<ArgumentOutOfRangeException>(level > 0);
 
             Key = key;
             Value = value;

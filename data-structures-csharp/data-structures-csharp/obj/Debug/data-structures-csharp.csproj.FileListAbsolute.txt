@@ -1,5 +1,10 @@
 C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\bin\Debug\DataStructures.dll
 C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\bin\Debug\DataStructures.pdb
-C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\obj\Debug\data-structures-csharp.csprojResolveAssemblyReference.cache
 C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\obj\Debug\DataStructures.dll
 C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\obj\Debug\DataStructures.pdb
+C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\bin\Debug\CodeContracts\DataStructures.noReferenceAssembly
+C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\obj\Debug\Decl\DataStructures.dll
+C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\obj\Debug\Decl\DataStructures.pdb
+C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\obj\Debug\CodeContractAnalysisRun.log
+C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\bin\Debug\DataStructures.dll.CodeAnalysisLog.xml
+C:\Users\hp\Documents\GitHub\data-structures-csharp\data-structures-csharp\data-structures-csharp\bin\Debug\DataStructures.dll.lastcodeanalysissucceeded

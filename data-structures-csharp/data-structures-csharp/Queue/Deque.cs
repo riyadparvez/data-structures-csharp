@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace DataStructures.QueueSpace
 {
@@ -29,6 +30,7 @@ namespace DataStructures.QueueSpace
         /// <param name="capacity">Default capacity of deque</param>
         public Deque(int capacity)
         {
+            Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
             internalList = new List<T>(capacity);
         }
 
