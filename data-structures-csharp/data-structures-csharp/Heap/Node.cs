@@ -9,23 +9,12 @@ namespace DataStructures.HeapSpace
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
-    public class Node<TKey, TValue>
-        where TKey : IComparable<TKey>, IEquatable<TKey>
+    public class Node<T>
+        where T : IComparable<T>, IEquatable<T>
     {
-        private TKey key;
-        private TValue val;
+        private T val;
 
-        public TKey Key
-        {
-            get { return key; }
-            internal set
-            {
-                Contract.Requires<ArgumentNullException>(value != null);
-                key = value;
-            }
-
-        }
-        public TValue Value
+        public T Value
         {
             get { return val; }
             internal set
@@ -35,13 +24,12 @@ namespace DataStructures.HeapSpace
             }
         }
         public int Height { get; internal set; }
-        internal Node<TKey, TValue> Parent { get; set; }
-        internal Node<TKey, TValue> Left { get; set; }
-        internal Node<TKey, TValue> Right { get; set; }
+        internal Node<T> Parent { get; set; }
+        internal Node<T> Left { get; set; }
+        internal Node<T> Right { get; set; }
 
-        public Node(TKey key, TValue val, Node<TKey, TValue> parent)
+        public Node(T val, Node<T> parent)
         {
-            Contract.Requires<ArgumentNullException>(key != null);
             Contract.Requires<ArgumentNullException>(val != null);
             Contract.Requires(parent != null);
 
@@ -51,7 +39,7 @@ namespace DataStructures.HeapSpace
             Right = null;
         }
 
-        public bool Equals(Node<TKey, TValue> otherNode)
+        public bool Equals(Node<T> otherNode)
         {
             if (otherNode == null)
             {
@@ -62,7 +50,7 @@ namespace DataStructures.HeapSpace
 
         public override bool Equals(object obj)
         {
-            Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
+            Node<T> otherNode = obj as Node<T>;
             if (otherNode == null)
             {
                 return false;

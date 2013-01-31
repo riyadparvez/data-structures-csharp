@@ -10,9 +10,9 @@ namespace DataStructures.HeapSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class Heap<TKey, TValue> where TKey : IComparable<TKey>, IEquatable<TKey>
+    public class Heap<T> where T : IComparable<T>, IEquatable<T>
     {
-        private Node<TKey, TValue> root;
+        private Node<T> root;
 
         public T Peek
         {
@@ -30,13 +30,12 @@ namespace DataStructures.HeapSpace
         /// Adds an element to the heap
         /// </summary>
         /// <param name="element"></param>
-        public void Add(TKey key, TValue element)
+        public void Add(T element)
         {
-            Contract.Requires<ArgumentNullException>(key != null);
             Contract.Requires<ArgumentNullException>(element != null, "element");
             Contract.Ensures(Count == Contract.OldValue<int>(Count) + 1);
 
-            Queue<Node<TKey, TValue>> queue = new Queue<Node<TKey, TValue>>();
+            Queue<Node<T>> queue = new Queue<Node<T>>();
             queue.Enqueue(root);
             while (queue.Count > 0)
             {
@@ -44,7 +43,7 @@ namespace DataStructures.HeapSpace
                 Contract.Assert(node != null);
                 if (node.Left == null)
                 {
-                    node.Left = new Node<TKey, TValue>(key, element, node);
+                    node.Left = new Node<T>(element, node);
                     break;
                 }
                 else
@@ -54,7 +53,7 @@ namespace DataStructures.HeapSpace
                 }
                 if (node.Right == null)
                 {
-                    node.Left = new Node<TKey, TValue>(key, element, node);
+                    node.Left = new Node<T>(element, node);
                     break;
                 }
                 else
@@ -67,10 +66,10 @@ namespace DataStructures.HeapSpace
             root = Heapify(root);
         }
 
-        private Node<TKey, TValue> Heapify(Node<TKey, TValue> root)
+        private Node<T> Heapify(Node<T> root)
         {
             Contract.Requires<ArgumentNullException>(root != null, "root");
-            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
+            Contract.Ensures(Contract.Result<Node<T>>() != null);
 
             root.Right = Heapify(root.Right);
             root.Left = Heapify(root.Left);
@@ -89,18 +88,14 @@ namespace DataStructures.HeapSpace
             return root;
         }
 
-        private void SwapData(Node<TKey, TValue> node1, Node<TKey, TValue> node2)
+        private void SwapData(Node<T> node1, Node<T> node2)
         {
             Contract.Requires<ArgumentNullException>(node1 != null, "node1");
             Contract.Requires<ArgumentNullException>(node2 != null, "node2");
 
-            TValue tempValue = node1.Value;
+            T tempValue = node1.Value;
             node1.Value = node2.Value;
             node2.Value = tempValue;
-
-            TKey tempKey = node1.Key;
-            node1.Key = node2.Key;
-            node2.Key = tempKey;
         }
 
         //public void Remove(T element)
@@ -111,7 +106,7 @@ namespace DataStructures.HeapSpace
         //}
 
 
-        public TValue GetMin()
+        public T GetMin()
         {
             if (root == null)
             {
