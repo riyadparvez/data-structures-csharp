@@ -17,3 +17,5 @@ Implemented data structures are:
 - List (Transpose heuristics)
 - Directed Acyclic Word Graph
 - Trie
+- Heap
+- Heap Structured Binary Tree

@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.HeapSpace
+namespace DataStructures.HsbtSpace
 {
     /// <summary>
     /// Node of Heap
@@ -81,4 +81,5 @@ namespace DataStructures.HeapSpace
             }
         }
     }
+
 }
