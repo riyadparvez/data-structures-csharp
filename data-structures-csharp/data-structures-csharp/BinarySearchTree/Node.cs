@@ -5,52 +5,69 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.BinarySearchTreeSpace
 {
     /// <summary>
-    /// Node of BST
+    /// Node of Heap
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
-    public class Node<T>
-        where T : IComparable<T>, IEquatable<T>
+    public class Node<TKey, TValue>
+        where TKey : IComparable<TKey>, IEquatable<TKey>
     {
-        public readonly T data;
+        private TKey key;
+        private TValue val;
 
-        public T Data
+        public TKey Key
         {
-            get { return data; }
+            get { return key; }
+            internal set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                key = value;
+            }
+
+        }
+        public TValue Value
+        {
+            get { return val; }
+            internal set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                val = value;
+            }
         }
         public int Height { get; internal set; }
-        internal Node<T> Parent { get; set; }
-        internal Node<T> Left { get; set; }
-        internal Node<T> Right { get; set; }
+        internal Node<TKey, TValue> Parent { get; set; }
+        internal Node<TKey, TValue> Left { get; set; }
+        internal Node<TKey, TValue> Right { get; set; }
 
-        public Node(T data, Node<T> parent)
+        public Node(TKey key, TValue val, Node<TKey, TValue> parent)
         {
-            Contract.Requires<ArgumentNullException>(data != null);
+            Contract.Requires<ArgumentNullException>(key != null);
+            Contract.Requires<ArgumentNullException>(val != null);
             Contract.Requires(parent != null);
 
-            this.data = data;
+            this.val = val;
             Parent = parent;
             Left = null;
             Right = null;
         }
 
-        public bool Equals(Node<T> otherNode)
+        public bool Equals(Node<TKey, TValue> otherNode)
         {
             if (otherNode == null)
             {
                 return false;
             }
-            return data.Equals(otherNode.Data);
+            return val.Equals(otherNode.Value);
         }
 
         public override bool Equals(object obj)
         {
-            Node<T> otherNode = obj as Node<T>;
+            Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
             if (otherNode == null)
             {
                 return false;
             }
-            return Data.Equals(otherNode.Data);
+            return val.Equals(otherNode.Value);
         }
 
         public override int GetHashCode()
@@ -59,7 +76,7 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 int hash = 17;
                 // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + data.GetHashCode();
+                hash = hash * 23 + val.GetHashCode();
                 return hash;
             }
         }

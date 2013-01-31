@@ -4,10 +4,10 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.HsbtSpace
 {
     [Serializable]
-    public class HeapStructuredBinaryTree<T>
-        where T : IComparable<T>, IEquatable<T>
+    public class HeapStructuredBinaryTree<TKey, TValue>
+        where TKey : IComparable<TKey>, IEquatable<TKey>
     {
-        public T Peek { get; set; }
+        public TValue Peek { get; set; }
         public int Count { get; private set; }
 
         [ContractInvariantMethod]
@@ -16,14 +16,15 @@ namespace DataStructures.HsbtSpace
             Contract.Invariant(Count >= 0);
         }
 
-        public void Add(T element)
+        public void Add(TKey key, TValue value)
         {
-            Contract.Requires<ArgumentNullException>(element != null);
+            Contract.Requires<ArgumentNullException>(key != null);
+            Contract.Requires<ArgumentNullException>(value != null);
         }
 
-        public T Find(T element)
+        public TValue Find(TKey key)
         {
-
+            Contract.Requires<ArgumentNullException>(key != null);
         }
     }
 }

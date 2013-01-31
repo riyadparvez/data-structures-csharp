@@ -12,13 +12,13 @@ namespace DataStructures.BinarySearchTreeSpace
     /// </summary>
     /// <typeparam name="T">Type must inherit IComparable</typeparam>
     [Serializable]
-    public class BinarySearchTree<T> : IEnumerable<T>
-        where T : IComparable<T>, IEquatable<T>
+    public class BinarySearchTree<TKey, TValue> : IEnumerable<TValue>
+        where TKey : IComparable<TKey>, IEquatable<TKey>
     {
         protected int count;
-        protected Node<T> root;
+        protected Node<TKey, TValue> root;
 
-        public Node<T> Root
+        public Node<TKey, TValue> Root
         {
             get { return root; }
         }
@@ -36,17 +36,17 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <summary>
         /// Find node from red black tree
         /// </summary>
-        /// <param name="element">element to be searched</param>
+        /// <param name="key">element to be searched</param>
         /// <returns>Returns that element, otherwise default of that type</returns>
-        public Node<T> FindNode(T element)
+        public Node<TKey, TValue> FindNode(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(element != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
-            Node<T> current = root;
+            Node<TKey, TValue> current = root;
 
             while (current != null)
             {
-                int i = current.Data.CompareTo(element);
+                int i = current.Key.CompareTo(key);
                 if (i < 0)
                 {
                     current = current.Right;
@@ -67,44 +67,45 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <summary>
         /// Find element in BST, returns null if not found
         /// </summary>
-        /// <param name="element">Element to be found</param>
+        /// <param name="key">Element to be found</param>
         /// <returns></returns>
-        public virtual T Find(T element)
+        public virtual TValue Find(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
+            Contract.Requires<ArgumentNullException>(key != null, "BST can't have null values");
 
-            Node<T> node = FindNode(element);
-            return (node != null) ? node.Data : default(T);
+            Node<TKey, TValue> node = FindNode(key);
+            return (node != null) ? node.Value : default(TValue);
         }
 
 
         /// <summary>
         /// Adds newly added element
         /// </summary>
-        /// <param name="element">true if added, false if already added</param>
+        /// <param name="key">true if added, false if already added</param>
         /// <returns>Newly added elements</returns>
-        public virtual bool Add(T element)
+        public virtual bool Add(TKey key, TValue val)
         {
-            Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
+            Contract.Requires<ArgumentNullException>(key != null, "BST can't have null values");
+            Contract.Requires<ArgumentNullException>(val != null);
             Contract.Ensures(count == (Contract.OldValue(count) + 1));
 
             if (Root == null)
             {
-                root = new Node<T>(element, null);
+                root = new Node<TKey, TValue>(key, val, null);
                 count++;
                 return true;
             }
 
-            Node<T> current = root;
+            Node<TKey, TValue> current = root;
 
             while (true)
             {
-                int i = current.Data.CompareTo(element);
+                int i = current.Key.CompareTo(key);
                 if (i < 0)
                 {
                     if (current.Right == null)
                     {
-                        current.Right = new Node<T>(element, current);
+                        current.Right = new Node<TKey, TValue>(key, val, current);
                         count++;
                         return true;
                     }
@@ -114,7 +115,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     if (current.Left == null)
                     {
-                        current.Left = new Node<T>(element, current);
+                        current.Left = new Node<TKey, TValue>(key, val, current);
                         count++;
                         return true;
                     }
@@ -132,7 +133,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public Node<T> Predecessor(Node<T> node)
+        public Node<TKey, TValue> Predecessor(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have predecesspr");
 
@@ -159,7 +160,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="node"></param>
         /// <returns>returns null if in order successor doesn't exist</returns>
-        public Node<T> Successor(Node<T> node)
+        public Node<TKey, TValue> Successor(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have successor");
 
@@ -184,13 +185,13 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <summary>
         /// Remove specified element
         /// </summary>
-        /// <param name="element"></param>
+        /// <param name="key"></param>
         /// <returns>true if removed</returns>
-        public virtual bool Remove(T element)
+        public virtual bool Remove(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(element != null, "BST doesn't contain null values");
+            Contract.Requires<ArgumentNullException>(key != null, "BST doesn't contain null values");
 
-            Node<T> node = FindNode(element);
+            Node<TKey, TValue> node = FindNode(key);
             if (node == null)                            //node isn't there
             {
                 return false;
@@ -232,7 +233,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 return true;
             }
 
-            Node<T> current = node.Right;
+            Node<TKey, TValue> current = node.Right;
             //node has both children
             if (node.Parent.Right == node)
             {
@@ -250,21 +251,21 @@ namespace DataStructures.BinarySearchTreeSpace
             return true;
         }
 
-        private void PushLeft(Stack<Node<T>> stack, Node<T> x)
+        private void PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)
         {
             Contract.Requires<ArgumentNullException>(stack != null);
             while (x != null)
             { stack.Push(x); x = x.Left; }
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<TValue> GetEnumerator()
         {
-            Stack<Node<T>> stack = new Stack<Node<T>>();
+            Stack<Node<TKey, TValue>> stack = new Stack<Node<TKey, TValue>>();
             PushLeft(stack, root);
             while (stack.Any())
             {
-                Node<T> x = stack.Pop();
-                yield return x.Data;
+                Node<TKey, TValue> x = stack.Pop();
+                yield return x.Value;
                 PushLeft(stack, x.Right);
             }
             yield break;
