@@ -86,7 +86,10 @@
     <Compile Include="Heap\Node.cs" />
     <Compile Include="HSBT\HeapStructuredBinaryTree.cs" />
     <Compile Include="HSBT\Node.cs" />
+    <Compile Include="QuadTree\Children.cs" />
     <Compile Include="QuadTree\Node.cs" />
+    <Compile Include="QuadTree\NullChildren.cs" />
+    <Compile Include="QuadTree\RegionQuadTree.cs" />
     <Compile Include="RootedTree\Node.cs" />
     <Compile Include="CompressedTrie\CompressedTrie.cs" />
     <Compile Include="CompressedTrie\Node.cs" />

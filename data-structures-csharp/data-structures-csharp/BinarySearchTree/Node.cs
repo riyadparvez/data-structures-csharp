@@ -76,7 +76,7 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 int hash = 17;
                 // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + val.GetHashCode();
+                hash = hash * 23 + key.GetHashCode();
                 return hash;
             }
         }

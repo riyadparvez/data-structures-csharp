@@ -9,22 +9,11 @@ namespace DataStructures.QuadTreeSpace
     /// </summary>
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
-    public class Node<TKey, TValue>
-        where TKey : IComparable<TKey>, IEquatable<TKey>
+    public class Node<T>
+        where T : IComparable<T>, IEquatable<T>
     {
-        private TKey key;
-        private TValue val;
+        private T key;
 
-        public TKey Key
-        {
-            get { return key; }
-            internal set
-            {
-                Contract.Requires<ArgumentNullException>(value != null);
-                key = value;
-            }
-
-        }
         public TValue Value
         {
             get { return val; }
@@ -34,21 +23,17 @@ namespace DataStructures.QuadTreeSpace
                 val = value;
             }
         }
-        public int Height { get; internal set; }
-        internal Node<TKey, TValue> Parent { get; set; }
-        internal Node<TKey, TValue> Left { get; set; }
-        internal Node<TKey, TValue> Right { get; set; }
+        internal Node<T> Parent { get; set; }
+        internal Children<T> Children { get; set; }
 
-        public Node(TKey key, TValue val, Node<TKey, TValue> parent)
+        public Node(Point topLeftPoint, Rectangle rectangle, Node<T> parent)
         {
             Contract.Requires<ArgumentNullException>(key != null);
-            Contract.Requires<ArgumentNullException>(val != null);
             Contract.Requires(parent != null);
 
             this.val = val;
             Parent = parent;
-            Left = null;
-            Right = null;
+            Children = new NullChildren<T>();
         }
 
         public bool Equals(Node<TKey, TValue> otherNode)
@@ -76,7 +61,7 @@ namespace DataStructures.QuadTreeSpace
             {
                 int hash = 17;
                 // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + val.GetHashCode();
+                hash = hash * 23 + key.GetHashCode();
                 return hash;
             }
         }
