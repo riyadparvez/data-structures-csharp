@@ -17,6 +17,7 @@ namespace DataStructures.HsbtSpace
 
         public int Count { get; private set; }
 
+
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
@@ -43,6 +44,10 @@ namespace DataStructures.HsbtSpace
             var current = root;
             while (true)
             {
+                Contract.Assert(current.Key.CompareTo(current.Left.Key) < 0);
+                Contract.Assert(current.Key.CompareTo(current.Right.Key) < 0);
+                Contract.Assert(current.Left.Key.CompareTo(current.Right.Key) < 0);
+
                 int compareCurrent = current.Key.CompareTo(key);
                 if (compareCurrent == 0)
                 {
@@ -83,11 +88,13 @@ namespace DataStructures.HsbtSpace
                 }
                 if (compareLeft < 0 && compareRight > 0)
                 {
+                    //key is greater than left and smaller than right
                     current = current.Left;
                     continue;
                 }
                 if (compareRight < 0)
                 {
+                    //key is greater than right
                     current = current.Right;
                     continue;
                 }

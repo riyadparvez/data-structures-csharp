@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
 
 namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
-    public class Children<T>
+    public class Children<T> : IEnumerable<Node<T>>
         where T : IComparable<T>, IEquatable<T>
     {
         internal Node<T> Parent { get; set; }
@@ -43,8 +45,33 @@ namespace DataStructures.QuadTreeSpace
             BottomRight = bottomRight;
         }
 
+        /// <summary>
+        /// Find the child containing point, otherwise null
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public virtual Node<T> GetContainingChild(Point point)
+        {
+            List<Node<T>> childrenList = ToList();
+
+            foreach (var child in childrenList)
+            {
+                if (child.IsInRegion(point))
+                {
+                    return child;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns all the children as list of nodes
+        /// </summary>
+        /// <returns></returns>
         public List<Node<T>> ToList()
         {
+            Contract.Ensures(Contract.Result<List<Node<T>>>() != null);
+
             return new List<Node<T>> 
                         {
                             TopLeft,
@@ -52,6 +79,16 @@ namespace DataStructures.QuadTreeSpace
                             BottomLeft,
                             BottomRight,
                         };
+        }
+
+        public IEnumerator<Node<T>> GetEnumerator()
+        {
+            return this.ToList().GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

@@ -21,7 +21,37 @@ namespace DataStructures.QuadTreeSpace
             root = new Node<T>(region, default(T), null);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool SetData(Point point, T data)
+        {
+            var current = root;
+            while (true)
+            {
+                if (!current.IsInRegion(point))
+                {
+                    return false;
+                }
+                else
+                {
+                    Node<T> node = current.GetContainingChild(point);
+                    if (node != null)
+                    {
+                        current = node;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            current.SetData(point, data);
+            return true;
+        }
 
     }
 }
