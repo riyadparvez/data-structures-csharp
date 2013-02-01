@@ -9,12 +9,12 @@ namespace DataStructures.BinarySearchTreeSpace
     /// by using appropriate rotation
     /// </summary>
     [Serializable]
-    public class BinarySearchTreeTranspose<T> : BinarySearchTree<T>
-        where T : IComparable<T>, IEquatable<T>
+    public class BinarySearchTreeTranspose<TKey, TValue> : BinarySearchTree<TKey, TValue>
+        where TKey : IComparable<TKey>, IEquatable<TKey>
     {
-        private Node<T> Transpose(Node<T> node)
+        private Node<TKey, TValue> Transpose(Node<TKey, TValue> node)
         {
-            Node<T> parent = node.Parent;
+            Node<TKey, TValue> parent = node.Parent;
             if (parent.Left == node)
             {
                 //Left child
@@ -32,11 +32,11 @@ namespace DataStructures.BinarySearchTreeSpace
             }
         }
 
-        private void Reorient(Node<T> node)
+        private void Reorient(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
 
-            Node<T> parent = node.Parent;
+            Node<TKey, TValue> parent = node.Parent;
             if (parent == Root)
             {
                 root = Transpose(parent);
@@ -58,23 +58,23 @@ namespace DataStructures.BinarySearchTreeSpace
             }
         }
 
-        private Node<T> RotateLeft(Node<T> root)
+        private Node<TKey, TValue> RotateLeft(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
-            Node<T> temp = root.Right;
+            Node<TKey, TValue> temp = root.Right;
             root.Right.Left = root;
             root.Right = temp.Left;
             return temp;
         }
 
-        private Node<T> RotateRight(Node<T> root)
+        private Node<TKey, TValue> RotateRight(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
-            Node<T> temp = root.Left;
+            Node<TKey, TValue> temp = root.Left;
             root.Left.Right = root;
             root.Left = temp.Right;
             return temp;
@@ -85,13 +85,13 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="element">Element to be found</param>
         /// <returns></returns>
-        public override T Find(T element)
+        public override TValue Find(TKey element)
         {
             Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
 
-            Node<T> node = FindNode(element);
+            Node<TKey, TValue> node = FindNode(element);
             Reorient(node);
-            return (node != null) ? node.Data : default(T);
+            return (node != null) ? node.Value : default(TValue);
         }
     }
 }

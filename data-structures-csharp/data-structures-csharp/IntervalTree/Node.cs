@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 
@@ -104,8 +103,6 @@ namespace DataStructures.IntervalTreeSpace
 
         public int CompareTo(Node other)
         {
-            Contract.Requires<ArgumentNullException>(other != null);
-
             if (other.X > X)
             {
                 return -1;

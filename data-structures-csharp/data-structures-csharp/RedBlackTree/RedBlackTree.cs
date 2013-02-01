@@ -190,7 +190,7 @@ namespace DataStructures.RedBlackTreeSpace
 
         public void Print(Node<T> n)
         {
-            Contract.Requires(n != null);
+            Contract.Requires<ArgumentNullException>(n != null);
             if (n != nullNode)
             {
                 Print(n.Left);
@@ -202,7 +202,6 @@ namespace DataStructures.RedBlackTreeSpace
         private void HandleReorient(T item)
         {
             Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Ensures(Contract.Result<T>() != null);
 
             current.Color = NodeType.Red;
             current.Left.Color = NodeType.Black;

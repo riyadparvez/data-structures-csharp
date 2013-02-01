@@ -86,6 +86,7 @@
     <Compile Include="Heap\Node.cs" />
     <Compile Include="HSBT\HeapStructuredBinaryTree.cs" />
     <Compile Include="HSBT\Node.cs" />
+    <Compile Include="QuadTree\Node.cs" />
     <Compile Include="RootedTree\Node.cs" />
     <Compile Include="CompressedTrie\CompressedTrie.cs" />
     <Compile Include="CompressedTrie\Node.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Utils\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BloomFilter\" />
     <Folder Include="SuffixArray\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

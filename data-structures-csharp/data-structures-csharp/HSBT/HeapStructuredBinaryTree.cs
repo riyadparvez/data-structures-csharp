@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
+
 namespace DataStructures.HsbtSpace
 {
+    /// <summary>
+    /// Root &lt left &lt right 
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     [Serializable]
     public class HeapStructuredBinaryTree<TKey, TValue>
         where TKey : IComparable<TKey>, IEquatable<TKey>
@@ -21,6 +27,8 @@ namespace DataStructures.HsbtSpace
         {
             Contract.Requires<ArgumentNullException>(key != null);
             Contract.Requires<ArgumentNullException>(value != null);
+
+            var current = root;
 
         }
 
@@ -69,7 +77,7 @@ namespace DataStructures.HsbtSpace
                 }
             }
 
-            return default(T);
+            return default(TValue);
         }
     }
 }
