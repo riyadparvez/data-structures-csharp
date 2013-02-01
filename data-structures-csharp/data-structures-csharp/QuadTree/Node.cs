@@ -44,7 +44,13 @@ namespace DataStructures.QuadTreeSpace
             return region.IsInRectangle(p);
         }
 
-
+        /// <summary>
+        /// Splits current node into four quadrents
+        /// </summary>
+        public void Split()
+        {
+            Children = new Children<T>(region, this);
+        }
 
         public bool Equals(Node<T> otherNode)
         {

@@ -43,12 +43,15 @@ namespace DataStructures.HsbtSpace
         {
             Contract.Requires<ArgumentNullException>(key != null);
             Contract.Requires<ArgumentNullException>(val != null);
-            Contract.Requires(parent != null);
 
             this.val = val;
             Parent = parent;
             Left = null;
             Right = null;
+            if (Parent != null)
+            {
+                Height = Parent.Height + 1;
+            }
         }
 
         public bool Equals(Node<TKey, TValue> otherNode)

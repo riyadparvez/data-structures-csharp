@@ -6,10 +6,41 @@ namespace DataStructures.QuadTreeSpace
     [Serializable]
     public struct Rectangle
     {
-        public Point TopLeftPoint { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
+        private Point topLeftPoint;
+        private double width;
+        private double height;
 
+        public Point TopLeftPoint
+        {
+            get { return topLeftPoint; }
+        }
+        public double Width
+        {
+            get { return width; }
+        }
+        public double Height
+        {
+            get { return height; }
+        }
+
+        public Rectangle(Point topLeftPoint, double width, double height)
+        {
+            this.topLeftPoint = topLeftPoint;
+            this.width = width;
+            this.height = height;
+        }
+
+        public bool Intersects(Rectangle rectangle)
+        {
+            return IsInRectangle(rectangle.TopLeftPoint) ||
+                   rectangle.IsInRectangle(this.TopLeftPoint);
+        }
+
+        public bool Contains(Rectangle rectangle)
+        {
+            return IsInRectangle(rectangle.TopLeftPoint) &&
+                   IsInRectangle(new Point(rectangle.TopLeftPoint.X + Width, rectangle.TopLeftPoint.Y + Height));
+        }
 
         public bool IsInRectangle(Point point)
         {

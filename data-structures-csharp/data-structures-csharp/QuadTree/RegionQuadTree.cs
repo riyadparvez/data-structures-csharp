@@ -20,5 +20,8 @@ namespace DataStructures.QuadTreeSpace
             this.region = region;
             root = new Node<T>(region, default(T), null);
         }
+
+
+
     }
 }
