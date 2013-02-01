@@ -89,6 +89,8 @@
     <Compile Include="QuadTree\Children.cs" />
     <Compile Include="QuadTree\Node.cs" />
     <Compile Include="QuadTree\NullChildren.cs" />
+    <Compile Include="QuadTree\Point.cs" />
+    <Compile Include="QuadTree\Rectangle.cs" />
     <Compile Include="QuadTree\RegionQuadTree.cs" />
     <Compile Include="RootedTree\Node.cs" />
     <Compile Include="CompressedTrie\CompressedTrie.cs" />

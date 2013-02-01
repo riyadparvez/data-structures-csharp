@@ -12,9 +12,10 @@ namespace DataStructures.QuadTreeSpace
     public class Node<T>
         where T : IComparable<T>, IEquatable<T>
     {
-        private T key;
+        private T val;
+        private readonly Rectangle region;
 
-        public TValue Value
+        public T Value
         {
             get { return val; }
             internal set
@@ -24,19 +25,28 @@ namespace DataStructures.QuadTreeSpace
             }
         }
         internal Node<T> Parent { get; set; }
+        internal Rectangle Region
+        {
+            get { return region; }
+        }
         internal Children<T> Children { get; set; }
 
-        public Node(Point topLeftPoint, Rectangle rectangle, Node<T> parent)
+        public Node(Rectangle rectangle, T val, Node<T> parent)
         {
-            Contract.Requires<ArgumentNullException>(key != null);
-            Contract.Requires(parent != null);
-
             this.val = val;
             Parent = parent;
+            region = rectangle;
             Children = new NullChildren<T>();
         }
 
-        public bool Equals(Node<TKey, TValue> otherNode)
+        public bool IsInRegion(Point p)
+        {
+            return region.IsInRectangle(p);
+        }
+
+
+
+        public bool Equals(Node<T> otherNode)
         {
             if (otherNode == null)
             {
@@ -47,7 +57,7 @@ namespace DataStructures.QuadTreeSpace
 
         public override bool Equals(object obj)
         {
-            Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
+            Node<T> otherNode = obj as Node<T>;
             if (otherNode == null)
             {
                 return false;
@@ -61,7 +71,7 @@ namespace DataStructures.QuadTreeSpace
             {
                 int hash = 17;
                 // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + key.GetHashCode();
+                hash = hash * 23 + val.GetHashCode();
                 return hash;
             }
         }

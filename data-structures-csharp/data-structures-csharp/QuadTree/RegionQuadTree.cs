@@ -4,17 +4,21 @@
 namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
-    public class RegionQuadTree
+    public class RegionQuadTree<T>
+        where T : IComparable<T>, IEquatable<T>
     {
-        private readonly int maximumItemsPerNode;
-        public int MaximumItemsPerNode
+        private readonly Rectangle region;
+        private readonly Node<T> root;
+
+        public Rectangle Region
         {
-            get { return maximumItemsPerNode; }
+            get { return region; }
         }
 
-        public RegionQuadTree(int maximumItems)
+        public RegionQuadTree(Rectangle region)
         {
-            maximumItemsPerNode = maximumItems;
+            this.region = region;
+            root = new Node<T>(region, default(T), null);
         }
     }
 }
