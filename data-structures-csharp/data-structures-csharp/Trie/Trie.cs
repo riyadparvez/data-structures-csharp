@@ -37,7 +37,7 @@ namespace DataStructures.TrieSpace
                 }
                 current = childNode;
             }
-            return true;
+            return current.HasNullChild();
         }
 
 
@@ -55,6 +55,7 @@ namespace DataStructures.TrieSpace
                 Node childNode = node.AddChild(ch);
                 node = childNode;
             }
+            node.AddNullChild();
         }
 
         /// <summary>
@@ -75,6 +76,21 @@ namespace DataStructures.TrieSpace
                     break;
                 }
                 current = childNode;
+            }
+        }
+
+        public void Remove(string word)
+        {
+            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+
+            if (!Exists(word))
+            {
+                return;
+            }
+            var current = Root;
+            foreach (var ch in word)
+            {
+
             }
         }
     }

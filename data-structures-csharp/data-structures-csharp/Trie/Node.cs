@@ -83,6 +83,16 @@ namespace DataStructures.TrieSpace
         }
 
 
+        public void AddNullChild()
+        {
+            children.Add(new NullNode());
+        }
+
+        public bool HasNullChild()
+        {
+            return children.Contains(new NullNode());
+        }
+
         public override int GetHashCode()
         {
             unchecked // Overflow is fine, just wrap
