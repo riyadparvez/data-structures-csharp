@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DataStructures.TrieSpace
@@ -10,25 +6,10 @@ namespace DataStructures.TrieSpace
     [Serializable]
     public sealed class NullNode : Node
     {
-        public override char Character
+        public NullNode(string wordFromRoot)
+            : base((char)0, wordFromRoot)
         {
-            get
-            {
-                return (char)0;
-            }
-        }
 
-        public override string WordFromRoot
-        {
-            get
-            {
-                return string.Empty;
-            }
-        }
-
-        public NullNode() 
-        {
-        
         }
     }
 }

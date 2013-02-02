@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
@@ -92,6 +93,45 @@ namespace DataStructures.TrieSpace
             {
 
             }
+        }
+
+        //private Stack<Node> PushLeft(Stack<Node> stack, Node x)
+        //{
+        //    Contract.Requires<ArgumentNullException>(stack != null);
+        //    while (x != null)
+        //    {
+        //        stack.Push(x);
+        //        x = x.GetChildrenList;
+        //    }
+        //    return stack;
+        //}
+
+        private List<string> Enumerate(Node node)
+        {
+            //var stack = new Stack<Node>();
+            //stack = PushLeft(stack, Root);
+
+        }
+
+        public List<string> GetStringsContainingPrefix(string prefix)
+        {
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(prefix));
+            Contract.Ensures(Contract.Result<List<string>>() != null);
+
+            var words = new List<string>();
+            var current = Root;
+            foreach (char ch in prefix)
+            {
+                Node childNode = current.HasChild(ch);
+                if (childNode == null)
+                {
+                    //No words with current prefix
+                    return words;
+                }
+                current = childNode;
+            }
+
+            return words;
         }
     }
 }

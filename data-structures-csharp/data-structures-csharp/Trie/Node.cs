@@ -8,7 +8,7 @@ using System.Linq;
 namespace DataStructures.TrieSpace
 {
     [Serializable]
-    public class Node
+    public class Node : IEnumerable<Node>
     {
         private HashSet<Node> children;
         private readonly char ch;
@@ -133,6 +133,21 @@ namespace DataStructures.TrieSpace
 
                 return x.Character.CompareTo(y.Character);
             }
+        }
+
+        public List<Node> GetChildrenList()
+        {
+            return new List<Node>(children);
+        }
+
+        public IEnumerator<Node> GetEnumerator()
+        {
+            return children.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }
