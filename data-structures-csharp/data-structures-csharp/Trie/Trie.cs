@@ -9,11 +9,18 @@ namespace DataStructures.TrieSpace
     public class Trie : IEnumerable<string>
     {
         public Node Root { get; private set; }
+        public int Count { get; private set; }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(Root != null);
+            Contract.Invariant(Count >= 0);
+        }
 
         public Trie()
         {
-            Root = new NullNode(string.Empty);
+            Root = new NullNode(string.Empty, null);
         }
 
 
@@ -38,7 +45,7 @@ namespace DataStructures.TrieSpace
                 }
                 current = childNode;
             }
-            return current.HasNullChild(word);
+            return current.HasNullChild();
         }
 
 
@@ -51,13 +58,15 @@ namespace DataStructures.TrieSpace
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
             Contract.Requires<ArgumentNullException>(node != null);
+            Contract.Ensures(Count == Contract.OldValue<int>(Count) + 1);
 
             foreach (char ch in word)
             {
                 Node childNode = node.AddChild(ch);
                 node = childNode;
             }
-            node.AddNullChild(word);
+            node.AddNullChild();
+            Count++;
         }
 
         /// <summary>
@@ -67,6 +76,11 @@ namespace DataStructures.TrieSpace
         public void Add(string word)
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+
+            if (Exists(word))
+            {
+                return;
+            }
 
             Node current = Root;
             for (int i = 0; i < word.Length; i++)
@@ -86,6 +100,11 @@ namespace DataStructures.TrieSpace
             return (node.Children.Count == 1);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns>False if word isn't already in trie</returns>
         public bool Remove(string word)
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");

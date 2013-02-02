@@ -12,7 +12,7 @@ namespace DataStructures.TrieSpace
     {
         private HashSet<Node> children;
         private readonly char ch;
-        private readonly Comparer<Node> comparer = new NodeComparare();
+        private readonly Comparer<Node> comparer = new NodeComparer();
         private readonly string wordFromRoot;
 
         public virtual char Character
@@ -86,14 +86,14 @@ namespace DataStructures.TrieSpace
         }
 
 
-        public void AddNullChild(string word)
+        public void AddNullChild()
         {
-            children.Add(new NullNode(word));
+            children.Add(new NullNode(wordFromRoot, this));
         }
 
-        public bool HasNullChild(string word)
+        public bool HasNullChild()
         {
-            return children.Contains(new NullNode(word));
+            return (children.SingleOrDefault(n => n.ch.Equals((char)0)) != null);
         }
 
         public void RemoveChild(char ch)
@@ -103,7 +103,7 @@ namespace DataStructures.TrieSpace
 
         public void RemoveNullChild()
         {
-            children.Remove(new NullNode(wordFromRoot));
+            children.RemoveWhere(c => c.Character.Equals((char)0));
         }
 
         public override int GetHashCode()
@@ -137,7 +137,7 @@ namespace DataStructures.TrieSpace
         }
 
 
-        private sealed class NodeComparare : Comparer<Node>
+        private sealed class NodeComparer : Comparer<Node>
         {
             public override int Compare(Node x, Node y)
             {
