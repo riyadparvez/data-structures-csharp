@@ -251,17 +251,141 @@ namespace DataStructures.BinarySearchTreeSpace
             return true;
         }
 
-        private void PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)
+        private Node<TKey, TValue> FindSplitNode(TKey start, TKey end)
+        {
+            Contract.Requires<ArgumentNullException>(start != null);
+            Contract.Requires<ArgumentNullException>(end != null);
+            Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
+
+            var current = Root;
+            while (current != null)
+            {
+                int startCompare = start.CompareTo(current.Key);
+                int endCompare = end.CompareTo(current.Key);
+
+                if (startCompare != endCompare)
+                {
+                    return current;
+                }
+                else if (endCompare <= 0)
+                {
+                    current = current.Left;
+                }
+                else if (endCompare > 0)
+                {
+                    current = current.Right;
+                }
+            }
+            return null;
+        }
+
+        private bool IsLeafNode(Node<TKey, TValue> node)
+        {
+            Contract.Requires<ArgumentNullException>(node != null);
+            return (node.Left == null) && (node.Right == null);
+        }
+
+
+        private bool IsInRange(TKey start, TKey end, Node<TKey, TValue> node)
+        {
+            Contract.Requires<ArgumentNullException>(start != null);
+            Contract.Requires<ArgumentNullException>(end != null);
+            Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
+            Contract.Requires<ArgumentNullException>(node != null);
+            return (start.CompareTo(node.Key) >= 0) &&
+                   (end.CompareTo(node.Key) <= 0);
+        }
+
+        private List<Node<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
+        {
+            Contract.Requires<ArgumentNullException>(root != null);
+            Contract.Ensures(Contract.Result<List<Node<TKey, TValue>>>() != null);
+
+            List<Node<TKey, TValue>> list = new List<Node<TKey, TValue>>();
+            Queue<Node<TKey, TValue>> queue = new Queue<Node<TKey, TValue>>();
+            queue.Enqueue(root);
+            while (queue.Any())
+            {
+                var node = queue.Dequeue();
+                if (node == null)
+                {
+                    break;
+                }
+                list.Add(node);
+                queue.Enqueue(node.Left);
+                queue.Enqueue(node.Right);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns>All the values exclusive range</returns>
+        public List<Node<TKey, TValue>> GetAllNodes(TKey start, TKey end)
+        {
+            Contract.Requires<ArgumentNullException>(start != null);
+            Contract.Requires<ArgumentNullException>(end != null);
+            Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
+            Contract.Ensures(Contract.Result<List<Node<TKey, TValue>>>() != null);
+
+            Node<TKey, TValue> node = FindSplitNode(start, end);
+            var nodes = new List<Node<TKey, TValue>>();
+            if (IsLeafNode(node))
+            {
+                if (IsInRange(start, end, node))
+                {
+                    nodes.Add(node);
+                }
+            }
+            else
+            {
+                //Enumerate left subtree of split node
+                var current = node.Left;
+                while (!IsLeafNode(current))
+                {
+                    if (start.CompareTo(current.Key) < 0)
+                    {
+                        nodes.AddRange(GetAllNodes(current.Right));
+                        current = current.Left;
+                    }
+                    else
+                    {
+                        current = current.Right;
+                    }
+                }
+                //Enumerate right subtree of split node
+                current = node.Right;
+                while (!IsLeafNode(current))
+                {
+                    if (end.CompareTo(current.Key) > 0)
+                    {
+                        nodes.AddRange(GetAllNodes(current.Left));
+                        current = current.Right;
+                    }
+                    else
+                    {
+                        current = current.Left;
+                    }
+                }
+            }
+            return nodes;
+        }
+
+        private Stack<Node<TKey, TValue>> PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)
         {
             Contract.Requires<ArgumentNullException>(stack != null);
             while (x != null)
             { stack.Push(x); x = x.Left; }
+            return stack;
         }
 
         public IEnumerator<TValue> GetEnumerator()
         {
             Stack<Node<TKey, TValue>> stack = new Stack<Node<TKey, TValue>>();
-            PushLeft(stack, root);
+            stack = PushLeft(stack, root);
             while (stack.Any())
             {
                 Node<TKey, TValue> x = stack.Pop();

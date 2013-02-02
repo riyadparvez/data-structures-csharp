@@ -86,6 +86,7 @@
     <Compile Include="Heap\Node.cs" />
     <Compile Include="HSBT\HeapStructuredBinaryTree.cs" />
     <Compile Include="HSBT\Node.cs" />
+    <Compile Include="List\CircularQueue.cs" />
     <Compile Include="List\SortedList.cs" />
     <Compile Include="RegionQuadTree\Children.cs" />
     <Compile Include="RegionQuadTree\Node.cs" />
