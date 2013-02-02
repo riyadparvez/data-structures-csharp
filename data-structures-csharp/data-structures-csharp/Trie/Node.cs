@@ -8,7 +8,7 @@ using System.Linq;
 namespace DataStructures.TrieSpace
 {
     [Serializable]
-    public class Node : IEnumerable<Node>
+    public class Node
     {
         private HashSet<Node> children;
         private readonly char ch;
@@ -122,7 +122,7 @@ namespace DataStructures.TrieSpace
         public override bool Equals(object obj)
         {
             Node otherNode = obj as Node;
-            if (otherNode == null || this == null)
+            if (otherNode == null)
             {
                 return false;
             }
@@ -136,6 +136,11 @@ namespace DataStructures.TrieSpace
             return wordFromRoot;
         }
 
+        public List<Node> GetChildrenList()
+        {
+            return new List<Node>(children);
+        }
+
 
         private sealed class NodeComparer : Comparer<Node>
         {
@@ -146,21 +151,6 @@ namespace DataStructures.TrieSpace
 
                 return x.Character.CompareTo(y.Character);
             }
-        }
-
-        public List<Node> GetChildrenList()
-        {
-            return new List<Node>(children);
-        }
-
-        public IEnumerator<Node> GetEnumerator()
-        {
-            return children.GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
     }
 }
