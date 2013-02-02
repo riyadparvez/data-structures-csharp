@@ -19,6 +19,7 @@ namespace DataStructures.TrieSpace
         {
             get { return ch; }
         }
+        public Node Parent { get; private set; }
         public virtual string WordFromRoot
         {
             get { return wordFromRoot; }
@@ -43,12 +44,14 @@ namespace DataStructures.TrieSpace
         }
 
 
-        public Node(char ch, string wordFromRoot)
+        public Node(char ch, string wordFromRoot, Node parent)
         {
+            Contract.Requires<ArgumentNullException>(parent != null);
             Contract.Requires(wordFromRoot != null);
 
             children = new HashSet<Node>();
             this.ch = ch;
+            this.Parent = parent;
             this.wordFromRoot = wordFromRoot + ch;
         }
 
@@ -75,7 +78,7 @@ namespace DataStructures.TrieSpace
             Node n = HasChild(ch);
             if (n == null)
             {
-                Node newNode = new Node(ch, wordFromRoot);
+                Node newNode = new Node(ch, wordFromRoot, this);
                 children.Add(newNode);
                 return newNode;
             }
@@ -91,6 +94,16 @@ namespace DataStructures.TrieSpace
         public bool HasNullChild(string word)
         {
             return children.Contains(new NullNode(word));
+        }
+
+        public void RemoveChild(char ch)
+        {
+            children.RemoveWhere(c => c.Character.Equals(ch));
+        }
+
+        public void RemoveNullChild()
+        {
+            children.Remove(new NullNode(wordFromRoot));
         }
 
         public override int GetHashCode()

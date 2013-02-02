@@ -81,19 +81,34 @@ namespace DataStructures.TrieSpace
             }
         }
 
-        public void Remove(string word)
+        private bool HasOneChild(Node node)
+        {
+            return (node.Children.Count == 1);
+        }
+
+        public bool Remove(string word)
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
             if (!Exists(word))
             {
-                return;
+                return false;
             }
             var current = Root;
             foreach (var ch in word)
             {
-
+                Node childNode = current.HasChild(ch);
+                current = childNode;
             }
+            int i = word.Length - 1;
+            current.RemoveNullChild();
+            while (HasOneChild(current) && i >= 0)
+            {
+                current.RemoveChild(word[i]);
+                current = current.Parent;
+                i--;
+            }
+            return true;
         }
 
         private List<string> AllStrings(Node node)
