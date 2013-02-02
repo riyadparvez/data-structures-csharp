@@ -83,14 +83,14 @@ namespace DataStructures.TrieSpace
         }
 
 
-        public void AddNullChild()
+        public void AddNullChild(string word)
         {
-            children.Add(new NullNode());
+            children.Add(new NullNode(word));
         }
 
-        public bool HasNullChild()
+        public bool HasNullChild(string word)
         {
-            return children.Contains(new NullNode());
+            return children.Contains(new NullNode(word));
         }
 
         public override int GetHashCode()

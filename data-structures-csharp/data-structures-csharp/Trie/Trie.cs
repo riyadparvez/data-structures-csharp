@@ -6,14 +6,14 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.TrieSpace
 {
     [Serializable]
-    public class Trie
+    public class Trie : IEnumerable<string>
     {
         public Node Root { get; private set; }
 
 
         public Trie()
         {
-            Root = new NullNode();
+            Root = new NullNode(string.Empty);
         }
 
 
@@ -38,7 +38,7 @@ namespace DataStructures.TrieSpace
                 }
                 current = childNode;
             }
-            return current.HasNullChild();
+            return current.HasNullChild(word);
         }
 
 
@@ -56,7 +56,7 @@ namespace DataStructures.TrieSpace
                 Node childNode = node.AddChild(ch);
                 node = childNode;
             }
-            node.AddNullChild();
+            node.AddNullChild(word);
         }
 
         /// <summary>
@@ -95,22 +95,21 @@ namespace DataStructures.TrieSpace
             }
         }
 
-        //private Stack<Node> PushLeft(Stack<Node> stack, Node x)
-        //{
-        //    Contract.Requires<ArgumentNullException>(stack != null);
-        //    while (x != null)
-        //    {
-        //        stack.Push(x);
-        //        x = x.GetChildrenList;
-        //    }
-        //    return stack;
-        //}
-
-        private List<string> Enumerate(Node node)
+        private List<string> AllStrings(Node node)
         {
-            //var stack = new Stack<Node>();
-            //stack = PushLeft(stack, Root);
+            Contract.Requires<ArgumentNullException>(node != null);
+            Contract.Ensures(Contract.Result<List<string>>() != null);
 
+            if (node is NullNode)
+            {
+                return new List<string> { node.WordFromRoot };
+            }
+            var words = new List<string>();
+            foreach (var child in node.Children)
+            {
+                words.AddRange(AllStrings(child));
+            }
+            return words;
         }
 
         public List<string> GetStringsContainingPrefix(string prefix)
@@ -131,7 +130,31 @@ namespace DataStructures.TrieSpace
                 current = childNode;
             }
 
-            return words;
+            return AllStrings(current);
+        }
+
+        private IEnumerator<string> Enumerate(Node node)
+        {
+            if (node is NullNode)
+            {
+                yield return node.WordFromRoot;
+            }
+            var words = new List<string>();
+            foreach (var child in node.Children)
+            {
+                Enumerate(child);
+            }
+            yield break;
+        }
+
+        public IEnumerator<string> GetEnumerator()
+        {
+            return Enumerate(Root);
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }
