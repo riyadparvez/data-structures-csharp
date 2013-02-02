@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.QuadTreeSpace
@@ -29,6 +30,8 @@ namespace DataStructures.QuadTreeSpace
         /// <returns></returns>
         public bool SetData(Point point, T data)
         {
+            Contract.Requires<ArgumentNullException>(data != null);
+
             var current = root;
             while (true)
             {

@@ -85,10 +85,13 @@ namespace DataStructures.QuadTreeSpace
             else
             {
                 SplitRegionIntoChildNodes();
+                Node<T> newChild = null;
                 foreach (var child in Children)
                 {
                     if (child.IsInRegion(point))
                     {
+                        //
+                        newChild = child;
                         child.SetData(point, data);
                     }
                     else
@@ -96,6 +99,7 @@ namespace DataStructures.QuadTreeSpace
                         child.SetData(point, val);
                     }
                 }
+                return newChild;
             }
         }
 

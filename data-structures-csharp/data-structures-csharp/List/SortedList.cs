@@ -4,6 +4,10 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.ListSpace
 {
+    /// <summary>
+    /// Use insertion sort for evey element added
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [Serializable]
     public class SortedList<T> : IEnumerable<T>
         where T : IComparable<T>

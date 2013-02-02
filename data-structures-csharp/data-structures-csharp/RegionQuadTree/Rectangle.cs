@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 
 namespace DataStructures.QuadTreeSpace
@@ -25,6 +26,9 @@ namespace DataStructures.QuadTreeSpace
 
         public Rectangle(Point topLeftPoint, double width, double height)
         {
+            Contract.Requires<ArgumentNullException>(width > 0);
+            Contract.Requires<ArgumentNullException>(height > 0);
+
             this.topLeftPoint = topLeftPoint;
             this.width = width;
             this.height = height;
