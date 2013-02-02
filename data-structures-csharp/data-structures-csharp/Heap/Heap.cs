@@ -48,7 +48,7 @@ namespace DataStructures.HeapSpace
                 }
                 else
                 {
-                    Contract.Assert(node.Key.CompareTo(node.Left.Key) < 0);
+                    Contract.Assert(node.Value.CompareTo(node.Left.Value) < 0);
                     queue.Enqueue(node.Left);
                 }
                 if (node.Right == null)
@@ -58,7 +58,7 @@ namespace DataStructures.HeapSpace
                 }
                 else
                 {
-                    Contract.Assert(node.Key.CompareTo(node.Right.Key) < 0);
+                    Contract.Assert(node.Value.CompareTo(node.Right.Value) < 0);
                     queue.Enqueue(node.Right);
                 }
             }
@@ -73,13 +73,13 @@ namespace DataStructures.HeapSpace
 
             root.Right = Heapify(root.Right);
             root.Left = Heapify(root.Left);
-            int compareRight = root.Key.CompareTo(root.Right.Key);
+            int compareRight = root.Value.CompareTo(root.Right.Value);
             if (compareRight > 0)
             {
                 //root is bigger than right
                 SwapData(root, root.Right);
             }
-            int compareLeft = root.Key.CompareTo(root.Left.Key);
+            int compareLeft = root.Value.CompareTo(root.Left.Value);
             if (compareLeft > 0)
             {
                 //root is bigger than left

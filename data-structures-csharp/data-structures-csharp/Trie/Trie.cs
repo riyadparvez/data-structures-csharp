@@ -50,6 +50,7 @@ namespace DataStructures.TrieSpace
         public void Add(Node node, string word)
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires<ArgumentNullException>(node != null);
 
             foreach (char ch in word)
             {
