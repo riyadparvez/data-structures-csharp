@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.RegionQuadTreeSpace
+namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
     public sealed class NullChildren<T> : Children<T>

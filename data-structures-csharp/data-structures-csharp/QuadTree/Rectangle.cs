@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.RegionQuadTreeSpace
+namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
     public struct Rectangle

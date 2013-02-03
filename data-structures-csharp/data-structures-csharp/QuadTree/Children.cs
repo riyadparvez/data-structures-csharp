@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.RegionQuadTreeSpace
+namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
     public class Children<T> : IEnumerable<Node<T>>

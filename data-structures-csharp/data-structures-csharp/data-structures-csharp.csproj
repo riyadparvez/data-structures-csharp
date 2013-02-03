@@ -88,6 +88,12 @@
     <Compile Include="HSBT\Node.cs" />
     <Compile Include="List\CircularQueue.cs" />
     <Compile Include="List\SortedList.cs" />
+    <Compile Include="QuadTree\Children.cs" />
+    <Compile Include="QuadTree\Node.cs" />
+    <Compile Include="QuadTree\NullChildren.cs" />
+    <Compile Include="QuadTree\Point.cs" />
+    <Compile Include="QuadTree\QuadTree.cs" />
+    <Compile Include="QuadTree\Rectangle.cs" />
     <Compile Include="RegionQuadTree\Children.cs" />
     <Compile Include="RegionQuadTree\Node.cs" />
     <Compile Include="RegionQuadTree\NullChildren.cs" />

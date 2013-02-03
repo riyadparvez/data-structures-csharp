@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.QuadTreeSpace
+namespace DataStructures.RegionQuadTreeSpace
 {
     [Serializable]
     public class RegionQuadTree<T>
