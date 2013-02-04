@@ -33,5 +33,21 @@ namespace DataStructures.BPlusTreeSpace
             M = m;
             N = n;
         }
+
+        public void insert(TKey key, TValue value)
+        {
+            Split result = root.Insert(key, value);
+            if (result != null)
+            {
+                // The old root was splitted in two parts.
+                // We have to create a new root pointing to them
+                IntermediateNode<TKey, TValue> _root = new IntermediateNode<TKey, TValue>();
+                _root.num = 1;
+                _root.keys[0] = result.key;
+                _root.children[0] = result.left;
+                _root.children[1] = result.right;
+                root = _root;
+            }
+        }
     }
 }

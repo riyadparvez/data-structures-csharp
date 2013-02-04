@@ -84,7 +84,10 @@
     <Compile Include="BinarySearchTree\BinarySearchTreeTranspose.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
     <Compile Include="BPlusTree\BPlusTree.cs" />
+    <Compile Include="BPlusTree\IntermediateNode.cs" />
+    <Compile Include="BPlusTree\LeafNode.cs" />
     <Compile Include="BPlusTree\Node.cs" />
+    <Compile Include="BPlusTree\Split.cs" />
     <Compile Include="Heap\Node.cs" />
     <Compile Include="HSBT\HeapStructuredBinaryTree.cs" />
     <Compile Include="HSBT\Node.cs" />
