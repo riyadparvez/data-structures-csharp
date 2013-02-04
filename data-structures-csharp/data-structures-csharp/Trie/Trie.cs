@@ -97,6 +97,7 @@ namespace DataStructures.TrieSpace
 
         private bool HasOneChild(Node node)
         {
+            Contract.Requires<ArgumentNullException>(node != null);
             return (node.Children.Count == 1);
         }
 
@@ -170,6 +171,8 @@ namespace DataStructures.TrieSpace
 
         private IEnumerator<string> Enumerate(Node node)
         {
+            Contract.Requires<ArgumentNullException>(node != null);
+
             if (node is NullNode)
             {
                 yield return node.WordFromRoot;

@@ -6,7 +6,6 @@ namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
     public class QuadTree<T>
-        where T : IComparable<T>, IEquatable<T>
     {
         public readonly int MaximumElementsPerNode;
         private readonly Rectangle region;
@@ -17,6 +16,11 @@ namespace DataStructures.QuadTreeSpace
             get { return region; }
         }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(MaximumElementsPerNode > 0);
+        }
 
         public QuadTree(int maximumElementsPerNode, Rectangle region)
         {
@@ -24,7 +28,27 @@ namespace DataStructures.QuadTreeSpace
 
             MaximumElementsPerNode = maximumElementsPerNode;
             this.region = region;
-            root = new Node<T>(region, default(T), null);
+            root = new Node<T>(region, null, maximumElementsPerNode);
+        }
+
+        public bool Add(Point point, T element)
+        {
+            Contract.Requires<ArgumentNullException>(element != null);
+
+            var current = root;
+            while (current.IsInRegion(point))
+            {
+                var node = current.GetContainingChild(point);
+                if (node == null)
+                {
+                    node.Add(point, element);
+                }
+                else
+                {
+                    current = node;
+                }
+            }
+            return false;
         }
     }
 }

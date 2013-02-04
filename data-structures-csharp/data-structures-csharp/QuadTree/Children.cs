@@ -7,7 +7,6 @@ namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
     public class Children<T> : IEnumerable<Node<T>>
-        where T : IComparable<T>, IEquatable<T>
     {
         internal Node<T> Parent { get; set; }
         internal Node<T> TopLeft { get; set; }
@@ -15,7 +14,7 @@ namespace DataStructures.QuadTreeSpace
         internal Node<T> BottomLeft { get; set; }
         internal Node<T> BottomRight { get; set; }
 
-        public Children(Rectangle region, Node<T> parent)
+        public Children(Rectangle region, Node<T> parent, int maximumValuesPerNode)
         {
             var topLeftTopPoint = region.TopLeftPoint;
             var topRightTopPoint = new Point(region.TopLeftPoint.X + region.Width / 2, region.TopLeftPoint.Y);
@@ -29,10 +28,10 @@ namespace DataStructures.QuadTreeSpace
 
             Parent = parent;
 
-            TopLeft = new Node<T>(topLeftRectangle, default(T), parent);
-            TopRight = new Node<T>(topRightRectangle, default(T), parent);
-            BottomLeft = new Node<T>(bottomLeftRectangle, default(T), parent);
-            BottomRight = new Node<T>(bottomRightRectangle, default(T), parent);
+            TopLeft = new Node<T>(topLeftRectangle, parent, maximumValuesPerNode);
+            TopRight = new Node<T>(topRightRectangle, parent, maximumValuesPerNode);
+            BottomLeft = new Node<T>(bottomLeftRectangle, parent, maximumValuesPerNode);
+            BottomRight = new Node<T>(bottomRightRectangle, parent, maximumValuesPerNode);
         }
 
         public Children(Node<T> parent, Node<T> topLeft, Node<T> topRight,
@@ -49,7 +48,7 @@ namespace DataStructures.QuadTreeSpace
         /// Find the child containing point, otherwise null
         /// </summary>
         /// <param name="point"></param>
-        /// <returns></returns>
+        /// <returns>Null if no children contains the point</returns>
         public virtual Node<T> GetContainingChild(Point point)
         {
             List<Node<T>> childrenList = ToList();

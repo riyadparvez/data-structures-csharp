@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
@@ -10,19 +11,18 @@ namespace DataStructures.QuadTreeSpace
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
     public class Node<T>
-        where T : IComparable<T>, IEquatable<T>
     {
-        private T val;
+        private List<T> values = new List<T>();
         private readonly Rectangle region;
+        public readonly int MaximumValuesPerNode;
 
-        public T Value
+        public IEnumerable<T> Value
         {
-            get { return val; }
-            internal set
-            {
-                Contract.Requires<ArgumentNullException>(value != null);
-                val = value;
-            }
+            get { return values.AsReadOnly(); }
+        }
+        public int Count
+        {
+            get { return values.Count; }
         }
         internal Node<T> Parent { get; set; }
         internal Rectangle Region
@@ -31,11 +31,20 @@ namespace DataStructures.QuadTreeSpace
         }
         internal Children<T> Children { get; set; }
 
-        public Node(Rectangle rectangle, T val, Node<T> parent)
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
         {
-            this.val = val;
+            Contract.Invariant(values != null);
+            Contract.Invariant(values.Count <= MaximumValuesPerNode);
+        }
+
+        public Node(Rectangle rectangle, Node<T> parent, int maximumValuesPerNode)
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(maximumValuesPerNode > 0);
+
             Parent = parent;
             region = rectangle;
+            this.MaximumValuesPerNode = maximumValuesPerNode;
             Children = new NullChildren<T>(parent);
         }
 
@@ -65,41 +74,21 @@ namespace DataStructures.QuadTreeSpace
         /// </summary>
         private void SplitRegionIntoChildNodes()
         {
-            Children = new Children<T>(region, this);
-
+            Children = new Children<T>(region, this, MaximumValuesPerNode);
         }
 
-        /// <summary>
-        /// Sets data
-        /// </summary>
-        /// <param name="p"></param>
-        /// <param name="data"></param>
-        /// <returns>The node containing new data</returns>
-        public Node<T> SetData(Point point, T data)
+        public void Add(Point point, T element)
         {
-            if (val.Equals(default(T)) || val.Equals(data))
+            Contract.Requires<ArgumentNullException>(element != null);
+
+            if (Count == MaximumValuesPerNode)
             {
-                val = data;
-                return this;
+                SplitRegionIntoChildNodes();
+
             }
             else
             {
-                SplitRegionIntoChildNodes();
-                Node<T> newChild = null;
-                foreach (var child in Children)
-                {
-                    if (child.IsInRegion(point))
-                    {
-                        //
-                        newChild = child;
-                        child.SetData(point, data);
-                    }
-                    else
-                    {
-                        child.SetData(point, val);
-                    }
-                }
-                return newChild;
+                values.Add(element);
             }
         }
 
@@ -109,7 +98,7 @@ namespace DataStructures.QuadTreeSpace
             {
                 return false;
             }
-            return val.Equals(otherNode.Value);
+            return values.Equals(otherNode.Value);
         }
 
         public override bool Equals(object obj)
@@ -119,7 +108,7 @@ namespace DataStructures.QuadTreeSpace
             {
                 return false;
             }
-            return val.Equals(otherNode.Value);
+            return values.Equals(otherNode.Value);
         }
 
         public override int GetHashCode()
@@ -128,7 +117,7 @@ namespace DataStructures.QuadTreeSpace
             {
                 int hash = 17;
                 // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + val.GetHashCode();
+                hash = hash * 23 + values.GetHashCode();
                 return hash;
             }
         }
