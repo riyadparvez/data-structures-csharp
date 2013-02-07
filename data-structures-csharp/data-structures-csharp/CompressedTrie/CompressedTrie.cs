@@ -21,7 +21,7 @@ namespace DataStructures.CompressedTrieSpace
 
         public CompressedTrie()
         {
-            Root = new NullNode("");
+            Root = new NullNode(string.Empty);
         }
 
 

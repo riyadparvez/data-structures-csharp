@@ -115,6 +115,7 @@ namespace DataStructures.TransposeListSpace
         public void Add(T data)
         {
             Contract.Requires<ArgumentNullException>(data != null);
+            Contract.Ensures(count == Contract.OldValue<int>(count) + 1);
 
             Node<T> node = new Node<T>(data);
             var lastNode = GetLastNode();

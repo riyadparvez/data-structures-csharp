@@ -89,7 +89,7 @@ namespace DataStructures.TrieSpace
                 if (childNode == null)
                 {
                     Add(current, word.Substring(i));
-                    break;
+                    return;
                 }
                 current = childNode;
             }

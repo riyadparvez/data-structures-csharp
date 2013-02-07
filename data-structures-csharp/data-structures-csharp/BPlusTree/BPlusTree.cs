@@ -5,24 +5,24 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.BPlusTreeSpace
 {
     [Serializable]
-    public class BPlusTree<TKey, TValue>
+    public partial class BPlusTree<TKey, TValue>
         where TKey : IComparable<TKey>
     {
-        private Node<TKey, TValue> root;
+        private INode<TKey, TValue> root;
         /// <summary>
-        /// the maximum number of keys in the leaf node, M must be > 0      
+        /// the maximum number of key value pairs in the leaf node, M must be > 0      
         /// </summary>
-        public readonly int M;
+        public readonly int NumberOfValuesInLeafNode;
         /// <summary>
         /// the maximum number of keys in inner node, the number of pointer is N+1, N must be > 2
         /// </summary>
-        public readonly int N;
+        public readonly int NumberOfKeysInIntermediateNode;
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(M > 0);
-            Contract.Invariant(N > 2);
+            Contract.Invariant(NumberOfValuesInLeafNode > 0);
+            Contract.Invariant(NumberOfKeysInIntermediateNode > 2);
         }
 
         public BPlusTree(int m, int n)
@@ -30,24 +30,26 @@ namespace DataStructures.BPlusTreeSpace
             Contract.Requires<ArgumentOutOfRangeException>(m > 0);
             Contract.Requires<ArgumentOutOfRangeException>(n > 2);
 
-            M = m;
-            N = n;
+            NumberOfValuesInLeafNode = m;
+            NumberOfKeysInIntermediateNode = n;
         }
 
-        public void insert(TKey key, TValue value)
+        private TValue Find(TKey key, INode<TKey, TValue> node)
         {
-            Split result = root.Insert(key, value);
-            if (result != null)
+            Contract.Requires<ArgumentNullException>(key != null);
+            Contract.Requires<ArgumentNullException>(node != null);
+
+            if (node is LeafNode<TKey, TValue>)
             {
-                // The old root was splitted in two parts.
-                // We have to create a new root pointing to them
-                IntermediateNode<TKey, TValue> _root = new IntermediateNode<TKey, TValue>();
-                _root.num = 1;
-                _root.keys[0] = result.key;
-                _root.children[0] = result.left;
-                _root.children[1] = result.right;
-                root = _root;
+
             }
         }
+
+        public TValue Find(TKey key)
+        {
+            Contract.Requires<ArgumentNullException>(key != null);
+            return Find(key, root);
+        }
+
     }
 }
