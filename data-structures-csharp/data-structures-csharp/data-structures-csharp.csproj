@@ -83,6 +83,8 @@
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTreeTranspose.cs" />
     <Compile Include="BinarySearchTree\Node.cs" />
+    <Compile Include="BinomialHeap\BinomialHeap.cs" />
+    <Compile Include="BinomialHeap\Node.cs" />
     <Compile Include="BPlusTree\BPlusTree.cs" />
     <Compile Include="BPlusTree\IntermediateNode.cs" />
     <Compile Include="BPlusTree\LeafNode.cs" />
