@@ -24,14 +24,17 @@ namespace DataStructures.BinomialHeapSpace
         private Node<T> Merge(BinomialHeap<T> otherHeap)
         {
             Contract.Requires<ArgumentNullException>(otherHeap != null);
-            
+
+            //for traversing first heap
             Node<T> current1;
+            //for traversing second heap
             Node<T> current2;
 
+            //Make root the smaller root
             if (root.Value.CompareTo(otherHeap.root.Value) <= 0)
             {
                 current1 = otherHeap.root;
-                current2 = root.RightSibling;    
+                current2 = root.RightSibling;
             }
             else
             {
@@ -39,23 +42,26 @@ namespace DataStructures.BinomialHeapSpace
                 root = otherHeap.root;
                 current1 = otherHeap.root.RightSibling;
             }
+            //pointer for currently building merged heap
             Node<T> current = root;
-            while(current1 != null && current2 != null)
+            while (current1 != null && current2 != null)
             {
+                //merge phase like merge sort, insert smaller element first
                 if (current1.Value.CompareTo(current2.Value) < 0)
                 {
                     current.RightSibling = current1;
                     current1 = current1.RightSibling;
-                    current = current.RightSibling
+                    current = current.RightSibling;
                 }
                 else
                 {
                     current.RightSibling = current2;
                     current2 = current2.RightSibling;
-                    current = current.RightSibling
+                    current = current.RightSibling;
                 }
             }
             Node<T> tail;
+            //check which heap is not fully visited
             if (current1 == null)
             {
                 tail = current2;
@@ -64,7 +70,8 @@ namespace DataStructures.BinomialHeapSpace
             {
                 tail = current1;
             }
-            while(tail != null)
+            //insert reamining elements of other heap
+            while (tail != null)
             {
                 current.RightSibling = tail;
                 current = current.RightSibling;
@@ -82,6 +89,7 @@ namespace DataStructures.BinomialHeapSpace
             {
                 return null;
             }
+            //resotre the property no two sub tree has same order
             Node<T> prev = null;
             Node<T> current = root;
             Node<T> next = current.RightSibling;
@@ -90,26 +98,37 @@ namespace DataStructures.BinomialHeapSpace
                 bool needMerge = true;
                 if (current.Degree != next.Degree)
                 {
+                    //oders are not same, don't need merging
                     needMerge = false;
                 }
                 if (next.RightSibling != null && next.RightSibling.Degree == next.Degree)
                 {
+                    //oders are not same, don't need merging
                     needMerge = false;
                 }
                 if (needMerge)
                 {
                     if (current.Value.CompareTo(next.Value) <= 0)
                     {
+                        //current node is smaller than next node
+                        //link the next to next node and skip next node
+                        //make next node child of current node
                         current.RightSibling = next.RightSibling;
                         Link(current, next);
                     }
                     else if (prev != null)
                     {
+                        //current node is greater than next node
+                        //link to next node skipping current node and
+                        //make it child of next node
                         prev.RightSibling = next;
                         Link(next, current);
                     }
                     else
                     {
+                        //previous is null means this is root noed
+                        //make current node child of next node
+                        //and next node is the new root
                         root = next;
                         Link(next, current);
                     }
