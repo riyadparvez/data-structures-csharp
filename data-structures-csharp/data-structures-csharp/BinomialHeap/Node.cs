@@ -23,19 +23,24 @@ namespace DataStructures.BinomialHeapSpace
                 val = value;
             }
         }
-        public int Height { get; internal set; }
+        public int Degree { get; internal set; }
         internal Node<T> Parent { get; set; }
-        internal Node<T> Left { get; set; }
-        internal Node<T> Right { get; set; }
+        internal Node<T> LeftChild { get; set; }
+        internal Node<T> RightSibling { get; set; }
 
-        public Node(T val, Node<T> parent)
+        public Node(T val, Node<T> parent, Node<T> leftChild, Node<T> rightSibling)
         {
             Contract.Requires<ArgumentNullException>(val != null);
 
             this.val = val;
             Parent = parent;
-            Left = null;
-            Right = null;
+            LeftChild = null;
+            RightSibling = null;
+        }
+
+        public Node(T val, Node<T> parent)
+            : this(val, parent, null, null)
+        {
         }
 
         public bool Equals(Node<T> otherNode)
