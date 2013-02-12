@@ -10,9 +10,21 @@ namespace DataStructures.BinomialHeapSpace
     {
         private Node<T> root;
 
-        public Node<T> Merge(BinomialHeap<T> otherHeap)
+        private void Link(Node<T> root, Node<T> branch)
+        {
+            Contract.Requires<ArgumentNullException>(root != null);
+            Contract.Requires<ArgumentNullException>(branch != null);
+
+            branch.Parent = root;
+            branch.RightSibling = root.LeftChild;
+            root.LeftChild = branch;
+            root.Degree++;
+        }
+
+        private Node<T> Merge(BinomialHeap<T> otherHeap)
         {
             Contract.Requires<ArgumentNullException>(otherHeap != null);
+            
             Node<T> current1;
             Node<T> current2;
 
@@ -57,6 +69,57 @@ namespace DataStructures.BinomialHeapSpace
                 current.RightSibling = tail;
                 current = current.RightSibling;
                 tail = tail.RightSibling;
+            }
+            return root;
+        }
+
+        public Node<T> Unify(BinomialHeap<T> heap)
+        {
+            Contract.Requires<ArgumentNullException>(heap != null);
+
+            Node<T> root = Merge(heap);
+            if (root == null)
+            {
+                return null;
+            }
+            Node<T> prev = null;
+            Node<T> current = root;
+            Node<T> next = current.RightSibling;
+            while (next != null)
+            {
+                bool needMerge = true;
+                if (current.Degree != next.Degree)
+                {
+                    needMerge = false;
+                }
+                if (next.RightSibling != null && next.RightSibling.Degree == next.Degree)
+                {
+                    needMerge = false;
+                }
+                if (needMerge)
+                {
+                    if (current.Value.CompareTo(next.Value) <= 0)
+                    {
+                        current.RightSibling = next.RightSibling;
+                        Link(current, next);
+                    }
+                    else if (prev != null)
+                    {
+                        prev.RightSibling = next;
+                        Link(next, current);
+                    }
+                    else
+                    {
+                        root = next;
+                        Link(next, current);
+                    }
+                }
+                else
+                {
+                    prev = current;
+                    current = next;
+                }
+                next = current.RightSibling;
             }
             return root;
         }
