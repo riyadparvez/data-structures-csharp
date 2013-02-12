@@ -5,17 +5,17 @@ A library for all the data structures in C#. Every class will be generic and reu
 
 Implemented data structures are:
 
+- AVL Tree
 - Binary Search Tree
 - Binary Search Tree (Transpose)
-- Red Black Tree
-- AVL Tree
-- Interval Tree
-- Splay Tree
-- Skip List
+- Binomial Heap
+- Directed Acyclic Word Graph
+- Heap
+- Heap Structured Binary Tree- Interval Tree
 - List (Move to front heuristics)
 - List (Frequency count heuristics)
 - List (Transpose heuristics)
-- Directed Acyclic Word Graph
+- Red Black Tree
+- Splay Tree
+- Skip List
 - Trie
-- Heap
-- Heap Structured Binary Tree
