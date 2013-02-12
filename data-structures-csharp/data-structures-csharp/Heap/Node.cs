@@ -10,7 +10,7 @@ namespace DataStructures.HeapSpace
     /// <typeparam name="T">Data type</typeparam>
     [Serializable]
     public class Node<T>
-        where T : IComparable<T>, IEquatable<T>
+        where T : IComparable<T>
     {
         private T val;
 
@@ -31,7 +31,6 @@ namespace DataStructures.HeapSpace
         public Node(T val, Node<T> parent)
         {
             Contract.Requires<ArgumentNullException>(val != null);
-            Contract.Requires(parent != null);
 
             this.val = val;
             Parent = parent;

@@ -11,7 +11,8 @@ namespace DataStructures.HeapSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class Heap<T> where T : IComparable<T>, IEquatable<T>
+    public class Heap<T>
+        where T : IComparable<T>
     {
         private Node<T> root;
 
@@ -105,14 +106,6 @@ namespace DataStructures.HeapSpace
             node2.Value = tempValue;
         }
 
-        //public void Remove(T element)
-        //{
-        //    Contract.Requires<ArgumentNullException>(element != null, "element");
-        //    //Restore heap property
-        //    root = Heapify(root);
-        //}
-
-
         public T GetMin()
         {
             if (root == null)
@@ -126,19 +119,53 @@ namespace DataStructures.HeapSpace
 
         private Node<T> LastNode()
         {
+            if (root == null)
+            {
+                return null;
+            }
+
             Queue<Node<T>> queue = new Queue<Node<T>>();
             queue.Enqueue(root);
+            Node<T> last = root;
 
             while (queue.Any())
             {
                 var current = queue.Dequeue();
-
+                Contract.Assert(current != null);
+                last = current;
+                if (current.Left != null)
+                {
+                    queue.Enqueue(current.Left);
+                }
+                if (current.Right != null)
+                {
+                    queue.Enqueue(current.Right);
+                }
             }
+            return last;
         }
 
         public T RemoveMin()
         {
+            if (root == null)
+            {
+                return default(T);
+            }
 
+            Node<T> lastNode = LastNode();
+
+            if (lastNode.Parent.Right == lastNode)
+            {
+                lastNode.Parent.Right = null;
+            }
+            if (lastNode.Parent.Left == lastNode)
+            {
+                lastNode.Parent.Left = null;
+            }
+            SwapData(root, lastNode);
+            Heapify(root);
+            Count--;
+            return lastNode.Value;
         }
     }
 }
