@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
@@ -9,6 +10,29 @@ namespace DataStructures.BinomialHeapSpace
         where T : IComparable<T>
     {
         private Node<T> root;
+
+        public static BinomialHeap<T> CreateBinomialHeap()
+        {
+            return new BinomialHeap<T>();
+        }
+
+        public static BinomialHeap<T> CreateBinomialHeap(T element)
+        {
+            Contract.Requires<ArgumentNullException>(element != null);
+
+            Node<T> root = new Node<T>(element, null);
+            return new BinomialHeap<T>(root);
+        }
+
+        private BinomialHeap()
+        {
+        }
+
+        private BinomialHeap(Node<T> root)
+        {
+            Contract.Requires<ArgumentNullException>(root != null);
+            this.root = root;
+        }
 
         private void Link(Node<T> root, Node<T> branch)
         {
@@ -143,6 +167,15 @@ namespace DataStructures.BinomialHeapSpace
             return root;
         }
 
+        public void Insert(T element)
+        {
+            //first make 0 order binomial heap
+            //then merge it with current heap
+            BinomialHeap<T> heap = CreateBinomialHeap(element);
+            heap.root.Degree = 1;
+            Unify(heap);
+        }
+
         public T GetMin()
         {
             Node<T> minNode = root;
@@ -157,6 +190,25 @@ namespace DataStructures.BinomialHeapSpace
                 }
             }
             return minNode.Value;
+        }
+
+        public static T ExtractMin(BinomialHeap<T> heap)
+        {
+            Contract.Requires<ArgumentNullException>(heap != null, "heap");
+            T min = heap.GetMin();
+            //List of children to root node, because it's getting removed
+            List<Node<T>> rootList = new List<Node<T>>();
+            Node<T> current = heap.root.RightSibling;
+            while (current != null)
+            {
+                //Assign parent field of children to null
+                current.Parent = null;
+                rootList.Add(current);
+            }
+            BinomialHeap<T> newHeap = CreateBinomialHeap();
+            newHeap.root = rootList[0];
+            heap = heap.Unify(newHeap);
+            return min;
         }
     }
 }
