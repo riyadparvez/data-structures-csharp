@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 
 namespace DataStructures.HeapSpace
@@ -35,9 +36,15 @@ namespace DataStructures.HeapSpace
             Contract.Requires<ArgumentNullException>(element != null, "element");
             Contract.Ensures(Count == Contract.OldValue<int>(Count) + 1);
 
+            if (root == null)
+            {
+                root = new Node<T>(element, null);
+                return;
+            }
+
             Queue<Node<T>> queue = new Queue<Node<T>>();
             queue.Enqueue(root);
-            while (queue.Count > 0)
+            while (queue.Any())
             {
                 var node = queue.Dequeue();
                 Contract.Assert(node != null);
@@ -117,5 +124,21 @@ namespace DataStructures.HeapSpace
             return temp.Value;
         }
 
+        private Node<T> LastNode()
+        {
+            Queue<Node<T>> queue = new Queue<Node<T>>();
+            queue.Enqueue(root);
+
+            while (queue.Any())
+            {
+                var current = queue.Dequeue();
+
+            }
+        }
+
+        public T RemoveMin()
+        {
+
+        }
     }
 }
