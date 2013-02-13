@@ -130,13 +130,24 @@ namespace DataStructures.HashSpace
 
         public bool TryGetValue(Tkey key, out TValue value)
         {
-            throw new NotImplementedException();
+            int index = GetIndex(key);
+            if (index != -1)
+            {
+                value = pairs[index].Value;
+                return true;
+            }
+            else
+            {
+                value = default(TValue);
+                return false;
+            }
         }
 
         public TValue this[Tkey key]
         {
             get
             {
+                Contract.Requires<ArgumentNullException>(key != null, "key");
                 throw new NotImplementedException();
             }
             set
@@ -154,7 +165,7 @@ namespace DataStructures.HashSpace
         {
             count = 0;
             isFilled = Array.ConvertAll<bool, bool>(isFilled, b => b = false);
-            pairs = Array.ConvertAll<Pair<Tkey, TValue>, Pair<Tkey, TValue>>(pairs, pairs => pairs = null);
+            pairs = Array.ConvertAll<Pair<Tkey, TValue>, Pair<Tkey, TValue>>(pairs, pair => pair = null);
         }
 
         public bool Contains(KeyValuePair<Tkey, TValue> item)
@@ -171,7 +182,7 @@ namespace DataStructures.HashSpace
         {
             if (!ContainsKey(item.Key))
             {
-                return true;
+                return false;
             }
 
         }
