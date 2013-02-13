@@ -91,6 +91,8 @@
     <Compile Include="BPlusTree\LeafNode.cs" />
     <Compile Include="BPlusTree\Node.cs" />
     <Compile Include="BPlusTree\Split.cs" />
+    <Compile Include="Hash\LinearProbingDictionary.cs" />
+    <Compile Include="Hash\LinkedHashMap.cs" />
     <Compile Include="Heap\Node.cs" />
     <Compile Include="HSBT\HeapStructuredBinaryTree.cs" />
     <Compile Include="HSBT\Node.cs" />
