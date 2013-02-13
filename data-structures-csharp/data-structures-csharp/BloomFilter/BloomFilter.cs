@@ -29,6 +29,20 @@ namespace DataStructures.BloomFilterSpace
             get { return bitsPerElement; }
         }
         public int Count { get; private set; }
+        public int NumberOfHashes
+        {
+            get { return algorithmNames.Length; }
+        }
+        public double FalsePositiveProbability
+        {
+            // (1 - e^(-k * n / m)) ^ k
+            get
+            {
+                return Math.Pow((1 - Math.Exp(-NumberOfHashes * (double)Count
+                          / (double)bits.Length)), NumberOfHashes);
+            }
+
+        }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
