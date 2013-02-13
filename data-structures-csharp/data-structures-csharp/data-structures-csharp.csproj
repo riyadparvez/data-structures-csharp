@@ -85,6 +85,7 @@
     <Compile Include="BinarySearchTree\Node.cs" />
     <Compile Include="BinomialHeap\BinomialHeap.cs" />
     <Compile Include="BinomialHeap\Node.cs" />
+    <Compile Include="BloomFilter\BloomFilter.cs" />
     <Compile Include="BPlusTree\BPlusTree.cs" />
     <Compile Include="BPlusTree\IntermediateNode.cs" />
     <Compile Include="BPlusTree\LeafNode.cs" />
@@ -141,7 +142,6 @@
     <Compile Include="Utils\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BloomFilter\" />
     <Folder Include="BTree\" />
     <Folder Include="SuffixArray\" />
   </ItemGroup>

@@ -104,7 +104,7 @@ namespace DataStructures.BinomialHeapSpace
             return root;
         }
 
-        public Node<T> Unify(BinomialHeap<T> heap)
+        public BinomialHeap<T> Unify(BinomialHeap<T> heap)
         {
             Contract.Requires<ArgumentNullException>(heap != null);
 
@@ -164,7 +164,7 @@ namespace DataStructures.BinomialHeapSpace
                 }
                 next = current.RightSibling;
             }
-            return root;
+            return new BinomialHeap<T>(root);
         }
 
         public void Insert(T element)
