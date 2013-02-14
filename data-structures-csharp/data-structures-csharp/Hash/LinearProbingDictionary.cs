@@ -178,11 +178,11 @@ namespace DataStructures.HashSpace
             throw new NotImplementedException();
         }
 
-        public bool Remove(KeyValuePair<Tkey, TValue> item)
+        public void Remove(KeyValuePair<Tkey, TValue> item)
         {
             if (!ContainsKey(item.Key))
             {
-                return false;
+                return;
             }
 
         }

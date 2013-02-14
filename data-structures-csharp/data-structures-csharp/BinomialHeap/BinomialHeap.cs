@@ -6,7 +6,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.BinomialHeapSpace
 {
     [Serializable]
-    public class BinomialHeap<T>
+    public partial class BinomialHeap<T>
         where T : IComparable<T>
     {
         private Node<T> root;

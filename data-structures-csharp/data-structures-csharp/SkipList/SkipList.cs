@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
@@ -10,9 +11,11 @@ namespace DataStructures.SkipListSpace
     /// <typeparam name="TKey">Key in key value pair</typeparam>
     /// <typeparam name="TValue">Value in key value pair</typeparam>
     [Serializable]
-    public class SkipList<TKey, TValue>
+    public partial class SkipList<TKey, TValue> : IEnumerable<TValue>, ICollection<TValue>
             where TKey : IComparable<TKey>
     {
+        private object lockObject = new object();
+
         private readonly int maxLevel;
         private int level;
         private SkipNode<TKey, TValue> header;
@@ -22,6 +25,8 @@ namespace DataStructures.SkipListSpace
         private readonly Random random = new Random();
 
         public int Count { get; private set; }
+        public bool IsSynchronized { get { return false; } }
+        public object SyncRoot { get { return lockObject; } }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
@@ -207,6 +212,38 @@ namespace DataStructures.SkipListSpace
                 //Element is not in the list, return default
                 return default(TValue);
             }
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+            Contract.Requires<ArgumentNullException>(array != null, "array");
+            Contract.Requires<ArgumentOutOfRangeException>(index >= 0, "index");
+            Contract.Requires<ArgumentException>(array.Length < Count);
+
+            int i = index;
+
+            var node = header.Links[0];
+            while (node != null)
+            {
+                array.SetValue(node.Value, i);
+                node = node.Links[0];
+                i++;
+            }
+        }
+
+        public IEnumerator<TValue> GetEnumerator()
+        {
+            var node = header.Links[0];
+            while (node != null)
+            {
+                yield return node.Value;
+                node = node.Links[0];
+            }
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

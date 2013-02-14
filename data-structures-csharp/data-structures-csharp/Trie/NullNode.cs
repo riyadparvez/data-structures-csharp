@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 namespace DataStructures.TrieSpace
 {
     [Serializable]
-    public sealed class NullNode : Node
+    public partial class Trie : IEnumerable<string>
     {
-        public NullNode(string wordFromRoot, Node parent)
-            : base((char)0, wordFromRoot, parent)
+        [Serializable]
+        private sealed class NullNode : Node
         {
+            public NullNode(string wordFromRoot, Node parent)
+                : base((char)0, wordFromRoot, parent)
+            {
 
+            }
         }
     }
 }

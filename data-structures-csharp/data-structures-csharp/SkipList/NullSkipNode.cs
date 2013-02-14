@@ -1,29 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructures.SkipListSpace
 {
     [Serializable]
-    public sealed class NullSkipNode<TKey, TValue> : SkipNode<TKey, TValue>
-        where TKey : IComparable<TKey>
+    public partial class SkipList<TKey, TValue> : IEnumerable<TValue>, ICollection<TValue>
+            where TKey : IComparable<TKey>
     {
-        public NullSkipNode(int level)
-            : base (level)
+        [Serializable]
+        private sealed class NullSkipNode<TKey, TValue> : SkipNode<TKey, TValue>
+            where TKey : IComparable<TKey>
         {
-        
-        }
-
-        public bool Equals(SkipNode<TKey, TValue> otherNode) 
-        {
-            NullSkipNode<TKey, TValue> otherNullNode = otherNode as NullSkipNode<TKey, TValue>;
-            if (otherNullNode == null)
+            public NullSkipNode(int level)
+                : base(level)
             {
-                return false;
+
             }
-            return true;
+
+            public bool Equals(SkipNode<TKey, TValue> otherNode)
+            {
+                NullSkipNode<TKey, TValue> otherNullNode = otherNode as NullSkipNode<TKey, TValue>;
+                if (otherNullNode == null)
+                {
+                    return false;
+                }
+                return true;
+            }
         }
     }
 }

@@ -9,9 +9,10 @@ namespace DataStructures.ListSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class SortedList<T> : IEnumerable<T>
+    public class SortedList<T> : IEnumerable<T>, ICollection<T>
         where T : IComparable<T>
     {
+        private object lockObject = new object();
         private List<T> list;
 
         public int Capacity
@@ -22,6 +23,8 @@ namespace DataStructures.ListSpace
         {
             get { return list.Count; }
         }
+        public bool IsSynchronized { get { return false; } }
+        public object SyncRoot { get { return lockObject; } }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
@@ -68,6 +71,19 @@ namespace DataStructures.ListSpace
             Contract.Requires<ArgumentNullException>(element != null);
 
             list.Remove(element);
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+            Contract.Requires<ArgumentNullException>(array != null, "array");
+            Contract.Requires<ArgumentOutOfRangeException>(index >= 0, "index");
+            Contract.Requires<ArgumentException>(array.Length < Count);
+
+            int i = index;
+            foreach (T element in list)
+            {
+                array.SetValue(element, i);
+            }
         }
 
         public IEnumerator<T> GetEnumerator()

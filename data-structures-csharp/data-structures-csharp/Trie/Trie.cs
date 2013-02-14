@@ -6,7 +6,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.TrieSpace
 {
     [Serializable]
-    public class Trie : IEnumerable<string>
+    public partial class Trie : IEnumerable<string>
     {
         public Node Root { get; private set; }
         public int Count { get; private set; }

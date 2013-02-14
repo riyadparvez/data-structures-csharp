@@ -12,7 +12,7 @@ namespace DataStructures.AvlTreeSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class AvlTree<T> : IEnumerable<T>
+    public partial class AvlTree<T> : IEnumerable<T>
         where T : IComparable<T>
     {
         protected int count;
