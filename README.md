@@ -6,12 +6,16 @@ A library for all the data structures in C#. Every class will be generic and reu
 Implemented data structures are:
 
 - AVL Tree
+- B+ Tree
 - Binary Search Tree
 - Binary Search Tree (Transpose)
 - Binomial Heap
+- Bloom Filter
+- Compressed Trie
 - Directed Acyclic Word Graph
 - Heap
-- Heap Structured Binary Tree- Interval Tree
+- Heap Structured Binary Tree
+- Interval Tree
 - List (Move to front heuristics)
 - List (Frequency count heuristics)
 - List (Transpose heuristics)
