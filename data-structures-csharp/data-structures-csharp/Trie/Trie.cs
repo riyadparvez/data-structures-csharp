@@ -50,7 +50,7 @@ namespace DataStructures.TrieSpace
 
 
         /// <summary>
-        /// Adds word to the end of speicified node
+        /// Adds word to the end of specified node
         /// </summary>
         /// <param name="node"></param>
         /// <param name="word"></param>
@@ -102,7 +102,7 @@ namespace DataStructures.TrieSpace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="word"></param>
         /// <returns>False if word isn't already in trie</returns>

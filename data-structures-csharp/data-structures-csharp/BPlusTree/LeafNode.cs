@@ -16,7 +16,7 @@ namespace DataStructures.BPlusTreeSpace
             public LeafNode(int numberOfValues)
             {
                 Contract.Requires<ArgumentOutOfRangeException>(numberOfValues > 0);
-                
+
                 values = new TValue[numberOfValues];
             }
 

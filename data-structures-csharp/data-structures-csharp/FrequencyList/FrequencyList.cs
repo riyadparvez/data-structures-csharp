@@ -123,7 +123,7 @@ namespace DataStructures.FrequencyListSpace
             var node = GetNode(element);
             if (node == null)
             {
-                //Element doesn't exist 
+                //Element doesn't exist
                 return;
             }
             //unlink that node from the list
