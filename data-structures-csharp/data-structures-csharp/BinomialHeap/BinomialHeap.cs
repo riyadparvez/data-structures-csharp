@@ -94,7 +94,7 @@ namespace DataStructures.BinomialHeapSpace
             {
                 tail = current1;
             }
-            //insert reamining elements of other heap
+            //insert remaining elements of other heap
             while (tail != null)
             {
                 current.RightSibling = tail;
@@ -113,7 +113,7 @@ namespace DataStructures.BinomialHeapSpace
             {
                 return null;
             }
-            //resotre the property no two sub tree has same order
+            //restore the property no two sub tree has same order
             Node<T> prev = null;
             Node<T> current = root;
             Node<T> next = current.RightSibling;
@@ -122,12 +122,12 @@ namespace DataStructures.BinomialHeapSpace
                 bool needMerge = true;
                 if (current.Degree != next.Degree)
                 {
-                    //oders are not same, don't need merging
+                    //orders are not same, don't need merging
                     needMerge = false;
                 }
                 if (next.RightSibling != null && next.RightSibling.Degree == next.Degree)
                 {
-                    //oders are not same, don't need merging
+                    //orders are not same, don't need merging
                     needMerge = false;
                 }
                 if (needMerge)
@@ -150,7 +150,7 @@ namespace DataStructures.BinomialHeapSpace
                     }
                     else
                     {
-                        //previous is null means this is root noed
+                        //previous is null means this is root node
                         //make current node child of next node
                         //and next node is the new root
                         root = next;
@@ -180,7 +180,7 @@ namespace DataStructures.BinomialHeapSpace
         {
             Node<T> minNode = root;
             Node<T> current = minNode.RightSibling;
-            //for heap root is the minimum, so we are traversing over the 
+            //for heap root is the minimum, so we are traversing over the
             //roots of heap
             while (current != null)
             {

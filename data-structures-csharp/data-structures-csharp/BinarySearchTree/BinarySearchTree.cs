@@ -156,7 +156,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
 
         /// <summary>
-        /// Returns in order successor, returns if it's the lst element
+        /// Returns in order successor, returns if it's the last element
         /// </summary>
         /// <param name="node"></param>
         /// <returns>returns null if in order successor doesn't exist</returns>
@@ -319,7 +319,7 @@ namespace DataStructures.BinarySearchTreeSpace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>

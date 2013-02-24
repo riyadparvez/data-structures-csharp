@@ -7,7 +7,7 @@ using System.Linq;
 namespace DataStructures.HashSpace
 {
     /// <summary>
-    /// A hashtable which uses user specified step size probing
+    /// A hash table which uses user specified step size probing
     /// </summary>
     /// <typeparam name="Tkey"></typeparam>
     /// <typeparam name="TValue"></typeparam>

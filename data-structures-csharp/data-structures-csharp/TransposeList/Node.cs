@@ -17,14 +17,14 @@ namespace DataStructures.TransposeListSpace
         {
         }
 
-        public Node(T data) 
+        public Node(T data)
         {
             Data = data;
         }
 
-        public override int GetHashCode() 
+        public override int GetHashCode()
         {
-            unchecked 
+            unchecked
             {
                 int hash = 17;
                 hash = 23 * Data.GetHashCode();

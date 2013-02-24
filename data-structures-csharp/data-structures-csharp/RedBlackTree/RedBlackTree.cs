@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.RedBlackTreeSpace
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
@@ -250,7 +250,7 @@ namespace DataStructures.RedBlackTreeSpace
                 }
                 else
                 {
-                    //Right subtree of Left subtree is unbalanced 
+                    //Right subtree of Left subtree is unbalanced
                     parent.Right = RotateLeft(parent.Right);
                 }
                 return parent.Right;

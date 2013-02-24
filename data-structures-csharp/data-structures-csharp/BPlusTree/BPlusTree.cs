@@ -10,7 +10,7 @@ namespace DataStructures.BPlusTreeSpace
     {
         private INode<TKey, TValue> root;
         /// <summary>
-        /// the maximum number of key value pairs in the leaf node, M must be > 0      
+        /// the maximum number of key value pairs in the leaf node, M must be > 0
         /// </summary>
         public readonly int NumberOfValuesInLeafNode;
         /// <summary>

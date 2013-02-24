@@ -71,7 +71,7 @@ namespace DataStructures.QuadTreeSpace
         {
             Contract.Ensures(Contract.Result<List<Node<T>>>() != null);
 
-            return new List<Node<T>> 
+            return new List<Node<T>>
                         {
                             TopLeft,
                             TopRight,

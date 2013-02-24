@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.HsbtSpace
 {
     /// <summary>
-    /// Root &lt left &lt right 
+    /// Root &lt left &lt right
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>

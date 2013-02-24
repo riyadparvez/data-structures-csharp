@@ -70,7 +70,7 @@ namespace DataStructures.QuadTreeSpace
         }
 
         /// <summary>
-        /// Splits current node into four quadrents
+        /// Splits current node into four quadrants
         /// </summary>
         private void SplitRegionIntoChildNodes()
         {
