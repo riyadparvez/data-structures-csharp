@@ -10,12 +10,12 @@ namespace DataStructures.BTreeSpace
         private sealed class Node<TKey, TValue>
             where TKey : IComparable<TKey>
         {
-            internal readonly int maximumNumberOfChildren;
+            internal int numberOfChildren;
             internal Entry<TKey, TValue>[] Children { get; set; }
 
             public Node(int maximumNumberOfChildren)
             {
-                this.maximumNumberOfChildren = maximumNumberOfChildren;
+                this.numberOfChildren = maximumNumberOfChildren;
                 Children = new Entry<TKey, TValue>[maximumNumberOfChildren];
             }
         }

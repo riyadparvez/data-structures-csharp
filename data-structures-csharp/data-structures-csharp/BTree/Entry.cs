@@ -8,6 +8,8 @@ namespace DataStructures.BTreeSpace
     {
         /// <summary>
         /// Every entry in children contains either a key value pair or link to next child
+        /// internal nodes: only use key and next
+        /// external nodes: only use key and value
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
         /// <typeparam name="TValue"></typeparam>
