@@ -89,8 +89,11 @@
     <Compile Include="BPlusTree\BPlusTree.cs" />
     <Compile Include="BPlusTree\IntermediateNode.cs" />
     <Compile Include="BPlusTree\LeafNode.cs" />
-    <Compile Include="BPlusTree\Node.cs" />
+    <Compile Include="BPlusTree\INode.cs" />
     <Compile Include="BPlusTree\Split.cs" />
+    <Compile Include="BTree\BTree.cs" />
+    <Compile Include="BTree\Entry.cs" />
+    <Compile Include="BTree\Node.cs" />
     <Compile Include="Hash\LinearProbingDictionary.cs" />
     <Compile Include="Hash\LinkedHashMap.cs" />
     <Compile Include="Heap\Node.cs" />
@@ -144,7 +147,6 @@
     <Compile Include="Utils\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BTree\" />
     <Folder Include="SuffixArray\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

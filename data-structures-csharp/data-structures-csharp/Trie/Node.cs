@@ -149,8 +149,8 @@ namespace DataStructures.TrieSpace
             {
                 public override int Compare(Node x, Node y)
                 {
-                    Contract.Requires(x != null);
-                    Contract.Requires(y != null);
+                    Contract.Requires<ArgumentNullException>(x != null);
+                    Contract.Requires<ArgumentNullException>(y != null);
 
                     return x.Character.CompareTo(y.Character);
                 }
