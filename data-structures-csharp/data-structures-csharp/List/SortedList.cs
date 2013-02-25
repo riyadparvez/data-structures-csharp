@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.ListSpace
 {
     /// <summary>
-    /// Use insertion sort for evey element added
+    /// Use insertion sort for every element added
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]

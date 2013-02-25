@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.DAWGSpace
 {
     /// <summary>
-    /// Every edge corrosponds to different edge between two nodes of graph
+    /// Every edge corresponds to different edge between two nodes of graph
     /// </summary>
     [Serializable]
     public class Edge

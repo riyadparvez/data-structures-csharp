@@ -10,9 +10,9 @@ namespace DataStructures.TransposeListSpaceS
     {
         private List<T> list = new List<T>();
 
-        T Get(T element) 
-        { 
-        
+        T Get(T element)
+        {
+
         }
 
         public IEnumerator<T> GetEnumerator()

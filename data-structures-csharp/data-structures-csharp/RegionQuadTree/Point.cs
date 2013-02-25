@@ -8,12 +8,12 @@ namespace DataStructures.RegionQuadTreeSpace
         private double x;
         private double y;
 
-        public double X 
+        public double X
         {
             get { return x; }
             set { x = value; }
         }
-        public double Y 
+        public double Y
         {
             get { return y; }
             set { y = value; }

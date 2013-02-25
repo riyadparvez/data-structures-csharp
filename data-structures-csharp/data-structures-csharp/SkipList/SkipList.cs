@@ -75,7 +75,7 @@ namespace DataStructures.SkipListSpace
         }
 
         /// <summary>
-        /// Inser key value pair in list
+        /// Insert key value pair in list
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -98,11 +98,11 @@ namespace DataStructures.SkipListSpace
                 //Put the predecessor node link in the level of update list
                 update[i] = cursor;
             }
-            //Check level 0 next towhether we already have that element
+            //Check level 0 next whether we already have that element
             cursor = cursor.Links[0];
             if (cursor.Key.CompareTo(key) == 0)
             {
-                //Assign new value to corrosponding key
+                //Assign new value to corresponding key
                 cursor.Value = value;
             }
             else
@@ -111,27 +111,27 @@ namespace DataStructures.SkipListSpace
                 //Find random level for insertion
                 int newLevel = GetRandomLevel();
                 //New node level is greater then current level
-                //Update intermediate nodes 
+                //Update intermediate nodes
                 if (newLevel > level)
                 {
-                    //This is a specila case, where dummy header links aren't initialized yet
+                    //This is a special case, where dummy header links aren't initialized yet
                     for (int i = level + 1; i < newLevel; i++)
                     {
-                        //These levels of header aren;t initialized yet
+                        //These levels of header aren't initialized yet
                         update[i] = header;
                     }
                     //update current level, until this level from bottom header link is initialized
                     level = newLevel;
                 }
-                //New node which will be inserted into new level, also nedds newLevel number of forward edges 
+                //New node which will be inserted into new level, also needs newLevel number of forward edges
                 cursor = new SkipNode<TKey, TValue>(newLevel, key, value);
                 //Insert the node
                 for (int i = 0; i < newLevel; i++)
                 {
                     //Update edges of all the levels below to that level
-                    //New node is set to successor node its predecessor 
+                    //New node is set to successor node its predecessor
                     cursor.Links[i] = update[i].Links[i];
-                    //Update forward edges of predecessor to currently inserted node 
+                    //Update forward edges of predecessor to currently inserted node
                     update[i].Links[i] = cursor;
                 }
                 Count++;
@@ -171,7 +171,7 @@ namespace DataStructures.SkipListSpace
                         update[i].Links[i] = cursor.Links[i];
                     }
                 }
-                //Re adjust levels of initialized links of dummy header
+                //Readjust levels of initialized links of dummy header
                 while ((level > 0) && (header.Links[level].Key.Equals(NullNode)))
                 {
                     level--;
@@ -182,7 +182,7 @@ namespace DataStructures.SkipListSpace
         }
 
         /// <summary>
-        /// Serach for values, given a key
+        /// Search for values, given a key
         /// </summary>
         /// <param name="key">Key to be searched</param>
         /// <returns>Value otherwise type default</returns>
