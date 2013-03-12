@@ -94,6 +94,8 @@
     <Compile Include="BTree\BTree.cs" />
     <Compile Include="BTree\Entry.cs" />
     <Compile Include="BTree\Node.cs" />
+    <Compile Include="CircularBuffer\CircularBuffer.cs" />
+    <Compile Include="ConcurrentHashSet\ConcurrentHashSet.cs" />
     <Compile Include="Hash\LinearProbingDictionary.cs" />
     <Compile Include="Hash\LinkedHashMap.cs" />
     <Compile Include="Heap\Node.cs" />
@@ -134,6 +136,8 @@
     <Compile Include="RedBlackTree\NullNode.cs" />
     <Compile Include="RedBlackTree\RedBlackTree.cs" />
     <Compile Include="RootedTree\RootedTree.cs" />
+    <Compile Include="Rope\Node.cs" />
+    <Compile Include="Rope\Rope.cs" />
     <Compile Include="SkipList\NullSkipNode.cs" />
     <Compile Include="SkipList\SkipList.cs" />
     <Compile Include="SkipList\SkipNode.cs" />
