@@ -12,6 +12,7 @@ Implemented data structures are:
 - Binomial Heap
 - Bloom Filter
 - Compressed Trie
+- Concurrent Hash Set
 - Directed Acyclic Word Graph
 - Heap
 - Heap Structured Binary Tree
