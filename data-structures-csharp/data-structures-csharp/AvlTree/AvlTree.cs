@@ -16,12 +16,8 @@ namespace DataStructures.AvlTreeSpace
         where T : IComparable<T>
     {
         protected int count;
-        protected Node<T> root;
+        private Node<T> root;
 
-        public Node<T> Root
-        {
-            get { return root; }
-        }
         public int Count
         {
             get { return count; }
@@ -33,11 +29,11 @@ namespace DataStructures.AvlTreeSpace
             Contract.Invariant(count >= 0);
         }
 
-        public Node<T> Add(T element)
+        public void Add(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
 
-            return Add(root, element);
+            Add(root, element);
         }
 
         /// <summary>
@@ -46,7 +42,7 @@ namespace DataStructures.AvlTreeSpace
         /// <param name="root">root of the tree the element to be added</param>
         /// <param name="element">true if added, false if already added</param>
         /// <returns>Newly added elements</returns>
-        public Node<T> Add(Node<T> root, T element, int height = 0)
+        private Node<T> Add(Node<T> root, T element, int height = 0)
         {
             Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
             Contract.Requires<ArgumentOutOfRangeException>(height >= 0);
@@ -196,7 +192,12 @@ namespace DataStructures.AvlTreeSpace
             return temp;
         }
 
-        public bool IsBalanced(Node<T> node)
+        public bool IsBalanced()
+        {
+            return IsBalanced(root);
+        }
+
+        private bool IsBalanced(Node<T> node)
         {
             if (node == null)
             {

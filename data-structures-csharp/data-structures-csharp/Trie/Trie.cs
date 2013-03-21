@@ -56,7 +56,7 @@ namespace DataStructures.TrieSpace
         /// </summary>
         /// <param name="node"></param>
         /// <param name="word"></param>
-        public void Add(Node node, string word)
+        private void Add(Node node, string word)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(word),
                             "Trie doesn't include empty string or null values");
