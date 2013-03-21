@@ -8,19 +8,20 @@ namespace DataStructures.TrieSpace
     [Serializable]
     public partial class Trie : IEnumerable<string>
     {
-        public Node Root { get; private set; }
+        private Node root;
+
         public int Count { get; private set; }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(Root != null);
+            Contract.Invariant(root != null);
             Contract.Invariant(Count >= 0);
         }
 
         public Trie()
         {
-            Root = new NullNode(string.Empty, null);
+            root = new NullNode(string.Empty, null);
         }
 
 
@@ -32,9 +33,10 @@ namespace DataStructures.TrieSpace
         [Pure]
         public bool Exists(string word)
         {
-            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(word),
+                            "Trie doesn't include empty string or null values");
 
-            Node current = Root;
+            Node current = root;
             foreach (char ch in word)
             {
                 Node childNode = current.HasChild(ch);
@@ -56,7 +58,8 @@ namespace DataStructures.TrieSpace
         /// <param name="word"></param>
         public void Add(Node node, string word)
         {
-            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(word),
+                            "Trie doesn't include empty string or null values");
             Contract.Requires<ArgumentNullException>(node != null);
             Contract.Ensures(Count == Contract.OldValue<int>(Count) + 1);
 
@@ -75,14 +78,15 @@ namespace DataStructures.TrieSpace
         /// <param name="word"></param>
         public void Add(string word)
         {
-            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(word),
+                            "Trie doesn't include empty string or null values");
 
             if (Exists(word))
             {
                 return;
             }
 
-            Node current = Root;
+            Node current = root;
             for (int i = 0; i < word.Length; i++)
             {
                 Node childNode = current.HasChild(word[i]);
@@ -108,13 +112,14 @@ namespace DataStructures.TrieSpace
         /// <returns>False if word isn't already in trie</returns>
         public bool Remove(string word)
         {
-            Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(word),
+                            "Trie doesn't include empty string or null values");
 
             if (!Exists(word))
             {
                 return false;
             }
-            var current = Root;
+            var current = root;
             foreach (var ch in word)
             {
                 Node childNode = current.HasChild(ch);
@@ -154,7 +159,7 @@ namespace DataStructures.TrieSpace
             Contract.Ensures(Contract.Result<List<string>>() != null);
 
             var words = new List<string>();
-            var current = Root;
+            var current = root;
             foreach (char ch in prefix)
             {
                 Node childNode = current.HasChild(ch);
@@ -187,7 +192,7 @@ namespace DataStructures.TrieSpace
 
         public IEnumerator<string> GetEnumerator()
         {
-            return Enumerate(Root);
+            return Enumerate(root);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

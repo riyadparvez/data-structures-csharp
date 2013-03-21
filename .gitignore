@@ -6,3 +6,6 @@
 /data-structures-csharp/data-structures-csharp/obj/Debug/DataStructures.pdb
 /data-structures-csharp/data-structures-csharp/obj/*
 /data-structures-csharp/data-structures-csharp/obj/bin/*
+/data-structures-csharp/data-structures-test/obj/*
+/data-structures-csharp/data-structures-test/bin/*
+/data-structures-csharp/data-structures-test/TestResults/*
