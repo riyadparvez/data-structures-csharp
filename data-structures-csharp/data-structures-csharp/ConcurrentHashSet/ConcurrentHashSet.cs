@@ -20,7 +20,10 @@ namespace DataStructures.ConcurrentHashSet
             }
             finally
             {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+                if (_lock.IsWriteLockHeld)
+                {
+                    _lock.ExitWriteLock();
+                }
             }
         }
 
@@ -33,7 +36,10 @@ namespace DataStructures.ConcurrentHashSet
             }
             finally
             {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+                if (_lock.IsWriteLockHeld)
+                {
+                    _lock.ExitWriteLock();
+                }
             }
         }
 
@@ -46,7 +52,10 @@ namespace DataStructures.ConcurrentHashSet
             }
             finally
             {
-                if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+                if (_lock.IsReadLockHeld)
+                {
+                    _lock.ExitReadLock();
+                }
             }
         }
 
@@ -59,7 +68,10 @@ namespace DataStructures.ConcurrentHashSet
             }
             finally
             {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+                if (_lock.IsWriteLockHeld)
+                {
+                    _lock.ExitWriteLock();
+                }
             }
         }
 
@@ -74,10 +86,12 @@ namespace DataStructures.ConcurrentHashSet
                 }
                 finally
                 {
-                    if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+                    if (_lock.IsReadLockHeld)
+                    {
+                        _lock.ExitReadLock();
+                    }
                 }
             }
         }
-
     }
 }

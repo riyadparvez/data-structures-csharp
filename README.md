@@ -1,4 +1,4 @@
-data-structures-csharp
+Data Structures C#
 ======================
 
 A library for all the data structures in C#. Every class will be generic and reusable.
