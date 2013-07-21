@@ -11,7 +11,7 @@ namespace DataStructures.AdjacencyList
     {
         private readonly Dictionary<T, List<T>> dict;
 
-        public IEnumerable<T> Vertices 
+        public IList<T> Vertices 
         {
             get { return dict.Keys; }
         }
@@ -47,5 +47,11 @@ namespace DataStructures.AdjacencyList
             Contract.Requires<ArgumentNullException>(neighbour != null);
             return dict.ContainsKey(vertex) && dict[vertex].Contains(neighbour);
         }
+
+        public IList<T> GetNeighbours(T vertex) 
+        {
+            Contract.Requires<ArgumentNullException>(vertex != null);
+            return dict.ContainsKey(vertex)? dict[vertex]: new List<T>();
+        } 
     }
 }
