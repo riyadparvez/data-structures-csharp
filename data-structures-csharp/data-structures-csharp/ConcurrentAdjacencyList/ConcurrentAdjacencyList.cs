@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace DataStructures.AdjacencyList
+namespace DataStructures.ConcurrentAdjacencyList
 {
     [Serializable]
-    public class AdjacencyList<T>
+    public class ConcurrentAdjacencyList<T>
     {
-        private readonly Dictionary<T, List<T>> dict;
+        private readonly ConcurrentDictionary<T, List<T>> dict = new ConcurrentDictionary<T, List<T>>();
 
         public IList<T> Vertices 
         {
@@ -19,12 +20,6 @@ namespace DataStructures.AdjacencyList
         public int Count 
         {
             get { return dict.Count; }
-        }
-
-        public AdjacencyList(int capacity)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
-            dict = new Dictionary<T, List<T>>(capacity);
         }
 
         public void AddVertex(T vertex)
@@ -52,6 +47,6 @@ namespace DataStructures.AdjacencyList
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
             return dict.ContainsKey(vertex)? dict[vertex]: new List<T>();
-        } 
+        }
     }
 }
