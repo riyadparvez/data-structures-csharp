@@ -47,7 +47,7 @@ namespace DataStructures.HashSpace
         }
 
 
-        public LinearProbingDictionary(int capacity, int stepSize)
+        public LinearProbingDictionary(int capacity, int stepSize = 1)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
             Contract.Requires<ArgumentOutOfRangeException>(stepSize > 0);
@@ -65,7 +65,19 @@ namespace DataStructures.HashSpace
 
         public void Add(Tkey key, TValue value)
         {
-
+            Pair<Tkey, TValue> pair = new Pair<Tkey, TValue>(key, value);
+            int pos = pair.GetHashCode();
+            int count = 0;
+            while(pairs[pos] != null)
+            {
+                if(count >= capacity)
+                {
+                    throw new Exception("Dictionary is full");
+                }
+                pos = (pos+stepSize) % capacity;
+                count++;
+            }
+            pairs[pos] = pair;
         }
 
         /// <summary>
@@ -112,7 +124,7 @@ namespace DataStructures.HashSpace
             }
         }
 
-        public bool Remove(Tkey key)
+        public void Remove(Tkey key)
         {
             Contract.Requires<ArgumentNullException>(key != null, "key");
             int index;
@@ -120,11 +132,6 @@ namespace DataStructures.HashSpace
             {
                 pairs[index] = null;
                 count--;
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 
@@ -152,13 +159,21 @@ namespace DataStructures.HashSpace
             }
             set
             {
-                throw new NotImplementedException();
+                var index = GetIndex(key) ;
+                if (index != -1)
+                {
+                    Add(key, value);
+                }
+                else
+                {
+                    pairs[index].Value = value;
+                }
             }
         }
 
         public void Add(KeyValuePair<Tkey, TValue> item)
         {
-            throw new NotImplementedException();
+            Add(item.Key, item.Value);
         }
 
         public void Clear()
@@ -170,12 +185,19 @@ namespace DataStructures.HashSpace
 
         public bool Contains(KeyValuePair<Tkey, TValue> item)
         {
-            throw new NotImplementedException();
+            return ContainsKey(item.Key) ? item.Value.Equals(pairs[GetIndex(item.Key)].Value) : false;
         }
 
         public void CopyTo(KeyValuePair<Tkey, TValue>[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            foreach (var pair in pairs)
+            {
+                if(pair != null)
+                {
+                    array[arrayIndex] = new KeyValuePair<Tkey, TValue>(pair.Key, pair.Value);
+                    arrayIndex++;
+                }
+            }
         }
 
         public void Remove(KeyValuePair<Tkey, TValue> item)
@@ -184,7 +206,8 @@ namespace DataStructures.HashSpace
             {
                 return;
             }
-
+            pairs[GetIndex(item.Key)] = null;
+            count--;
         }
 
         public IEnumerator<KeyValuePair<Tkey, TValue>> GetEnumerator()
@@ -204,6 +227,12 @@ namespace DataStructures.HashSpace
         {
             public Tkey Key { get; set; }
             public TValue Value { get; set; }
+
+            public Pair(Tkey key, TValue value)
+            {
+                Key = key;
+                Value = value;
+            }
 
             public override bool Equals(object obj)
             {

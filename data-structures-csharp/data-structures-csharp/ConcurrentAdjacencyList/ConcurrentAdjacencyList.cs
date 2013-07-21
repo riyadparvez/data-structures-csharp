@@ -7,6 +7,7 @@ using System.Text;
 
 namespace DataStructures.ConcurrentAdjacencyList
 {
+    //TODO: incomplete, requires inspection
     [Serializable]
     public class ConcurrentAdjacencyList<T>
     {

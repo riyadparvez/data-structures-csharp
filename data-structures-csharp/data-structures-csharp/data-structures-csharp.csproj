@@ -96,6 +96,7 @@
     <Compile Include="BTree\Entry.cs" />
     <Compile Include="BTree\Node.cs" />
     <Compile Include="CircularBuffer\CircularBuffer.cs" />
+    <Compile Include="ConcurrentAdjacencyList\ConcurrentAdjacencyList.cs" />
     <Compile Include="ConcurrentHashSet\ConcurrentHashSet.cs" />
     <Compile Include="Hash\LinearProbingDictionary.cs" />
     <Compile Include="Hash\LinkedHashMap.cs" />
