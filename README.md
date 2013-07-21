@@ -1,7 +1,7 @@
 Data Structures C#
 ======================
 
-A library for all the data structures in C#. Every class will be generic and reusable.
+A library for all the data structures in C#. Every class will be generic and reusable. It uses [http://research.microsoft.com/contracts](http://research.microsoft.com/contracts "Code Contract") library.
 
 Implemented data structures are:
 
@@ -21,6 +21,8 @@ Implemented data structures are:
 - List (Frequency count heuristics)
 - List (Transpose heuristics)
 - Red Black Tree
+- Region Quad Tree
+- Rooted Tree
 - Splay Tree
 - Skip List
 - Trie
