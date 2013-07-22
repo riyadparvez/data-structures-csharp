@@ -99,7 +99,7 @@
     <Compile Include="ConcurrentAdjacencyList\ConcurrentAdjacencyList.cs" />
     <Compile Include="ConcurrentHashSet\ConcurrentHashSet.cs" />
     <Compile Include="Hash\LinearProbingDictionary.cs" />
-    <Compile Include="Hash\LinkedHashMap.cs" />
+    <Compile Include="Hash\LinkedDictionary.cs" />
     <Compile Include="Heap\Node.cs" />
     <Compile Include="HSBT\HeapStructuredBinaryTree.cs" />
     <Compile Include="HSBT\Node.cs" />
