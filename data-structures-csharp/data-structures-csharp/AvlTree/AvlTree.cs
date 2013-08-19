@@ -33,7 +33,7 @@ namespace DataStructures.AvlTreeSpace
         {
             Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
 
-            Add(root, element);
+            root = Add(root, element);
         }
 
         /// <summary>
@@ -190,6 +190,35 @@ namespace DataStructures.AvlTreeSpace
             root.Left.Right = root;
             root.Left = temp.Right;
             return temp;
+        }
+
+        private bool Exists(T item, Node<T> root) 
+        {
+            if(root == null)
+            {
+                return false;
+            }
+
+            int i = root.Data.CompareTo(item);
+            if(i < 0)
+            {
+                return Exists(item, root.Right);
+            }
+            else if(i > 0)
+            {
+                return Exists(item, root.Left);
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool Exists(T item) 
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+
+            return Exists(item, root);
         }
 
         public bool IsBalanced()
