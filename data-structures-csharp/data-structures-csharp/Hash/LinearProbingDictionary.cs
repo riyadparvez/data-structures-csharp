@@ -46,7 +46,6 @@ namespace DataStructures.HashSpace
             get { throw new NotImplementedException(); }
         }
 
-
         public LinearProbingDictionary(int capacity, int stepSize = 1)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);

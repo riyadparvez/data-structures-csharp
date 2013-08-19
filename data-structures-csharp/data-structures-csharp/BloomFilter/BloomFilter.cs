@@ -28,11 +28,14 @@ namespace DataStructures.BloomFilterSpace
         {
             get { return bitsPerElement; }
         }
+        
         public int Count { get; private set; }
+        
         public int NumberOfHashes
         {
             get { return algorithmNames.Length; }
         }
+
         public double FalsePositiveProbability
         {
             // (1 - e^(-k * n / m)) ^ k
@@ -43,6 +46,7 @@ namespace DataStructures.BloomFilterSpace
             }
 
         }
+        public object SyncRoot { get; }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()

@@ -11,7 +11,7 @@ namespace DataStructures.TrieSpace
         private Node root;
 
         public int Count { get; private set; }
-
+        
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
