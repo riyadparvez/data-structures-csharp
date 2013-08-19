@@ -57,12 +57,12 @@ namespace DataStructures.AvlTreeSpace
             {
                 int i = root.Data.CompareTo(element);
 
-                if (i < 0)
+                if (i > 0)
                 {
                     root.Left = Add(root.Left, element, height + 1);
                     root = RebalanceLeft(root);
                 }
-                else if (i > 0)
+                else if (i < 0)
                 {
                     root.Right = Add(root.Right, element, height + 1);
                     root = RebalanceRight(root);
@@ -103,8 +103,8 @@ namespace DataStructures.AvlTreeSpace
 
             Node<T> left = root.Left;
             Node<T> right = root.Right;
-            int leftHeight = root.Left.Height;
-            int rightHeight = root.Right.Height;
+            int leftHeight = (root.Left == null) ? 0 : root.Left.Height;
+            int rightHeight = (root.Right == null) ? 0 : root.Right.Height;
 
             if (leftHeight > (rightHeight + 1))
             {
@@ -140,8 +140,8 @@ namespace DataStructures.AvlTreeSpace
 
             Node<T> left = root.Left;
             Node<T> right = root.Right;
-            int leftHeight = root.Left.Height;
-            int rightHeight = root.Right.Height;
+            int leftHeight = (root.Left == null) ? 0 : root.Left.Height;
+            int rightHeight = (root.Right == null) ? 0 : root.Right.Height;
 
             if (rightHeight > (leftHeight + 1))
             {
@@ -251,7 +251,10 @@ namespace DataStructures.AvlTreeSpace
             Contract.Requires<ArgumentNullException>(stack != null);
 
             while (x != null)
-            { stack.Push(x); x = x.Left; }
+            { 
+                stack.Push(x); 
+                x = x.Left; 
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
