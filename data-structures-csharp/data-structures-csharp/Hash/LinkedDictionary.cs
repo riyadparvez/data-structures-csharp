@@ -14,57 +14,66 @@ namespace DataStructures.HashSpace
     [Serializable]
     public class LinkedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private Dictionary<Key<TKey>, TValue> dic;
-        private readonly Key<TKey> head = new Key<TKey>(default(TKey));
-        private Key<TKey> lastAdded;
+        private Dictionary<TKey, Value<TKey, TValue>> dic;
+        private readonly Value<TKey, TValue> headValue = new Value<TKey, TValue>(default(TValue));
+        private Value<TKey, TValue> lastAdded;
 
         public LinkedDictionary(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
-            
-            dic = new Dictionary<Key<TKey>, TValue>(capacity);
-            lastAdded = head;
+
+            dic = new Dictionary<TKey, Value<TKey, TValue>>(capacity);
+            lastAdded = headValue;
+            dic.Add(default(TKey), headValue);
         }
 
         public bool ContainsValue(TValue value)
         {
-            return dic.ContainsValue(value);
+            return dic.ContainsValue(new Value<TKey, TValue>(value));
         }
 
         public void Add(TKey key, TValue value)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
-            Key<TKey> newKey = new Key<TKey>(key, lastAdded);
-            lastAdded.next = newKey;
-            lastAdded = newKey;
-            dic.Add(newKey, value);
+            var newValue = new Value<TKey, TValue>(value, lastAdded);
+            var newPair = new Pair<TKey, Value<TKey, TValue>>(key, newValue);
+            lastAdded.next = newPair;
+            lastAdded = newPair;
+            dic.Add(newPair.key, newPair.value);
         }
 
         public bool ContainsKey(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
             
-            return dic.ContainsKey(new Key<TKey>(key));
+            return dic.ContainsKey(key);
         }
 
         public ICollection<TKey> Keys
         {
             get 
             {
-                var list = new List<Key<TKey>>(dic.Keys);
-                return list.Select(l => l.key).ToList(); 
+                return dic.Keys; 
             }
         }
 
         public bool Remove(TKey key)
         {
-            throw new NotImplementedException();
+            if(!dic.ContainsKey(key))
+            {
+                return false;
+            }
+            if(lastAdded.Equals(dic[key]))
+            {
+                lastAdded = lastAdded.prev;
+            }
+            var prev = ;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return dic.TryGetValue(new Key<TKey>(key), out value);
+            return dic.TryGetValue(new Value<TKey>(key), out value);
         }
 
         public ICollection<TValue> Values
@@ -78,35 +87,36 @@ namespace DataStructures.HashSpace
             {
                 Contract.Requires<ArgumentNullException>(key != null);
 
-                return dic[new Key<TKey>(key)];
+                return dic[new Value<TKey>(key)];
             }
             set
             {
                 Contract.Requires<ArgumentNullException>(key != null);
 
-                dic[new Key<TKey>(key)] = value;
+                dic[new Value<TKey>(key)] = value;
             }
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            Add(item.Key, item.Value);
         }
 
         public void Clear()
         {
             dic.Clear();
-            lastAdded = head;
+            lastAdded = headValue;
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return (dic.ContainsKey(new Key<TKey>(item.Key)) ? dic[new Key<TKey>(item.Key)].Equals(item.Value) : false);          
+            return (dic.ContainsKey(new Value<TKey>(item.Key)) ? 
+                    dic[new Value<TKey>(item.Key)].Equals(item.Value) : false);          
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            Contract.Requires<ArgumentException>(array.Length >= dic.Count+arrayIndex);
         }
 
         public int Count
@@ -126,41 +136,59 @@ namespace DataStructures.HashSpace
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            var key = headValue.next;
+            while (key != null)
+            {
+                var tempKey = key;
+                key = key.next;
+                yield return new KeyValuePair<TKey, TValue>(tempKey.value, dic[tempKey]);
+            }
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
-        private class Key<T>
-        {
-            public T key;
-            public Key<T> next;
-            public Key<T> prev;
 
-            public Key(T key, Key<T> prev = null, Key<T> next = null)
+        private class Pair<TKey, Value<TKey, TValue>>
+        {
+            public TKey key;
+            public Value<TKey, TValue> value;
+
+            public Pair(TKey key = default(TKey), Value<TKey, TValue> value = null)
             {
                 this.key = key;
+                this.value = value;
+            }
+        }
+
+        private class Value<TKey, TValue>
+        {
+            public TValue value;
+            public Pair<TKey, Value<TKey, TValue>> next;
+            public Pair<TKey, Value<TKey, TValue>> prev;
+
+            public Value(TValue value, Pair<TKey, Value<TKey, TValue>> prev = null, Pair<TKey, Value<TKey, TValue>> next = null)
+            {
+                this.value = value;
                 this.prev = prev;
                 this.next = next;
             }
 
             public override int GetHashCode()
             {
-                return key.GetHashCode();
+                return value.GetHashCode();
             }
 
             public override bool Equals(object otherObj) 
             {
-                var otherKey = otherObj as Key<T>;
+                var otherKey = otherObj as Value<TKey, TValue>;
                 if(otherKey == null)
                 {
                     return false;
                 }
-                return otherKey.key.Equals(key);
+                return otherKey.value.Equals(value);
             }
         }
-
     }
 }
