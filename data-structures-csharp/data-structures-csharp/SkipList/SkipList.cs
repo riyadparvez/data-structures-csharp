@@ -25,8 +25,14 @@ namespace DataStructures.SkipListSpace
         private readonly Random random = new Random();
 
         public int Count { get; private set; }
-        public bool IsSynchronized { get { return false; } }
-        public object SyncRoot { get { return lockObject; } }
+        public bool IsSynchronized 
+        { 
+            get { return false; } 
+        }
+        public object SyncRoot 
+        { 
+            get { return lockObject; } 
+        }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()

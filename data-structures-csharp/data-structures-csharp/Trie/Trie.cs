@@ -133,6 +133,7 @@ namespace DataStructures.TrieSpace
                 current = current.Parent;
                 i--;
             }
+            Count--;
             return true;
         }
 
