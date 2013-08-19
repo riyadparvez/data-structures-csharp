@@ -11,17 +11,17 @@ namespace DataStructures.CompressedTrieSpace
     [Serializable]
     public class CompressedTrie
     {
-        public Node Root { get; private set; }
+        private readonly Node root;
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(Root != null);
+            Contract.Invariant(root != null);
         }
 
         public CompressedTrie()
         {
-            Root = new NullNode(string.Empty);
+            root = new NullNode(string.Empty);
         }
 
 
@@ -34,7 +34,7 @@ namespace DataStructures.CompressedTrieSpace
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
-            Node current = Root;
+            Node current = root;
             int count = 0;
             for (int i = 0; i < word.Length; i++, count++)
             {
@@ -58,7 +58,7 @@ namespace DataStructures.CompressedTrieSpace
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");
 
-            Node current = Root;
+            Node current = root;
             int count = 0;
             for (int i = 0; i < word.Length; i++, count++)
             {
