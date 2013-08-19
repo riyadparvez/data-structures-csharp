@@ -131,6 +131,7 @@ namespace DataStructures.HashSpace
             if ((index = GetIndex(key)) != -1)
             {
                 pairs[index] = null;
+                isFilled[index] = false;
                 count--;
             }
         }
