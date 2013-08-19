@@ -292,6 +292,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(end != null);
             Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
             Contract.Requires<ArgumentNullException>(node != null);
+            
             return (start.CompareTo(node.Key) >= 0) &&
                    (end.CompareTo(node.Key) <= 0);
         }
@@ -378,7 +379,10 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Contract.Requires<ArgumentNullException>(stack != null);
             while (x != null)
-            { stack.Push(x); x = x.Left; }
+            { 
+                stack.Push(x); 
+                x = x.Left; 
+            }
             return stack;
         }
 

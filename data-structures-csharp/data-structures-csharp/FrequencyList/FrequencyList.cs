@@ -15,7 +15,7 @@ namespace DataStructures.FrequencyListSpace
         private int count;
         private readonly Node<T> dummy = new Node<T>();
 
-        public Node<T> Header { get; private set; }
+        private readonly Node<T> header;
         public int Count { get { return count; } }
 
         [ContractInvariantMethod]
@@ -28,14 +28,14 @@ namespace DataStructures.FrequencyListSpace
         {
             count = 0;
             dummy.AccessCount = Int32.MaxValue;
-            Header = dummy;
+            header = dummy;
         }
 
         private Node<T> GetLastNode()
         {
             Contract.Ensures(Contract.Result<Node<T>>() != null);
 
-            Node<T> current = Header;
+            Node<T> current = header;
             while (current.Next != null)
             {
                 current = current.Next;
@@ -74,7 +74,7 @@ namespace DataStructures.FrequencyListSpace
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
-            var current = Header;
+            var current = header;
             while (current != null)
             {
                 if (current.Data.Equals(element))
@@ -98,7 +98,7 @@ namespace DataStructures.FrequencyListSpace
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
-            var current = Header;
+            var current = header;
             while (current != null)
             {
                 if (current.Data.Equals(element))
