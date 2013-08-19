@@ -13,12 +13,10 @@ namespace DataStructures.MoveToFrontListSpace
     public class MoveToFrontList<T> : IEnumerable<T>, ICollection<T>
         where T : IEquatable<T>
     {
-        private object lockObject = new object();
         private List<T> list = new List<T>();
 
         public int Count { get { return list.Count; } }
         public bool IsSynchronized { get { return false; } }
-        public object SyncRoot { get { return lockObject; } }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()

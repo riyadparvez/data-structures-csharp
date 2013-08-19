@@ -12,7 +12,6 @@ namespace DataStructures.ListSpace
     public class SortedList<T> : IEnumerable<T>, ICollection<T>
         where T : IComparable<T>
     {
-        private object lockObject = new object();
         private List<T> list;
 
         public int Capacity
@@ -24,7 +23,6 @@ namespace DataStructures.ListSpace
             get { return list.Count; }
         }
         public bool IsSynchronized { get { return false; } }
-        public object SyncRoot { get { return lockObject; } }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
