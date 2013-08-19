@@ -18,7 +18,6 @@ namespace DataStructures.HashSpace
         private int capacity;
         private readonly int stepSize;
         private int count;
-        private bool[] isFilled;
         private Pair<Tkey, TValue>[] pairs;
 
         public ICollection<Tkey> Keys
@@ -54,7 +53,6 @@ namespace DataStructures.HashSpace
             this.capacity = capacity;
             this.stepSize = stepSize;
             pairs = new Pair<Tkey, TValue>[capacity];
-            isFilled = new bool[capacity];
         }
 
         public LinearProbingDictionary(int stepSize)
@@ -124,7 +122,6 @@ namespace DataStructures.HashSpace
             if ((index = GetIndex(key)) != -1)
             {
                 pairs[index] = null;
-                isFilled[index] = false;
                 count--;
             }
         }
@@ -178,8 +175,7 @@ namespace DataStructures.HashSpace
         public void Clear()
         {
             count = 0;
-            isFilled = Array.ConvertAll<bool, bool>(isFilled, b => b = false);
-            pairs = Array.ConvertAll<Pair<Tkey, TValue>, Pair<Tkey, TValue>>(pairs, pair => pair = null);
+            pairs = new Pair<Tkey, TValue>[capacity];
         }
 
         public bool Contains(KeyValuePair<Tkey, TValue> item)
@@ -207,7 +203,6 @@ namespace DataStructures.HashSpace
                 return;
             }
             pairs[index] = null;
-            isFilled[index] = false;
             count--;
         }
 
@@ -215,6 +210,10 @@ namespace DataStructures.HashSpace
         {
             foreach (var pair in pairs)
             {
+                if(pair == null)
+                {
+                    continue;
+                }
                 yield return new KeyValuePair<Tkey, TValue>(pair.Key, pair.Value);
             }
         }
