@@ -113,14 +113,7 @@ namespace DataStructures.HashSpace
 
         public bool ContainsKey(Tkey key)
         {
-            if (GetIndex(key) == -1)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return (GetIndex(key) != -1) ;
         }
 
         public void Remove(Tkey key)
@@ -154,8 +147,13 @@ namespace DataStructures.HashSpace
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(key != null, "key");
-                throw new NotImplementedException();
+                var index = GetIndex(key);
+                
+                if(index == -1)
+                {
+                    return default(TValue);
+                }
+                return pairs[index].Value;
             }
             set
             {
@@ -202,11 +200,13 @@ namespace DataStructures.HashSpace
 
         public void Remove(KeyValuePair<Tkey, TValue> item)
         {
-            if (!ContainsKey(item.Key))
+            int index = GetIndex(item.Key);
+            if (index == -1)
             {
                 return;
             }
-            pairs[GetIndex(item.Key)] = null;
+            pairs[index] = null;
+            isFilled[index] = false;
             count--;
         }
 
