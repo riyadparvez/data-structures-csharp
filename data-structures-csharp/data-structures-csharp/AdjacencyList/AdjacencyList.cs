@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
+//TODO: unweighted adjacency list and weighted adjacency list
 namespace DataStructures.AdjacencyList
 {
     [Serializable]
