@@ -23,12 +23,12 @@ namespace DataStructures.HashSpace
 
         public ICollection<Tkey> Keys
         {
-            get { return pairs.Select(p => p.Key).ToList().AsReadOnly(); }
+            get { return pairs.Where(p => (p != null)).Select(p => p.Key).ToList().AsReadOnly(); }
         }
 
         public ICollection<TValue> Values
         {
-            get { return pairs.Select(p => p.Value).ToList().AsReadOnly(); }
+            get { return pairs.Where(p => (p!=null)).Select(p => p.Value).ToList().AsReadOnly(); }
         }
 
         public int Count
@@ -76,6 +76,7 @@ namespace DataStructures.HashSpace
                 pos = (pos+stepSize) % capacity;
                 count++;
             }
+            
             pairs[pos] = pair;
         }
 
