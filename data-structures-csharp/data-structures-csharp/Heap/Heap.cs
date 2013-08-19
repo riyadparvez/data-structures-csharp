@@ -163,7 +163,7 @@ namespace DataStructures.HeapSpace
                 lastNode.Parent.Left = null;
             }
             SwapData(root, lastNode);
-            Heapify(root);
+            root = Heapify(root);
             Count--;
             return lastNode.Value;
         }
