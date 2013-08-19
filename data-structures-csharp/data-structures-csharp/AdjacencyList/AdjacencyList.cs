@@ -30,6 +30,10 @@ namespace DataStructures.AdjacencyList
         public void AddVertex(T vertex)
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
+            if(dict.ContainsKey(vertex))
+            {
+                return;
+            }
             dict[vertex] = new List<T>();
         }
 
