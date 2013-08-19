@@ -75,7 +75,10 @@ namespace DataStructures.AvlTreeSpace
 
         private void FixHeight(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
+            if(root == null)
+            {
+                return;
+            }
 
             List<Node<T>> queue = new List<Node<T>> { root };
             while (queue.Any())
@@ -98,8 +101,10 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RebalanceLeft(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            if(root == null)
+            {
+                return null;
+            }
 
             Node<T> left = root.Left;
             Node<T> right = root.Right;
@@ -135,8 +140,10 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RebalanceRight(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            if (root == null)
+            {
+                return null;
+            }
 
             Node<T> left = root.Left;
             Node<T> right = root.Right;
