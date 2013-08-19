@@ -31,7 +31,10 @@ namespace DataStructures.ListSpace
             Contract.Invariant(Capacity > 0);
         }
 
-        public SortedList() { }
+        public SortedList() 
+        {
+            list = new List<T>();
+        }
 
         public SortedList(int capacity)
         {
