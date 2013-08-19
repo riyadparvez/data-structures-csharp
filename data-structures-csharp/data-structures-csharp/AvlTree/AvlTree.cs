@@ -132,7 +132,7 @@ namespace DataStructures.AvlTreeSpace
             else
             {
                 //Tree is already balanced
-                Contract.Assert((leftHeight == rightHeight), "Tree is beyond balanved state");
+                Contract.Assert((leftHeight == rightHeight), "Tree is beyond balanced state");
                 FixHeight(root);
                 return root;
             }
@@ -179,8 +179,10 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RotateLeft(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            if (root == null)
+            {
+                return null;
+            }
 
             Node<T> temp = root.Right;
             root.Right.Left = root;
@@ -190,8 +192,10 @@ namespace DataStructures.AvlTreeSpace
 
         private Node<T> RotateRight(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            if (root == null)
+            {
+                return null;
+            }
 
             Node<T> temp = root.Left;
             root.Left.Right = root;
@@ -239,6 +243,7 @@ namespace DataStructures.AvlTreeSpace
             {
                 return true;
             }
+
             int h = node.Height;
             int hl = node.Left.Height;
             int hr = node.Right.Height;
