@@ -60,8 +60,10 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private Node<TKey, TValue> RotateLeft(Node<TKey, TValue> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
+            if(root == null)
+            {
+                return null;
+            }
 
             Node<TKey, TValue> temp = root.Right;
             root.Right.Left = root;
@@ -71,8 +73,10 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private Node<TKey, TValue> RotateRight(Node<TKey, TValue> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
+            if(root == null)
+            {
+                return null;
+            }
 
             Node<TKey, TValue> temp = root.Left;
             root.Left.Right = root;
