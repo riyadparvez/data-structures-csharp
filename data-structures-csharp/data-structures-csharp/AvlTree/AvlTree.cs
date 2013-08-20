@@ -245,8 +245,8 @@ namespace DataStructures.AvlTreeSpace
             }
 
             int h = node.Height;
-            int hl = node.Left.Height;
-            int hr = node.Right.Height;
+            int hl = (node.Left == null) ? 0 : node.Left.Height;
+            int hr = (node.Right == null) ? 0 : node.Right.Height;
             if (!(h == (hl > hr ? hl + 1 : hr + 1)))
             {
                 return false;
