@@ -10,7 +10,7 @@ namespace DataStructures.AdjacencyList
     [Serializable]
     public class AdjacencyList<T>
     {
-        private readonly Dictionary<T, List<T>> dict;
+        private readonly Dictionary<T, HashSet<T>> dict;
 
         public IList<T> Vertices 
         {
@@ -25,7 +25,7 @@ namespace DataStructures.AdjacencyList
         public AdjacencyList(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
-            dict = new Dictionary<T, List<T>>(capacity);
+            dict = new Dictionary<T, HashSet<T>>(capacity);
         }
 
         public void AddVertex(T vertex)
@@ -35,7 +35,7 @@ namespace DataStructures.AdjacencyList
             {
                 return;
             }
-            dict[vertex] = new List<T>();
+            dict[vertex] = new HashSet<T>();
         }
 
         public void AddEdge(T vertex1, T vertex2) 
@@ -56,7 +56,7 @@ namespace DataStructures.AdjacencyList
         public IList<T> GetNeighbours(T vertex) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
-            return dict.ContainsKey(vertex)? dict[vertex]: new List<T>();
+            return dict.ContainsKey(vertex)? dict[vertex].ToList(): new List<T>();
         } 
     }
 }
