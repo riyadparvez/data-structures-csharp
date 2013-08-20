@@ -10,7 +10,7 @@ namespace DataStructures.DAWGSpace
     [Serializable]
     public class DirectedAcyclicWordGraph
     {
-        public Node Root { get; private set; }
+        private Node root;
 
         public void Add(string word)
         {
@@ -26,7 +26,7 @@ namespace DataStructures.DAWGSpace
         {
             Contract.Requires(!string.IsNullOrEmpty(word));
 
-            Node currentNode = Root;
+            Node currentNode = root;
             foreach (var ch in word)
             {
                 Edge e = currentNode.FindEdge(ch);
