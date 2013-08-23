@@ -22,6 +22,11 @@ namespace DataStructures.AdjacencyList
             get { return dict.Count; }
         }
 
+        public AdjacencyList() 
+        {
+            dict = new Dictionary<T, HashSet<T>>();
+        }
+
         public AdjacencyList(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
