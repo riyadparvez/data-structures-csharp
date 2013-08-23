@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdjacencyList\AdjacencyList.cs" />
+    <Compile Include="AdjacencyList\WeightedAdjacencyList.cs" />
     <Compile Include="AvlTree\AvlTree.cs" />
     <Compile Include="AvlTree\Node.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTree.cs" />

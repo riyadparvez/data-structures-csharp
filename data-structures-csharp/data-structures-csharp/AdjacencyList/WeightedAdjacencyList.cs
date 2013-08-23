@@ -8,8 +8,9 @@ namespace DataStructures.AdjacencyList
 {
     [Serializable]
     public class WeightedAdjacencyList<T>
+        where T : class
     {
-        private readonly Dictionary<T, HashSet<T>> dict;
+        private readonly Dictionary<T, HashSet<Node<T>>> dict;
 
         public IList<T> Vertices 
         {
@@ -23,13 +24,13 @@ namespace DataStructures.AdjacencyList
 
         public WeightedAdjacencyList() 
         {
-            dict = new Dictionary<T, HashSet<T>>();
+            dict = new Dictionary<T, HashSet<Node<T>>>();
         }
 
         public WeightedAdjacencyList(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
-            dict = new Dictionary<T, HashSet<T>>(capacity);
+            dict = new Dictionary<T, HashSet<Node<T>>>(capacity);
         }
 
         public void AddVertex(T vertex)
@@ -39,15 +40,15 @@ namespace DataStructures.AdjacencyList
             {
                 return;
             }
-            dict[vertex] = new HashSet<T>();
+            dict[vertex] = new HashSet<Node<T>>();
         }
 
         public void AddEdge(T vertex1, T vertex2, int weight) 
         {
             Contract.Requires<ArgumentNullException>(vertex1 != null);
             Contract.Requires<ArgumentNullException>(vertex2 != null);
-            dict[vertex1].Add(vertex2);
-            dict[vertex2].Add(vertex1);
+            dict[vertex1].Add(new Node<T>(vertex2, weight));
+            dict[vertex2].Add(new Node<T>(vertex1, weight));
         }
 
         public bool IsNeighbourOf(T vertex, T neighbour) 
@@ -57,20 +58,53 @@ namespace DataStructures.AdjacencyList
             return dict.ContainsKey(vertex) && dict[vertex].Contains(neighbour);
         }
 
-        public IList<T> GetNeighbours(T vertex) 
+        public IList<Tuple<T, int>> GetNeighbours(T vertex) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
-            return dict.ContainsKey(vertex)? dict[vertex].ToList(): new List<T>();
+            return dict.ContainsKey(vertex)? 
+                   dict[vertex].Select(n => new Tuple<T, int>(n.item, n.weight)).ToList(): 
+                   new List<Tuple<T, int>>();
         }
 
         private class Node<T>
+            where T : class
         {
             public T item;
             public int weight;
 
-            public Node()
+            public Node(T item, int weight)
             {
+                this.item = item;
+                this.weight = weight;
+            }
 
+            public bool Equals(T item) 
+            {
+                return this.item.Equals(item);
+            }
+
+            public bool Equals(Node<T> node)
+            {
+                return this.item.Equals(node.item) &&
+                       (weight == node.weight);
+            }
+
+            public override bool Equals(object obj)
+            {
+                if(obj is T)
+                {
+                    return item.Equals(obj as T);
+                }
+                if(obj is Node<T>)
+                {
+                    return Equals(obj as Node<T>);
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                return item.GetHashCode() ^ weight;
             }
         }
     }
