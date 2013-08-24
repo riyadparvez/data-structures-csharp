@@ -276,6 +276,10 @@ namespace DataStructures.AvlTreeSpace
             while (stack.Any())
             {
                 Node<T> x = stack.Pop();
+                if(x == null)
+                {
+                    continue;
+                }
                 yield return x.Data;
                 PushLeft(stack, x.Right);
             }

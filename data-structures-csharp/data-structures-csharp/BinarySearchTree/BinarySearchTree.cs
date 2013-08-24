@@ -393,6 +393,10 @@ namespace DataStructures.BinarySearchTreeSpace
             while (stack.Any())
             {
                 Node<TKey, TValue> x = stack.Pop();
+                if (x == null)
+                {
+                    continue;
+                }
                 yield return x.Value;
                 PushLeft(stack, x.Right);
             }
