@@ -139,7 +139,7 @@ namespace DataStructures.TrieSpace
                 return wordFromRoot;
             }
 
-            public List<Node> GetChildrenList()
+            public IList<Node> GetChildrenList()
             {
                 return new List<Node>(children);
             }

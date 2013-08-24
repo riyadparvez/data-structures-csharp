@@ -21,7 +21,7 @@ namespace DataStructures.TrieSpace
 
         public Trie()
         {
-            root = new NullNode(string.Empty, null);
+            root = new Node(string.Empty, null);
         }
 
 
@@ -181,13 +181,17 @@ namespace DataStructures.TrieSpace
             if (node is NullNode)
             {
                 yield return node.WordFromRoot;
+                yield break;
             }
             var words = new List<string>();
             foreach (var child in node.Children)
             {
-                Enumerate(child);
+                var enumerator = Enumerate(child);
+                do
+                {
+                    yield return enumerator.Current;
+                } while (enumerator.MoveNext());
             }
-            yield break;
         }
 
         public IEnumerator<string> GetEnumerator()
