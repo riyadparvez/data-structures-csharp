@@ -12,7 +12,7 @@ namespace DataStructures.IntervalTreeSpace
         /// Node for interval tree
         /// </summary>
         [Serializable]
-        public class Node : IEquatable<Node>, IComparable<Interval>, IComparable<Node>
+        private class Node : IEquatable<Node>, IComparable<Interval>, IComparable<Node>
         {
             private List<Interval> rightSortedIntervals;
             private List<Interval> leftSortedIntervals;
@@ -37,6 +37,7 @@ namespace DataStructures.IntervalTreeSpace
             {
                 rightSortedIntervals.Add(interval);
                 rightSortedIntervals.Sort(new EndComparer());
+                
                 leftSortedIntervals.Add(interval);
                 leftSortedIntervals.Sort(new StartComparer());
             }

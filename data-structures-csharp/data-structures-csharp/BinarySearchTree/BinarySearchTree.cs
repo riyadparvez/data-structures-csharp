@@ -297,12 +297,12 @@ namespace DataStructures.BinarySearchTreeSpace
                    (end.CompareTo(node.Key) <= 0);
         }
 
-        private List<Node<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
+        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
             Contract.Ensures(Contract.Result<List<Node<TKey, TValue>>>() != null);
 
-            List<Node<TKey, TValue>> list = new List<Node<TKey, TValue>>();
+            var list = new List<KeyValuePair<TKey, TValue>>();
             Queue<Node<TKey, TValue>> queue = new Queue<Node<TKey, TValue>>();
             queue.Enqueue(root);
             while (queue.Any())
@@ -312,7 +312,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     break;
                 }
-                list.Add(node);
+                list.Add(new KeyValuePair<TKey, TValue>(node.Key, node.Value));
                 queue.Enqueue(node.Left);
                 queue.Enqueue(node.Right);
             }
@@ -325,7 +325,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns>All the values exclusive range</returns>
-        public List<Node<TKey, TValue>> GetAllNodes(TKey start, TKey end)
+        public IList<KeyValuePair<TKey, TValue>> GetAllNodes(TKey start, TKey end)
         {
             Contract.Requires<ArgumentNullException>(start != null);
             Contract.Requires<ArgumentNullException>(end != null);
@@ -333,12 +333,12 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Ensures(Contract.Result<List<Node<TKey, TValue>>>() != null);
 
             Node<TKey, TValue> node = FindSplitNode(start, end);
-            var nodes = new List<Node<TKey, TValue>>();
+            var pairs = new List<KeyValuePair<TKey, TValue>>();
             if (IsLeafNode(node))
             {
                 if (IsInRange(start, end, node))
                 {
-                    nodes.Add(node);
+                    pairs.Add(new KeyValuePair<TKey, TValue>(node.Key, node.Value));
                 }
             }
             else
@@ -349,7 +349,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     if (start.CompareTo(current.Key) < 0)
                     {
-                        nodes.AddRange(GetAllNodes(current.Right));
+                        pairs.AddRange(GetAllNodes(current.Right));
                         current = current.Left;
                     }
                     else
@@ -363,7 +363,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     if (end.CompareTo(current.Key) > 0)
                     {
-                        nodes.AddRange(GetAllNodes(current.Left));
+                        pairs.AddRange(GetAllNodes(current.Left));
                         current = current.Right;
                     }
                     else
@@ -372,7 +372,7 @@ namespace DataStructures.BinarySearchTreeSpace
                     }
                 }
             }
-            return nodes;
+            return pairs;
         }
 
         private Stack<Node<TKey, TValue>> PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)
