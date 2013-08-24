@@ -116,11 +116,11 @@ namespace DataStructures.IntervalTreeSpace
 
             while (current != null)
             {
-                if (current.X < interval.Start)
+                if (current.X > interval.Start)
                 {
                     current = current.Left;
                 }
-                else if (current.X > interval.End)
+                else if (current.X < interval.End)
                 {
                     current = current.Right;
                 }
