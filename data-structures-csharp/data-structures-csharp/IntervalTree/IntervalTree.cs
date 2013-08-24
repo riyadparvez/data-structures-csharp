@@ -81,33 +81,31 @@ namespace DataStructures.IntervalTreeSpace
             }
         }
 
-        private ReadOnlyCollection<Interval> Find(Node treeNode, double x)
+        private IList<Interval> Find(Node treeNode, double x)
         {
             Contract.Ensures(Contract.Result<ReadOnlyCollection<Interval>>() != null);
 
             if (treeNode == null)
             {
-                return new ReadOnlyCollection<Interval>(new List<Interval>());
+                return new List<Interval>();
             }
-
+            List<Interval> intervals;
             if (x < treeNode.X)
             {
-                var intervals = treeNode.GetIntervals(x);
+                intervals = treeNode.GetIntervals(x);
                 intervals.AddRange(Find(treeNode.Left, x));
-                return new ReadOnlyCollection<Interval>(intervals);
             }
             else if (x > treeNode.X)
             {
-                var intervals = treeNode.GetIntervals(x);
+                intervals = treeNode.GetIntervals(x);
                 intervals.AddRange(Find(treeNode.Right, x));
-                return new ReadOnlyCollection<Interval>(intervals);
             }
             else
             {
                 //all the intervals
-                var intervals = new List<Interval>(treeNode.Intervals);
-                return new ReadOnlyCollection<Interval>(intervals);
+                intervals = new List<Interval>(treeNode.Intervals);
             }
+            return intervals;
         }
 
         private Node FindNode(Interval interval)
