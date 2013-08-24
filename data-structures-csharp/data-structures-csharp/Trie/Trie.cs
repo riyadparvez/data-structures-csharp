@@ -137,10 +137,10 @@ namespace DataStructures.TrieSpace
             return true;
         }
 
-        private List<string> AllStrings(Node node)
+        private IList<string> AllStrings(Node node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
-            Contract.Ensures(Contract.Result<List<string>>() != null);
+            Contract.Ensures(Contract.Result<IList<string>>() != null);
 
             if (node is NullNode)
             {
@@ -154,10 +154,10 @@ namespace DataStructures.TrieSpace
             return words;
         }
 
-        public List<string> GetStringsContainingPrefix(string prefix)
+        public IList<string> GetStringsContainingPrefix(string prefix)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(prefix));
-            Contract.Ensures(Contract.Result<List<string>>() != null);
+            Contract.Ensures(Contract.Result<IList<string>>() != null);
 
             var words = new List<string>();
             var current = root;
