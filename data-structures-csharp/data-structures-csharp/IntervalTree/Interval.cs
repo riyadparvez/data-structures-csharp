@@ -25,7 +25,7 @@ namespace DataStructures.IntervalTreeSpace
         }
     }
 
-    public class StartComparison : Comparer<Interval>
+    public class StartComparer : Comparer<Interval>
     {
         public override int Compare(Interval x, Interval y)
         {
@@ -33,7 +33,7 @@ namespace DataStructures.IntervalTreeSpace
         }
     }
 
-    public class EndComparison : Comparer<Interval>
+    public class EndComparer : Comparer<Interval>
     {
         public override int Compare(Interval x, Interval y)
         {

@@ -34,9 +34,9 @@ namespace DataStructures.IntervalTreeSpace
         public void AddInterval(Interval interval)
         {
             rightSortedIntervals.Add(interval);
-            rightSortedIntervals.Sort(new EndComparison());
+            rightSortedIntervals.Sort(new EndComparer());
             leftSortedIntervals.Add(interval);
-            leftSortedIntervals.Sort(new StartComparison());
+            leftSortedIntervals.Sort(new StartComparer());
         }
 
         public List<Interval> GetIntervals(double x)
