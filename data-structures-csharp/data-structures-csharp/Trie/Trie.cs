@@ -159,7 +159,6 @@ namespace DataStructures.TrieSpace
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(prefix));
             Contract.Ensures(Contract.Result<IList<string>>() != null);
 
-            var words = new List<string>();
             var current = root;
             foreach (char ch in prefix)
             {
@@ -167,7 +166,7 @@ namespace DataStructures.TrieSpace
                 if (childNode == null)
                 {
                     //No words with current prefix
-                    return words;
+                    return new List<string>();
                 }
                 current = childNode;
             }
