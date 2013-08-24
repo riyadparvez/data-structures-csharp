@@ -6,112 +6,115 @@ using System.Linq;
 
 namespace DataStructures.IntervalTreeSpace
 {
-    /// <summary>
-    /// Node for interval tree
-    /// </summary>
-    [Serializable]
-    public class Node : IEquatable<Node>, IComparable<Interval>, IComparable<Node>
+    public partial class IntervalTree
     {
-        private List<Interval> rightSortedIntervals;
-        private List<Interval> leftSortedIntervals;
-
-        public double X { get; set; }
-        public ReadOnlyCollection<Interval> Intervals
+        /// <summary>
+        /// Node for interval tree
+        /// </summary>
+        [Serializable]
+        public class Node : IEquatable<Node>, IComparable<Interval>, IComparable<Node>
         {
-            get { return new ReadOnlyCollection<Interval>(leftSortedIntervals); }
-        }
-        public Node Left { get; set; }
-        public Node Right { get; set; }
+            private List<Interval> rightSortedIntervals;
+            private List<Interval> leftSortedIntervals;
 
-
-        public Node(double x)
-        {
-            this.X = x;
-            rightSortedIntervals = new List<Interval>();
-            leftSortedIntervals = new List<Interval>();
-        }
-
-        public void AddInterval(Interval interval)
-        {
-            rightSortedIntervals.Add(interval);
-            rightSortedIntervals.Sort(new EndComparer());
-            leftSortedIntervals.Add(interval);
-            leftSortedIntervals.Sort(new StartComparer());
-        }
-
-        public List<Interval> GetIntervals(double x)
-        {
-            List<Interval> intervals = new List<Interval>();
-            if (x < X)
+            public double X { get; set; }
+            public ReadOnlyCollection<Interval> Intervals
             {
-                foreach (var interval in leftSortedIntervals)
+                get { return new ReadOnlyCollection<Interval>(leftSortedIntervals); }
+            }
+            public Node Left { get; set; }
+            public Node Right { get; set; }
+
+
+            public Node(double x)
+            {
+                this.X = x;
+                rightSortedIntervals = new List<Interval>();
+                leftSortedIntervals = new List<Interval>();
+            }
+
+            public void AddInterval(Interval interval)
+            {
+                rightSortedIntervals.Add(interval);
+                rightSortedIntervals.Sort(new EndComparer());
+                leftSortedIntervals.Add(interval);
+                leftSortedIntervals.Sort(new StartComparer());
+            }
+
+            public List<Interval> GetIntervals(double x)
+            {
+                List<Interval> intervals = new List<Interval>();
+                if (x < X)
                 {
-                    if (interval.Start > x)
+                    foreach (var interval in leftSortedIntervals)
                     {
-                        break;
+                        if (interval.Start > x)
+                        {
+                            break;
+                        }
+                        intervals.Add(interval);
                     }
-                    intervals.Add(interval);
                 }
-            }
-            else if (x > X)
-            {
-                foreach (var interval in rightSortedIntervals)
+                else if (x > X)
                 {
-                    if (interval.End < x)
+                    foreach (var interval in rightSortedIntervals)
                     {
-                        break;
+                        if (interval.End < x)
+                        {
+                            break;
+                        }
+                        intervals.Add(interval);
                     }
-                    intervals.Add(interval);
                 }
+                else
+                {
+                    intervals.Concat(leftSortedIntervals);
+                }
+                return intervals;
             }
-            else
+
+            public bool IsInInterval(Interval interval)
             {
-                intervals.Concat(leftSortedIntervals);
+                return X >= interval.Start && X <= interval.End;
             }
-            return intervals;
-        }
 
-        public bool IsInInterval(Interval interval)
-        {
-            return X >= interval.Start && X <= interval.End;
-        }
-
-        public void Remove(Interval interval)
-        {
-            rightSortedIntervals.Remove(interval);
-            leftSortedIntervals.Remove(interval);
-        }
-
-        public bool Equals(Node other)
-        {
-
-            throw new NotImplementedException();
-        }
-
-        public int CompareTo(Interval other)
-        {
-            if (other.Start > X)
+            public void Remove(Interval interval)
             {
-                return -1;
+                rightSortedIntervals.Remove(interval);
+                leftSortedIntervals.Remove(interval);
             }
-            else if (other.End < X)
-            {
-                return 1;
-            }
-            return 0;
-        }
 
-        public int CompareTo(Node other)
-        {
-            if (other.X > X)
+            public bool Equals(Node other)
             {
-                return -1;
+
+                throw new NotImplementedException();
             }
-            else if (other.X < X)
+
+            public int CompareTo(Interval other)
             {
-                return 1;
+                if (other.Start > X)
+                {
+                    return -1;
+                }
+                else if (other.End < X)
+                {
+                    return 1;
+                }
+                return 0;
             }
-            return 0;
+
+            public int CompareTo(Node other)
+            {
+                if (other.X > X)
+                {
+                    return -1;
+                }
+                else if (other.X < X)
+                {
+                    return 1;
+                }
+                return 0;
+            }
         }
     }
 }

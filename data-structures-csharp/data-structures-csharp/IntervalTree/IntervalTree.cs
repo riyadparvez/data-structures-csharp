@@ -10,7 +10,7 @@ namespace DataStructures.IntervalTreeSpace
     /// Interval tree
     /// </summary>
     [Serializable]
-    public class IntervalTree
+    public partial class IntervalTree
     {
         private int count;
 
@@ -18,7 +18,7 @@ namespace DataStructures.IntervalTreeSpace
         {
             get { return count; }
         }
-        public Node Root { get; set; }
+        private Node root;
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
@@ -38,15 +38,15 @@ namespace DataStructures.IntervalTreeSpace
         {
             Contract.Ensures(count == Contract.OldValue(count) + 1);
 
-            if (Root == null)
+            if (root == null)
             {
-                Root = new Node(interval.Median);
-                Root.AddInterval(interval);
+                root = new Node(interval.Median);
+                root.AddInterval(interval);
                 count++;
                 return;
             }
 
-            Node current = Root;
+            Node current = root;
             while (true)
             {
                 int temp = current.CompareTo(interval);
@@ -112,7 +112,7 @@ namespace DataStructures.IntervalTreeSpace
 
         private Node FindNode(Interval interval)
         {
-            Node current = Root;
+            Node current = root;
 
             while (current != null)
             {
@@ -150,7 +150,7 @@ namespace DataStructures.IntervalTreeSpace
 
         public IEnumerable<Interval> Find(double x)
         {
-            Node current = Root;
+            Node current = root;
             return Find(current, x);
         }
     }
