@@ -47,6 +47,14 @@ namespace DataStructures.AdjacencyList
         {
             Contract.Requires<ArgumentNullException>(vertex1 != null);
             Contract.Requires<ArgumentNullException>(vertex2 != null);
+            if (!dict.ContainsKey(vertex1))
+            {
+                dict[vertex1] = new HashSet<T>();
+            }
+            if (!dict.ContainsKey(vertex2))
+            {
+                dict[vertex2] = new HashSet<T>();
+            }
             dict[vertex1].Add(vertex2);
             dict[vertex2].Add(vertex1);
         }
