@@ -14,7 +14,7 @@ namespace DataStructures.SplayTreeSpace
         where T : IComparable<T>, IEquatable<T>
     {
         public int Count { get; private set; }
-        private Node<T> rootl
+        private Node<T> root;
 
         public void Add(T data)
         {
