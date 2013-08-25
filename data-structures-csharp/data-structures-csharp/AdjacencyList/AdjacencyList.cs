@@ -77,6 +77,20 @@ namespace DataStructures.AdjacencyList
             return dict.ContainsKey(vertex)? dict[vertex].ToList(): new List<T>();
         } 
 
+        public IList<T> this[T vertex]
+        {
+            get 
+            {
+                return GetNeighbours(vertex);
+            }
+            set 
+            {
+                Contract.Requires<ArgumentNullException>(vertex != null);
+
+                dict[vertex] = new HashSet<T>(value);
+            }
+        }
+
         public IList<Tuple<T, T>> GetEdgeList()
         {
             var list = new List<Tuple<T, T>>();
