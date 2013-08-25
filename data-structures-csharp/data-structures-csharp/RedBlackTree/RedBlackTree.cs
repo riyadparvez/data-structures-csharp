@@ -20,6 +20,7 @@ namespace DataStructures.RedBlackTreeSpace
         private Node<T> greatParent;
         private Node<T> header;
 
+        public int Count { get; private set; }
 
         public RedBlackTree(T data)
         {
@@ -123,9 +124,10 @@ namespace DataStructures.RedBlackTreeSpace
         /// <summary>
         /// Clear current tree
         /// </summary>
-        public void MakeEmpty()
+        public void Clear()
         {
             header.Right = nullNode;
+            Count = 0;
         }
 
         /// <summary>
@@ -188,7 +190,7 @@ namespace DataStructures.RedBlackTreeSpace
             }
         }
 
-        public void Print(Node<T> n)
+        private void Print(Node<T> n)
         {
             Contract.Requires<ArgumentNullException>(n != null);
             if (n != nullNode)
@@ -224,6 +226,11 @@ namespace DataStructures.RedBlackTreeSpace
         {
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Ensures(Contract.Result<Node<T>>() != null);
+
+            if(parent == null)
+            {
+                return null;
+            }
 
             //Left subtree is unbalanced
             if (item.CompareTo(parent.Data) < 0)
