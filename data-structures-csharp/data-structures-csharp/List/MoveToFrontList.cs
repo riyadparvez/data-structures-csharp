@@ -11,7 +11,6 @@ namespace DataStructures.MoveToFrontListSpace
     /// <typeparam name="T"></typeparam>
     [Serializable]
     public class MoveToFrontList<T> : IEnumerable<T>, ICollection<T>
-        where T : IEquatable<T>
     {
         private List<T> list;
 
@@ -49,20 +48,20 @@ namespace DataStructures.MoveToFrontListSpace
         /// <summary>
         /// Retrieves specific node and updates that node position
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="element"></param>
         /// <returns>null if element isn't in the list</returns>
-        public T Get(T node)
+        public T Get(T element)
         {
-            Contract.Requires<ArgumentNullException>(node != null);
+            Contract.Requires<ArgumentNullException>(element != null);
         
-            T element = list.Where(e => e.Equals(node)).FirstOrDefault();
-            if (element == null)
+            T node = list.Where(e => e.Equals(element)).FirstOrDefault();
+            if (node == null)
             {
                 return default(T);
             }
-            list.Remove(element);
-            list.Insert(0, element);
-            return element;
+            list.Remove(node);
+            list.Insert(0, node);
+            return node;
         }
 
         /// <summary>
