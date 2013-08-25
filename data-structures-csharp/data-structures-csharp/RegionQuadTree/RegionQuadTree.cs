@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.RegionQuadTreeSpace
 {
     [Serializable]
-    public class RegionQuadTree<T>
+    public partial class RegionQuadTree<T>
         where T : IComparable<T>, IEquatable<T>
     {
         private readonly Rectangle region;

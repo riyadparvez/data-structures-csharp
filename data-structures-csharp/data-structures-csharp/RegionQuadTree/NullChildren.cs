@@ -2,19 +2,22 @@
 
 namespace DataStructures.RegionQuadTreeSpace
 {
-    [Serializable]
-    public sealed class NullChildren<T> : Children<T>
-        where T : IComparable<T>, IEquatable<T>
+    public partial class RegionQuadTree<T>
     {
-        public NullChildren(Node<T> parent)
-            : base(parent, null, null, null, null)
+        [Serializable]
+        privateS sealed class NullChildren<T> : Children<T>
+            where T : IComparable<T>, IEquatable<T>
         {
+            public NullChildren(Node<T> parent)
+                : base(parent, null, null, null, null)
+            {
 
-        }
+            }
 
-        public override Node<T> GetContainingChild(Point point)
-        {
-            return null;
+            public override Node<T> GetContainingChild(Point point)
+            {
+                return null;
+            }
         }
     }
 }
