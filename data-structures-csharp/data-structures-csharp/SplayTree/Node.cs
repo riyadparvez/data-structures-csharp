@@ -3,7 +3,7 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.SplayTreeSpace
 {
-    public partial class SplayTree
+    public partial class SplayTree<T>
     {
         /// <summary>
         /// Node of BST, left<root<right

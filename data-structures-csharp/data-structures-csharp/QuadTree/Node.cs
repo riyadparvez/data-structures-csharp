@@ -5,120 +5,123 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.QuadTreeSpace
 {
-    /// <summary>
-    /// Node of Heap
-    /// </summary>
-    /// <typeparam name="T">Data type</typeparam>
-    [Serializable]
-    public class Node<T>
+    public partial class QuadTree<T>
     {
-        private List<T> values = new List<T>();
-        private readonly Rectangle region;
-        public readonly int MaximumValuesPerNode;
-
-        public IEnumerable<T> Value
-        {
-            get { return values.AsReadOnly(); }
-        }
-        public int Count
-        {
-            get { return values.Count; }
-        }
-        internal Node<T> Parent { get; set; }
-        internal Rectangle Region
-        {
-            get { return region; }
-        }
-        internal Children<T> Children { get; set; }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(values != null);
-            Contract.Invariant(values.Count <= MaximumValuesPerNode);
-        }
-
-        public Node(Rectangle rectangle, Node<T> parent, int maximumValuesPerNode)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(maximumValuesPerNode > 0);
-
-            Parent = parent;
-            region = rectangle;
-            this.MaximumValuesPerNode = maximumValuesPerNode;
-            Children = new NullChildren<T>(parent);
-        }
-
         /// <summary>
-        /// Returns true if the region of the node contains the point
-        /// other false
+        /// Node of Heap
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public bool IsInRegion(Point p)
+        /// <typeparam name="T">Data type</typeparam>
+        [Serializable]
+        private class Node<T>
         {
-            return region.IsInRectangle(p);
-        }
+            private List<T> values = new List<T>();
+            private readonly Rectangle region;
+            public readonly int MaximumValuesPerNode;
 
-        /// <summary>
-        /// Get the child node that contains the point
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        public Node<T> GetContainingChild(Point point)
-        {
-            return Children.GetContainingChild(point);
-        }
-
-        /// <summary>
-        /// Splits current node into four quadrants
-        /// </summary>
-        private void SplitRegionIntoChildNodes()
-        {
-            Children = new Children<T>(region, this, MaximumValuesPerNode);
-        }
-
-        public void Add(Point point, T element)
-        {
-            Contract.Requires<ArgumentNullException>(element != null);
-
-            if (Count == MaximumValuesPerNode)
+            public IEnumerable<T> Value
             {
-                SplitRegionIntoChildNodes();
-
+                get { return values.AsReadOnly(); }
             }
-            else
+            public int Count
             {
-                values.Add(element);
+                get { return values.Count; }
             }
-        }
-
-        public bool Equals(Node<T> otherNode)
-        {
-            if (otherNode == null)
+            internal Node<T> Parent { get; set; }
+            internal Rectangle Region
             {
-                return false;
+                get { return region; }
             }
-            return values.Equals(otherNode.Value);
-        }
+            internal Children<T> Children { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            Node<T> otherNode = obj as Node<T>;
-            if (otherNode == null)
+            [ContractInvariantMethod]
+            private void ObjectInvariant()
             {
-                return false;
+                Contract.Invariant(values != null);
+                Contract.Invariant(values.Count <= MaximumValuesPerNode);
             }
-            return values.Equals(otherNode.Value);
-        }
 
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
+            public Node(Rectangle rectangle, Node<T> parent, int maximumValuesPerNode)
             {
-                int hash = 17;
-                // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + values.GetHashCode();
-                return hash;
+                Contract.Requires<ArgumentOutOfRangeException>(maximumValuesPerNode > 0);
+
+                Parent = parent;
+                region = rectangle;
+                this.MaximumValuesPerNode = maximumValuesPerNode;
+                Children = new NullChildren<T>(parent);
+            }
+
+            /// <summary>
+            /// Returns true if the region of the node contains the point
+            /// other false
+            /// </summary>
+            /// <param name="p"></param>
+            /// <returns></returns>
+            public bool IsInRegion(Point p)
+            {
+                return region.IsInRectangle(p);
+            }
+
+            /// <summary>
+            /// Get the child node that contains the point
+            /// </summary>
+            /// <param name="point"></param>
+            /// <returns></returns>
+            public Node<T> GetContainingChild(Point point)
+            {
+                return Children.GetContainingChild(point);
+            }
+
+            /// <summary>
+            /// Splits current node into four quadrants
+            /// </summary>
+            private void SplitRegionIntoChildNodes()
+            {
+                Children = new Children<T>(region, this, MaximumValuesPerNode);
+            }
+
+            public void Add(Point point, T element)
+            {
+                Contract.Requires<ArgumentNullException>(element != null);
+
+                if (Count == MaximumValuesPerNode)
+                {
+                    SplitRegionIntoChildNodes();
+
+                }
+                else
+                {
+                    values.Add(element);
+                }
+            }
+
+            public bool Equals(Node<T> otherNode)
+            {
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return values.Equals(otherNode.Value);
+            }
+
+            public override bool Equals(object obj)
+            {
+                Node<T> otherNode = obj as Node<T>;
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return values.Equals(otherNode.Value);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = 17;
+                    // Suitable nullity checks etc, of course :)
+                    hash = hash * 23 + values.GetHashCode();
+                    return hash;
+                }
             }
         }
     }
