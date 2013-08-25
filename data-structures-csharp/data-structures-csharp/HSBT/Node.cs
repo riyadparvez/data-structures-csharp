@@ -11,7 +11,7 @@ namespace DataStructures.HsbtSpace
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
         [Serializable]
-        public class Node<TKey, TValue>
+        private class Node<TKey, TValue>
             where TKey : IComparable<TKey>, IEquatable<TKey>
         {
             private TKey key;
@@ -23,6 +23,7 @@ namespace DataStructures.HsbtSpace
                 set
                 {
                     Contract.Requires<ArgumentNullException>(value != null);
+                    
                     key = value;
                 }
 
@@ -33,13 +34,14 @@ namespace DataStructures.HsbtSpace
                 set
                 {
                     Contract.Requires<ArgumentNullException>(value != null);
+                    
                     val = value;
                 }
             }
             public int Height { get; set; }
-            internal Node<TKey, TValue> Parent { get; set; }
-            internal Node<TKey, TValue> Left { get; set; }
-            internal Node<TKey, TValue> Right { get; set; }
+            public Node<TKey, TValue> Parent { get; set; }
+            public Node<TKey, TValue> Left { get; set; }
+            public Node<TKey, TValue> Right { get; set; }
 
             public Node(TKey key, TValue val, Node<TKey, TValue> parent)
             {
