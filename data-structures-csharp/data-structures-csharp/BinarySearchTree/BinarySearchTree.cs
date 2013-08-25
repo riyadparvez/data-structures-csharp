@@ -38,7 +38,7 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
-            Node<TKey, TValue> current = root;
+            var current = root;
 
             while (current != null)
             {
@@ -92,7 +92,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 return true;
             }
 
-            Node<TKey, TValue> current = root;
+            var current = root;
 
             while (true)
             {

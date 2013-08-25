@@ -20,7 +20,7 @@ namespace DataStructures.BinarySearchTreeSpace
             public TKey Key
             {
                 get { return key; }
-                internal set
+                set
                 {
                     Contract.Requires<ArgumentNullException>(value != null);
                     key = value;
@@ -30,7 +30,7 @@ namespace DataStructures.BinarySearchTreeSpace
             public TValue Value
             {
                 get { return val; }
-                internal set
+                set
                 {
                     Contract.Requires<ArgumentNullException>(value != null);
                     val = value;

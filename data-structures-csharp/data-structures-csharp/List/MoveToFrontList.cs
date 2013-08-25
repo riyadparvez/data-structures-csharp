@@ -35,7 +35,7 @@ namespace DataStructures.MoveToFrontListSpace
             T element = list.Where(e => e.Equals(node)).FirstOrDefault();
             if (element == null)
             {
-                return element;
+                return default(T);
             }
             list.Remove(element);
             list.Insert(0, element);

@@ -9,7 +9,7 @@ namespace DataStructures.FrequencyListSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class FrequencyList<T>
+    public partial class FrequencyList<T>
         where T : IComparable<T>
     {
         private int count;

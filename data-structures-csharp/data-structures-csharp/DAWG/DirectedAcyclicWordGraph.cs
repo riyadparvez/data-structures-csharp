@@ -8,7 +8,7 @@ namespace DataStructures.DAWGSpace
     /// 
     /// </summary>
     [Serializable]
-    public class DirectedAcyclicWordGraph
+    public partial class DirectedAcyclicWordGraph
     {
         private Node root;
 

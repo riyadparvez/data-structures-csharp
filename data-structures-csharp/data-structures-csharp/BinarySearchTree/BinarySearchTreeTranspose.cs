@@ -34,8 +34,10 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private void Reorient(Node<TKey, TValue> node)
         {
-            Contract.Requires<ArgumentNullException>(node != null);
-
+            if(node == null)
+            {
+                return;
+            }
             Node<TKey, TValue> parent = node.Parent;
             if (parent == root)
             {
