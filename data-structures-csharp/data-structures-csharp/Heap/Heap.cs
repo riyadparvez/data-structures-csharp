@@ -112,9 +112,8 @@ namespace DataStructures.HeapSpace
             {
                 return default(T);
             }
-            var temp = root;
 
-            return temp.Value;
+            return root.Value;
         }
 
         private Node<T> LastNode()

@@ -9,7 +9,7 @@ namespace DataStructures.CompressedTrieSpace
     /// nodes into one node
     /// </summary>
     [Serializable]
-    public class CompressedTrie
+    public partial class CompressedTrie
     {
         private readonly Node root;
 

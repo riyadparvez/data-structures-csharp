@@ -3,23 +3,26 @@
 
 namespace DataStructures.CompressedTrieSpace
 {
-    /// <summary>
-    /// Null object pattern for Node
-    /// </summary>
-    [Serializable]
-    public sealed class NullNode : Node
+    public partial class CompressedTrie
     {
-        public override string StringFragment
+        /// <summary>
+        /// Null object pattern for Node
+        /// </summary>
+        [Serializable]
+        private sealed class NullNode : Node
         {
-            get
+            public override string StringFragment
             {
-                return string.Empty;
+                get
+                {
+                    return string.Empty;
+                }
             }
-        }
 
-        public NullNode(string wordFromRoot)
-            : base(wordFromRoot)
-        {
+            public NullNode(string wordFromRoot)
+                : base(wordFromRoot)
+            {
+            }
         }
     }
 }
