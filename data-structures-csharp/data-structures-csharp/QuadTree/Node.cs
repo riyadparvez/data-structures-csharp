@@ -26,12 +26,12 @@ namespace DataStructures.QuadTreeSpace
             {
                 get { return values.Count; }
             }
-            internal Node<T> Parent { get; set; }
+            public Node<T> Parent { get; set; }
             internal Rectangle Region
             {
                 get { return region; }
             }
-            internal Children<T> Children { get; set; }
+            public Children<T> Children { get; set; }
 
             [ContractInvariantMethod]
             private void ObjectInvariant()

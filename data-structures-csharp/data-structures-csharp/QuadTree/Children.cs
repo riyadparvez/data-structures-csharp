@@ -8,13 +8,13 @@ namespace DataStructures.QuadTreeSpace
     public partial class QuadTree<T>
     {
         [Serializable]
-        public class Children<T> : IEnumerable<Node<T>>
+        private class Children<T> : IEnumerable<Node<T>>
         {
-            internal Node<T> Parent { get; set; }
-            internal Node<T> TopLeft { get; set; }
-            internal Node<T> TopRight { get; set; }
-            internal Node<T> BottomLeft { get; set; }
-            internal Node<T> BottomRight { get; set; }
+            public Node<T> Parent { get; set; }
+            public Node<T> TopLeft { get; set; }
+            public Node<T> TopRight { get; set; }
+            public Node<T> BottomLeft { get; set; }
+            public Node<T> BottomRight { get; set; }
 
             public Children(Rectangle region, Node<T> parent, int maximumValuesPerNode)
             {
