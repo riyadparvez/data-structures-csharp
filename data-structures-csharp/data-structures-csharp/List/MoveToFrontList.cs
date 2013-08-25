@@ -104,6 +104,7 @@ namespace DataStructures.MoveToFrontListSpace
             }
         }
 
+
         public IEnumerator<T> GetEnumerator()
         {
             return list.GetEnumerator();

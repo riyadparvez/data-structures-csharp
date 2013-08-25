@@ -10,13 +10,16 @@ namespace DataStructures.TransposeListSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class TransposeList<T> : IEnumerable<T>
+    public partial class TransposeList<T> : IEnumerable<T>, ICollection<T>
     {
         private int count;
         private Node<T> dummy = new Node<T>();
 
         private Node<T> head;
-        public int Count { get { return count; } }
+        public int Count 
+        { 
+            get { return count; } 
+        }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
@@ -48,6 +51,7 @@ namespace DataStructures.TransposeListSpace
         private void Adjust(Node<T> node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
+        
             if (node.Previous == dummy)
             {
                 //already at the front of the list
@@ -138,6 +142,32 @@ namespace DataStructures.TransposeListSpace
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        bool ICollection<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

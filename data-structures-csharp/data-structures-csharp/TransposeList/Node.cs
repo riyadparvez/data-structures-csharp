@@ -6,58 +6,61 @@ using System.Threading.Tasks;
 
 namespace DataStructures.TransposeListSpace
 {
-    [Serializable]
-    public class Node<T> : IEquatable<T>
+    public partial class TransposeList<T>
     {
-        public T Data { get; set; }
-        public Node<T> Previous { get; set; }
-        public Node<T> Next { get; set; }
-
-        public Node()
+        [Serializable]
+        private class Node<T> : IEquatable<T>
         {
-        }
+            public T Data { get; set; }
+            public Node<T> Previous { get; set; }
+            public Node<T> Next { get; set; }
 
-        public Node(T data)
-        {
-            Data = data;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
+            public Node()
             {
-                int hash = 17;
-                hash = 23 * Data.GetHashCode();
-                return hash;
             }
-        }
 
-        public bool Equals(Node<T> otherNode)
-        {
-            if (otherNode == null)
+            public Node(T data)
             {
-                return false;
+                Data = data;
             }
-            return Data.Equals(otherNode.Data);
-        }
 
-        public override bool Equals(object obj)
-        {
-            Node<T> otherObject = obj as Node<T>;
-            if(otherObject == null)
+            public override int GetHashCode()
             {
-                return false;
+                unchecked
+                {
+                    int hash = 17;
+                    hash = 23 * Data.GetHashCode();
+                    return hash;
+                }
             }
-            return Data.Equals(otherObject.Data);
-        }
 
-        public bool Equals(T other)
-        {
-            if (other == null)
+            public bool Equals(Node<T> otherNode)
             {
-                return false;
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return Data.Equals(otherNode.Data);
             }
-            return Data.Equals(other);
+
+            public override bool Equals(object obj)
+            {
+                Node<T> otherObject = obj as Node<T>;
+                if(otherObject == null)
+                {
+                    return false;
+                }
+                return Data.Equals(otherObject.Data);
+            }
+
+            public bool Equals(T other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+                return Data.Equals(other);
+            }
         }
     }
 }

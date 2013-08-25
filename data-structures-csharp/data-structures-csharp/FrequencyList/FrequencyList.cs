@@ -145,5 +145,15 @@ namespace DataStructures.FrequencyListSpace
             count++;
         }
 
+        public T this[int index]
+        {
+            get 
+            {
+ 
+            }
+            set 
+            { 
+            }
+        }
     }
 }
