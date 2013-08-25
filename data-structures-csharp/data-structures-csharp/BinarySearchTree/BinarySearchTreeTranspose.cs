@@ -37,7 +37,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(node != null);
 
             Node<TKey, TValue> parent = node.Parent;
-            if (parent == Root)
+            if (parent == root)
             {
                 root = Transpose(parent);
             }

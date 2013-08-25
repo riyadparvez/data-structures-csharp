@@ -18,10 +18,6 @@ namespace DataStructures.BinarySearchTreeSpace
         protected int count;
         protected Node<TKey, TValue> root;
 
-        public Node<TKey, TValue> Root
-        {
-            get { return root; }
-        }
         public int Count
         {
             get { return count; }
@@ -89,7 +85,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(val != null);
             Contract.Ensures(count == (Contract.OldValue(count) + 1));
 
-            if (Root == null)
+            if (root == null)
             {
                 root = new Node<TKey, TValue>(key, val, null);
                 count++;
@@ -257,7 +253,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(end != null);
             Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
 
-            var current = Root;
+            var current = root;
             while (current != null)
             {
                 int startCompare = start.CompareTo(current.Key);
@@ -402,7 +398,6 @@ namespace DataStructures.BinarySearchTreeSpace
             }
             yield break;
         }
-
 
         IEnumerator IEnumerable.GetEnumerator()
         {
