@@ -8,20 +8,39 @@ namespace DataStructures.IntervalTreeSpace
     [Serializable]
     public struct Interval : IEquatable<Interval>
     {
-        public int Start { get; set; }
-        public int End { get; set; }
-        public double Median { get { return (Start + End) / 2; } }
+        private double start;
+        private double end;
+        public double Start 
+        {
+            get { return start; }
+            set { start = value; }
+        }
+        public double End 
+        {
+            get { return end; }
+            set { end = value; }
+        }
+        public double Median 
+        { 
+            get { return (start + end) / 2; } 
+        }
 
         [ContractInvariantMethod]
         private void StructInvariant()
         {
-            Contract.Invariant(Start <= End);
+            Contract.Invariant(start <= end);
+        }
+
+        public Interval(double start, double end) 
+        {
+            this.start = start;
+            this.end = end;
         }
 
         public bool Equals(Interval otherInterval)
         {
-            return Start.Equals(otherInterval.Start) &&
-                    End.Equals(otherInterval.End);
+            return start.Equals(otherInterval.Start) &&
+                    end.Equals(otherInterval.End);
         }
     }
 
