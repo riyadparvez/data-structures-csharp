@@ -11,14 +11,21 @@ namespace DataStructures.HeapSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class Heap<T>
+    public partial class Heap<T>
         where T : IComparable<T>
     {
         private Node<T> root;
 
         public T Peek
         {
-            get { return root.Value; }
+            get 
+            {
+                if(root == null)
+                {
+                    return default(T);
+                }
+                return root.Value; 
+            }
         }
         public int Count { get; private set; }
 
