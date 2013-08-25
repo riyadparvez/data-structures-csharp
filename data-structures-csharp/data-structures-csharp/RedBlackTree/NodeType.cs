@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataStructures.RedBlackTreeSpace
 {
-    public enum NodeType
+    public partial class RedBlackTree<T>
     {
-        Red,
-        Black,
+        private enum NodeType
+        {
+            Red,
+            Black,
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace DataStructures.RedBlackTreeSpace
     public class RedBlackTree<T>
         where T : IComparable<T>
     {
-        private NullNode<T> nullNode = new NullNode<T>();
+        private readonly NullNode<T> nullNode = new NullNode<T>();
 
         private Node<T> current;
         private Node<T> parent;
