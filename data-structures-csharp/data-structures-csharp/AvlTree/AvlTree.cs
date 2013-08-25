@@ -82,20 +82,21 @@ namespace DataStructures.AvlTreeSpace
                 return;
             }
 
-            List<Node<T>> queue = new List<Node<T>> { root };
+            var queue = new Queue<Node<T>>();
+            queue.Enqueue(root);
             while (queue.Any())
             {
-                Node<T> node = queue[0];
-                queue.Remove(node);
+                Node<T> node = queue.Dequeue();
+                
                 if (node.Left != null)
                 {
                     node.Left.Height = node.Height + 1;
-                    queue.Add(node.Left);
+                    queue.Enqueue(node.Left);
                 }
                 if (node.Right != null)
                 {
                     node.Right.Height = node.Height + 1;
-                    queue.Add(node.Right);
+                    queue.Enqueue(node.Right);
                 }
             }
         }
@@ -283,7 +284,6 @@ namespace DataStructures.AvlTreeSpace
                 yield return x.Data;
                 PushLeft(stack, x.Right);
             }
-            yield break;
         }
 
 
