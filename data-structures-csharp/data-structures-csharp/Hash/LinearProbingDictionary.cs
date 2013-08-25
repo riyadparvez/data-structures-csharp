@@ -76,18 +76,19 @@ namespace DataStructures.HashSpace
         {
             Pair<Tkey, TValue> pair = new Pair<Tkey, TValue>(key, value);
             int pos = pair.GetHashCode();
-            int count = 0;
+            int visit = 0;
             while(pairs[pos] != null)
             {
-                if(count >= capacity)
+                if(visit >= capacity)
                 {
                     throw new Exception("Dictionary is full");
                 }
                 pos = (pos+stepSize) % capacity;
-                count++;
+                visit++;
             }
             
             pairs[pos] = pair;
+            count++;
         }
 
         /// <summary>
@@ -130,6 +131,7 @@ namespace DataStructures.HashSpace
         public void Remove(Tkey key)
         {
             Contract.Requires<ArgumentNullException>(key != null, "key");
+
             int index;
             if ((index = GetIndex(key)) != -1)
             {
