@@ -14,7 +14,7 @@ namespace DataStructures.SkipListSpace
     public partial class SkipList<TKey, TValue> : IEnumerable<TValue>, ICollection<TValue>
             where TKey : IComparable<TKey>
     {
-        private object lockObject = new object();
+        private readonly object lockObject = new object();
 
         private readonly int maxLevel;
         private int level;
