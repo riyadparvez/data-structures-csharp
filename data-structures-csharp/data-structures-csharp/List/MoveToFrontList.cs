@@ -13,15 +13,37 @@ namespace DataStructures.MoveToFrontListSpace
     public class MoveToFrontList<T> : IEnumerable<T>, ICollection<T>
         where T : IEquatable<T>
     {
-        private List<T> list = new List<T>();
+        private List<T> list;
 
-        public int Count { get { return list.Count; } }
-        public bool IsSynchronized { get { return false; } }
+        public int Count 
+        { 
+            get { return list.Count; } 
+        }
+        public int Capacity
+        {
+            get { return list.Capacity; }
+        }
+        public bool IsSynchronized 
+        { 
+            get { return false; } 
+        }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
             //Contract.Requires(arg != null);
+        }
+
+        public MoveToFrontList()
+        {
+            list = new List<T>();
+        }
+
+        public MoveToFrontList(int capacity) 
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
+
+            list = new List<T>(capacity);
         }
 
         /// <summary>
@@ -32,6 +54,7 @@ namespace DataStructures.MoveToFrontListSpace
         public T Get(T node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
+        
             T element = list.Where(e => e.Equals(node)).FirstOrDefault();
             if (element == null)
             {
@@ -49,6 +72,7 @@ namespace DataStructures.MoveToFrontListSpace
         public void Add(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
+            
             list.Add(element);
         }
 
@@ -59,6 +83,7 @@ namespace DataStructures.MoveToFrontListSpace
         public void Remove(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
+            
             list.Remove(element);
         }
 
