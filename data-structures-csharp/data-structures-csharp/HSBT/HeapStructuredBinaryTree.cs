@@ -10,7 +10,7 @@ namespace DataStructures.HsbtSpace
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     [Serializable]
-    public class HeapStructuredBinaryTree<TKey, TValue>
+    public partial class HeapStructuredBinaryTree<TKey, TValue>
         where TKey : IComparable<TKey>, IEquatable<TKey>
     {
         private Node<TKey, TValue> root;
