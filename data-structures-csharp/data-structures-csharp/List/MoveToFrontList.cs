@@ -13,6 +13,7 @@ namespace DataStructures.MoveToFrontListSpace
     public class MoveToFrontList<T> : IEnumerable<T>, ICollection<T>
     {
         private List<T> list;
+        private readonly object syncRoot = new object();
 
         public int Count 
         { 
@@ -21,6 +22,10 @@ namespace DataStructures.MoveToFrontListSpace
         public int Capacity
         {
             get { return list.Capacity; }
+        }
+        public object SyncRoot
+        {
+            get { return syncRoot; }
         }
         public bool IsSynchronized 
         { 
