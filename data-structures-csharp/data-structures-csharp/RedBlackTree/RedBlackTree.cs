@@ -266,9 +266,10 @@ namespace DataStructures.RedBlackTreeSpace
 
         public Node<T> RotateRight(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
-
+            if(root == null)
+            {
+                return null;
+            }
             Node<T> k1 = root.Left;
             root.Left = k1.Right;
             k1.Right = root;
@@ -277,9 +278,10 @@ namespace DataStructures.RedBlackTreeSpace
 
         public Node<T> RotateLeft(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
-
+            if (root == null)
+            {
+                return null;
+            }
             Node<T> k2 = root.Right;
             root.Right = k2.Left;
             k2.Left = root;
