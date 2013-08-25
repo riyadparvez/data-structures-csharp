@@ -12,11 +12,11 @@ namespace DataStructures.AvlTreeSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public partial class AvlTree<T> : IEnumerable<T>
-        where T : IComparable<T>
+    public partial class AvlTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+        where TKey : IComparable<TKey>
     {
         protected int count;
-        private Node<T> root;
+        private Node<TKey, TValue> root;
 
         public int Count
         {
@@ -29,11 +29,11 @@ namespace DataStructures.AvlTreeSpace
             Contract.Invariant(count >= 0);
         }
 
-        public void Add(T element)
+        public void Add(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
+            Contract.Requires<ArgumentNullException>(key != null, "Can't insert null values");
 
-            root = Add(root, element);
+            root = Add(root, key);
             root.Height = 1;
             FixHeight(root);
         }
@@ -44,15 +44,15 @@ namespace DataStructures.AvlTreeSpace
         /// <param name="root">root of the tree the element to be added</param>
         /// <param name="element">true if added, false if already added</param>
         /// <returns>Newly added elements</returns>
-        private Node<T> Add(Node<T> root, T element, int height = 1)
+        private Node<TKey, TValue> Add(Node<TKey, TValue> root, TKey element, int height = 1)
         {
             Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
             Contract.Requires<ArgumentOutOfRangeException>(height >= 0);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
             if (root == null)
             {
-                root = new Node<T>(element, root, height);
+                root = new Node<TKey, TValue>(element, root, height);
                 return root;
             }
             else
@@ -75,18 +75,18 @@ namespace DataStructures.AvlTreeSpace
         }
 
 
-        private void FixHeight(Node<T> root)
+        private void FixHeight(Node<TKey, TValue> root)
         {
             if(root == null)
             {
                 return;
             }
 
-            var queue = new Queue<Node<T>>();
+            var queue = new Queue<Node<TKey, TValue>>();
             queue.Enqueue(root);
             while (queue.Any())
             {
-                Node<T> node = queue.Dequeue();
+                var node = queue.Dequeue();
                 
                 if (node.Left != null)
                 {
@@ -102,15 +102,15 @@ namespace DataStructures.AvlTreeSpace
         }
 
 
-        private Node<T> RebalanceLeft(Node<T> root)
+        private Node<TKey, TValue> RebalanceLeft(Node<TKey, TValue> root)
         {
             if(root == null)
             {
                 return null;
             }
 
-            Node<T> left = root.Left;
-            Node<T> right = root.Right;
+            var left = root.Left;
+            var right = root.Right;
             int leftHeight = (root.Left == null) ? 0 : root.Left.Height;
             int rightHeight = (root.Right == null) ? 0 : root.Right.Height;
 
@@ -140,15 +140,15 @@ namespace DataStructures.AvlTreeSpace
             }
         }
 
-        private Node<T> RebalanceRight(Node<T> root)
+        private Node<TKey, TValue> RebalanceRight(Node<TKey, TValue> root)
         {
             if (root == null)
             {
                 return null;
             }
 
-            Node<T> left = root.Left;
-            Node<T> right = root.Right;
+            var left = root.Left;
+            var right = root.Right;
             int leftHeight = (root.Left == null) ? 0 : root.Left.Height;
             int rightHeight = (root.Right == null) ? 0 : root.Right.Height;
 
@@ -178,40 +178,40 @@ namespace DataStructures.AvlTreeSpace
             }
         }
 
-        private Node<T> RotateLeft(Node<T> root)
+        private Node<TKey, TValue> RotateLeft(Node<TKey, TValue> root)
         {
             if (root == null)
             {
                 return null;
             }
 
-            Node<T> temp = root.Right;
+            var temp = root.Right;
             root.Right.Left = root;
             root.Right = temp.Left;
             return temp;
         }
 
-        private Node<T> RotateRight(Node<T> root)
+        private Node<TKey, TValue> RotateRight(Node<TKey, TValue> root)
         {
             if (root == null)
             {
                 return null;
             }
 
-            Node<T> temp = root.Left;
+            var temp = root.Left;
             root.Left.Right = root;
             root.Left = temp.Right;
             return temp;
         }
 
-        private bool Exists(T item, Node<T> root) 
+        private bool Exists(TKey item, Node<TKey, TValue> root) 
         {
             if(root == null)
             {
                 return false;
             }
 
-            int i = root.Data.CompareTo(item);
+            int i = root.Key.CompareTo(item);
             if(i < 0)
             {
                 return Exists(item, root.Right);
@@ -226,11 +226,11 @@ namespace DataStructures.AvlTreeSpace
             }
         }
 
-        public bool Exists(T item) 
+        public bool Exists(TKey key) 
         {
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
-            return Exists(item, root);
+            return Exists(key, root);
         }
 
         public bool IsBalanced()
@@ -238,7 +238,7 @@ namespace DataStructures.AvlTreeSpace
             return IsBalanced(root);
         }
 
-        private bool IsBalanced(Node<T> node)
+        private bool IsBalanced(Node<TKey, TValue> node)
         {
             if (node == null)
             {
@@ -259,7 +259,7 @@ namespace DataStructures.AvlTreeSpace
             return IsBalanced(node.Left) && IsBalanced(node.Right);
         }
 
-        private void PushLeft(Stack<Node<T>> stack, Node<T> x)
+        private void PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)
         {
             Contract.Requires<ArgumentNullException>(stack != null);
 
@@ -270,18 +270,18 @@ namespace DataStructures.AvlTreeSpace
             }
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            Stack<Node<T>> stack = new Stack<Node<T>>();
+            var stack = new Stack<Node<TKey, TValue>>();
             PushLeft(stack, root);
             while (stack.Any())
             {
-                Node<T> x = stack.Pop();
+                var x = stack.Pop();
                 if(x == null)
                 {
                     continue;
                 }
-                yield return x.Data;
+                yield return new KeyValuePair<TKey, TValue>(x.Key, x.Value);
                 PushLeft(stack, x.Right);
             }
         }

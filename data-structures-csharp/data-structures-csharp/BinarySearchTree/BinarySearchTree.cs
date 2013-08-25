@@ -396,7 +396,6 @@ namespace DataStructures.BinarySearchTreeSpace
                 yield return x.Value;
                 PushLeft(stack, x.Right);
             }
-            yield break;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

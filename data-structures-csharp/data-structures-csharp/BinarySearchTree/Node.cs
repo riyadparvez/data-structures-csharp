@@ -12,7 +12,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <typeparam name="T">Data type</typeparam>
         [Serializable]
         protected class Node<TKey, TValue>
-            where TKey : IComparable<TKey>, IEquatable<TKey>
+            where TKey : IComparable<TKey>
         {
             private TKey key;
             private TValue val;

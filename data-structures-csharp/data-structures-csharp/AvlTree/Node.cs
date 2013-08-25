@@ -5,46 +5,84 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.AvlTreeSpace
 {
     [Serializable]
-    public partial class AvlTree<T> : IEnumerable<T>
-        where T : IComparable<T>
+    public partial class AvlTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+        where TKey : IComparable<TKey>
     {
         /// <summary>
-        /// Node of AVL tree, left<root<right
+        /// Node of Heap
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
         [Serializable]
-        private class Node<T>
-            where T : IComparable<T>
+        protected class Node<TKey, TValue>
+            where TKey : IComparable<TKey>
         {
-            public readonly T data;
+            private TKey key;
+            private TValue val;
 
-            public T Data
+            public TKey Key
             {
-                get { return data; }
+                get { return key; }
+                set
+                {
+                    Contract.Requires<ArgumentNullException>(value != null);
+                    key = value;
+                }
+
             }
-            public int Height { get; internal set; }
-            internal Node<T> Parent { get; set; }
-            internal Node<T> Left { get; set; }
-            internal Node<T> Right { get; set; }
-
-            [ContractInvariantMethod]
-            private void ObjectInvariant()
+            public TValue Value
             {
-                Contract.Invariant(Height >= 0);
-                Contract.Invariant(data != null);
+                get { return val; }
+                set
+                {
+                    Contract.Requires<ArgumentNullException>(value != null);
+                    val = value;
+                }
             }
+            public int Height { get; set; }
+            public Node<TKey, TValue> Parent { get; set; }
+            public Node<TKey, TValue> Left { get; set; }
+            public Node<TKey, TValue> Right { get; set; }
 
-            public Node(T data, Node<T> parent, int height)
+            public Node(TKey key, TValue val, Node<TKey, TValue> parent)
             {
-                Contract.Requires<ArgumentNullException>(data != null);
-                Contract.Requires<ArgumentNullException>(parent != null);
-                Contract.Requires(height >= 0);
+                Contract.Requires<ArgumentNullException>(key != null);
+                Contract.Requires<ArgumentNullException>(val != null);
+                Contract.Requires(parent != null);
 
-                this.data = data;
+                this.val = val;
                 Parent = parent;
                 Left = null;
                 Right = null;
-                Height = height;
+            }
+
+            public bool Equals(Node<TKey, TValue> otherNode)
+            {
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return val.Equals(otherNode.Value);
+            }
+
+            public override bool Equals(object obj)
+            {
+                Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return val.Equals(otherNode.Value);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = 17;
+                    // Suitable nullity checks etc, of course :)
+                    hash = hash * 23 + key.GetHashCode();
+                    return hash;
+                }
             }
         }
     }
