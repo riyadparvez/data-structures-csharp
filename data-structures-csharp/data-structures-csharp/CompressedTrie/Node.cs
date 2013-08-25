@@ -159,7 +159,6 @@ namespace DataStructures.CompressedTrieSpace
                 }
             }
 
-
             public override bool Equals(object obj)
             {
                 Node otherNode = obj as Node;
@@ -170,7 +169,6 @@ namespace DataStructures.CompressedTrieSpace
                 return wordFromRoot.Equals(otherNode.wordFromRoot) &&
                        stringFragment.Equals(otherNode.stringFragment);
             }
-
 
             public override string ToString()
             {

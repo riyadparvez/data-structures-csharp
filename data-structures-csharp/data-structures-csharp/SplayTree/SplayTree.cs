@@ -10,7 +10,7 @@ namespace DataStructures.SplayTreeSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class SplayTree<T>
+    public partial class SplayTree<T>
         where T : IComparable<T>, IEquatable<T>
     {
         public int Count { get; private set; }

@@ -3,68 +3,71 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.SplayTreeSpace
 {
-    /// <summary>
-    /// Node of BST, left<root<right
-    /// </summary>
-    /// <typeparam name="T">Data type</typeparam>
-    [Serializable]
-    public class Node<T>
-        where T : IComparable<T>, IEquatable<T>
+    public partial class SplayTree
     {
-        public readonly T data;
-
-        public T Data
+        /// <summary>
+        /// Node of BST, left<root<right
+        /// </summary>
+        /// <typeparam name="T">Data type</typeparam>
+        [Serializable]
+        private class Node<T>
+            where T : IComparable<T>, IEquatable<T>
         {
-            get { return data; }
-        }
-        public int Height { get; internal set; }
-        internal Node<T> Parent { get; set; }
-        internal Node<T> Left { get; set; }
-        internal Node<T> Right { get; set; }
+            public readonly T data;
 
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(Height >= 0);
-        }
-
-        public Node(T data, Node<T> parent)
-        {
-            Contract.Requires<ArgumentNullException>(data != null);
-
-            this.data = data;
-            Parent = parent;
-            Left = null;
-            Right = null;
-        }
-
-        public bool Equals(Node<T> otherNode)
-        {
-            if (otherNode == null)
+            public T Data
             {
-                return false;
+                get { return data; }
             }
-            return data.Equals(otherNode.Data);
-        }
+            public int Height { get; set; }
+            internal Node<T> Parent { get; set; }
+            internal Node<T> Left { get; set; }
+            internal Node<T> Right { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            Node<T> otherNode = obj as Node<T>;
-            if (otherNode == null)
+            [ContractInvariantMethod]
+            private void ObjectInvariant()
             {
-                return false;
+                Contract.Invariant(Height >= 0);
             }
-            return Data.Equals(otherNode.Data);
-        }
 
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
+            public Node(T data, Node<T> parent)
             {
-                int hash = 17;
-                // Suitable nullity checks etc, of course :)
-                hash = hash * 23 + data.GetHashCode();
-                return hash;
+                Contract.Requires<ArgumentNullException>(data != null);
+
+                this.data = data;
+                Parent = parent;
+                Left = null;
+                Right = null;
+            }
+
+            public bool Equals(Node<T> otherNode)
+            {
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return data.Equals(otherNode.Data);
+            }
+
+            public override bool Equals(object obj)
+            {
+                Node<T> otherNode = obj as Node<T>;
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                return Data.Equals(otherNode.Data);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = 17;
+                    // Suitable nullity checks etc, of course :)
+                    hash = hash * 23 + data.GetHashCode();
+                    return hash;
+                }
             }
         }
     }
