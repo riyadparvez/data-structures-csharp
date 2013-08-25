@@ -43,7 +43,6 @@ namespace DataStructures.CircularBufferSpace
             internalList = new List<T>(capacity);
         }
 
-
         public void Add(T item)
         {
             throw new NotImplementedException();
@@ -51,7 +50,7 @@ namespace DataStructures.CircularBufferSpace
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            internalList.Clear();
         }
 
         public bool Contains(T item)
@@ -72,7 +71,7 @@ namespace DataStructures.CircularBufferSpace
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            return internalList.Remove(item);
         }
 
         public IEnumerator<T> GetEnumerator()

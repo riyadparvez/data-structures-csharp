@@ -30,12 +30,14 @@ namespace DataStructures.AdjacencyList
         public AdjacencyList(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
+            
             dict = new Dictionary<T, HashSet<T>>(capacity);
         }
 
         public void AddVertex(T vertex)
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
+            
             if(dict.ContainsKey(vertex))
             {
                 return;
@@ -47,6 +49,7 @@ namespace DataStructures.AdjacencyList
         {
             Contract.Requires<ArgumentNullException>(vertex1 != null);
             Contract.Requires<ArgumentNullException>(vertex2 != null);
+
             if (!dict.ContainsKey(vertex1))
             {
                 dict[vertex1] = new HashSet<T>();
@@ -63,12 +66,14 @@ namespace DataStructures.AdjacencyList
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
             Contract.Requires<ArgumentNullException>(neighbour != null);
+
             return dict.ContainsKey(vertex) && dict[vertex].Contains(neighbour);
         }
 
         public IList<T> GetNeighbours(T vertex) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
+            
             return dict.ContainsKey(vertex)? dict[vertex].ToList(): new List<T>();
         } 
 
