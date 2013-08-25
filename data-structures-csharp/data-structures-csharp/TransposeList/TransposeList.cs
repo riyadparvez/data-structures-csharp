@@ -147,12 +147,23 @@ namespace DataStructures.TransposeListSpace
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            head.Next = null;
+            count = 0;
         }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            var current = head.Next;
+
+            while (current != null)
+            {
+                if(current.Data.Equals(item))
+                {
+                    return true;
+                }
+                current = current.Next;
+            }
+            return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
