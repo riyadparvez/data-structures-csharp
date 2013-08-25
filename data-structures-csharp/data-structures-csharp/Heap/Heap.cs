@@ -47,6 +47,7 @@ namespace DataStructures.HeapSpace
             if (root == null)
             {
                 root = new Node<T>(element, null);
+                Count++;
                 return;
             }
 
@@ -79,6 +80,7 @@ namespace DataStructures.HeapSpace
             }
             //Restore heap property
             root = Heapify(root);
+            Count++;
         }
 
         private Node<T> Heapify(Node<T> root)
