@@ -6,11 +6,11 @@ namespace DataStructures.FrequencyListSpace
     public partial class FrequencyList<T>
     {
         [Serializable]
-        public class Node<T>
+        private class Node<T>
             where T : IComparable<T>
         {
             public int AccessCount { get; set; }
-            public T Data { get; set; }
+            public T Value { get; set; }
             public Node<T> Previous { get; set; }
             public Node<T> Next { get; set; }
 
@@ -27,16 +27,15 @@ namespace DataStructures.FrequencyListSpace
             public Node(T data)
             {
                 Contract.Requires<ArgumentNullException>(data != null);
-                Data = data;
+                Value = data;
             }
-
 
             public override int GetHashCode()
             {
                 unchecked
                 {
                     int hash = 17;
-                    hash = 23 * Data.GetHashCode();
+                    hash = 23 * Value.GetHashCode();
                     return hash;
                 }
             }
@@ -48,7 +47,7 @@ namespace DataStructures.FrequencyListSpace
                 {
                     return false;
                 }
-                return Data.Equals(otherObject.Data);
+                return Value.Equals(otherObject.Value);
             }
         }
     }

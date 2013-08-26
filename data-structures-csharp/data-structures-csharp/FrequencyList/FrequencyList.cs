@@ -15,7 +15,9 @@ namespace DataStructures.FrequencyListSpace
         private int count;
         private readonly Node<T> dummy = new Node<T>();
 
-        private readonly Node<T> header;
+        private readonly Node<T> head;
+        private Node<T> tail;
+
         public int Count { get { return count; } }
 
         [ContractInvariantMethod]
@@ -28,21 +30,8 @@ namespace DataStructures.FrequencyListSpace
         {
             count = 0;
             dummy.AccessCount = Int32.MaxValue;
-            header = dummy;
+            head = dummy;
         }
-
-        private Node<T> GetLastNode()
-        {
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
-
-            Node<T> current = header;
-            while (current.Next != null)
-            {
-                current = current.Next;
-            }
-            return current;
-        }
-
 
         private void Adjust(Node<T> node)
         {
@@ -74,19 +63,44 @@ namespace DataStructures.FrequencyListSpace
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
-            var current = header;
+            var current = head;
             while (current != null)
             {
-                if (current.Data.Equals(element))
+                if (current.Value.Equals(element))
                 {
                     current.AccessCount++;
                     Adjust(current);
-                    return current.Data;
+                    return current.Value;
                 }
                 current = current.Next;
             }
 
             return default(T);
+        }
+
+        public T Get(int index) 
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(index >= 0);
+            Contract.Requires<ArgumentOutOfRangeException>(index < count);
+            
+            return GetNode(index).Value;
+        }
+
+        private Node<T> GetNode(int index) 
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(index >= 0);
+            Contract.Requires<ArgumentOutOfRangeException>(index < count);
+
+            var current = head;
+            int i = 0;
+            while (i < index)
+            {
+                current = current.Next;
+                i++;
+            }
+            current.AccessCount++;
+            Adjust(current);
+            return current;
         }
 
         /// <summary>
@@ -98,10 +112,10 @@ namespace DataStructures.FrequencyListSpace
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
-            var current = header;
+            var current = head;
             while (current != null)
             {
-                if (current.Data.Equals(element))
+                if (current.Value.Equals(element))
                 {
                     return current;
                 }
@@ -139,9 +153,10 @@ namespace DataStructures.FrequencyListSpace
             Contract.Ensures(count == Contract.OldValue<int>(count) + 1);
 
             Node<T> node = new Node<T>(data);
-            var lastNode = GetLastNode();
+            var lastNode = tail;
             lastNode.Next = node;
             node.Previous = lastNode;
+            tail = node;
             count++;
         }
 
@@ -149,10 +164,11 @@ namespace DataStructures.FrequencyListSpace
         {
             get 
             {
- 
+                return Get(index);    
             }
             set 
             { 
+
             }
         }
     }
