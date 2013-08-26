@@ -59,7 +59,7 @@ namespace DataStructures.FrequencyListSpace
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public T Get(T element)
+        public bool Exists(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
@@ -70,12 +70,12 @@ namespace DataStructures.FrequencyListSpace
                 {
                     current.AccessCount++;
                     Adjust(current);
-                    return current.Value;
+                    return true;
                 }
                 current = current.Next;
             }
 
-            return default(T);
+            return false;
         }
 
         public T Get(int index) 

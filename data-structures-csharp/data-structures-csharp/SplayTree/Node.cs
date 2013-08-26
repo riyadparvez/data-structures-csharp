@@ -20,9 +20,9 @@ namespace DataStructures.SplayTreeSpace
                 get { return data; }
             }
             public int Height { get; set; }
-            internal Node<T> Parent { get; set; }
-            internal Node<T> Left { get; set; }
-            internal Node<T> Right { get; set; }
+            public Node<T> Parent { get; set; }
+            public Node<T> Left { get; set; }
+            public Node<T> Right { get; set; }
 
             [ContractInvariantMethod]
             private void ObjectInvariant()

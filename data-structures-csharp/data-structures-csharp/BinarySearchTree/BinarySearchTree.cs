@@ -12,8 +12,8 @@ namespace DataStructures.BinarySearchTreeSpace
     /// </summary>
     /// <typeparam name="T">Type must inherit IComparable</typeparam>
     [Serializable]
-    public class BinarySearchTree<TKey, TValue> : IEnumerable<TValue>
-        where TKey : IComparable<TKey>, IEquatable<TKey>
+    public class BinarySearchTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+        where TKey : IComparable<TKey>
     {
         protected int count;
         protected Node<TKey, TValue> root;
@@ -34,7 +34,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="key">element to be searched</param>
         /// <returns>Returns that element, otherwise default of that type</returns>
-        private Node<TKey, TValue> FindNode(TKey key)
+        protected Node<TKey, TValue> FindNode(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
@@ -79,15 +79,15 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="key">true if added, false if already added</param>
         /// <returns>Newly added elements</returns>
-        public virtual bool Add(TKey key, TValue val)
+        public virtual bool Add(TKey key, TValue value)
         {
             Contract.Requires<ArgumentNullException>(key != null, "BST can't have null values");
-            Contract.Requires<ArgumentNullException>(val != null);
+            Contract.Requires<ArgumentNullException>(value != null);
             Contract.Ensures(count == (Contract.OldValue(count) + 1));
 
             if (root == null)
             {
-                root = new Node<TKey, TValue>(key, val, null);
+                root = new Node<TKey, TValue>(key, value, null);
                 count++;
                 return true;
             }
@@ -101,9 +101,9 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     if (current.Right == null)
                     {
-                        current.Right = new Node<TKey, TValue>(key, val, current);
+                        current.Right = new Node<TKey, TValue>(key, value, current);
                         count++;
-                        return true;
+                        break;
                     }
                     current = current.Right;
                 }
@@ -111,17 +111,18 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     if (current.Left == null)
                     {
-                        current.Left = new Node<TKey, TValue>(key, val, current);
+                        current.Left = new Node<TKey, TValue>(key, value, current);
                         count++;
-                        return true;
+                        break;
                     }
                     current = current.Left;
                 }
                 else
                 {
-                    return false;
+                    current.Value = value;
                 }
             }
+            return true;
         }
 
         /// <summary>
@@ -419,7 +420,7 @@ namespace DataStructures.BinarySearchTreeSpace
             return stack;
         }
 
-        public IEnumerator<TValue> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey,TValue>> GetEnumerator()
         {
             Stack<Node<TKey, TValue>> stack = new Stack<Node<TKey, TValue>>();
             stack = PushLeft(stack, root);
@@ -430,7 +431,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 {
                     continue;
                 }
-                yield return x.Value;
+                yield return new KeyValuePair<TKey, TValue>(x.Key, x.Value);
                 PushLeft(stack, x.Right);
             }
         }
