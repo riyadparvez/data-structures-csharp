@@ -349,8 +349,8 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Contract.Requires<ArgumentNullException>(start != null);
             Contract.Requires<ArgumentNullException>(end != null);
-            Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
-            Contract.Ensures(Contract.Result<List<Node<TKey, TValue>>>() != null);
+            Contract.Requires<ArgumentException>(start.CompareTo(end) <= 0);
+            Contract.Ensures(Contract.Result<IList<Node<TKey, TValue>>>() != null);
 
             Node<TKey, TValue> node = FindSplitNode(start, end);
             var pairs = new List<KeyValuePair<TKey, TValue>>();
