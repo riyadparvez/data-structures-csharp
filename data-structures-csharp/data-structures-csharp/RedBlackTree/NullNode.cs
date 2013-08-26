@@ -10,7 +10,7 @@ namespace DataStructures.RedBlackTreeSpace
     public partial class RedBlackTree<TKey, TValue>
     {
         [Serializable]
-        private class NullNode<TKey, TValue> : Node<TKey, TValue>
+        private sealed class NullNode<TKey, TValue> : Node<TKey, TValue>
             where TKey : IComparable<TKey>
         {
 

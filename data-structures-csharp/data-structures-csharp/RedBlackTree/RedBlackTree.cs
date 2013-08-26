@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
@@ -9,7 +10,7 @@ namespace DataStructures.RedBlackTreeSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class RedBlackTree<TKey, TValue>
+    public partial class RedBlackTree<TKey, TValue>
         where TKey : IComparable<TKey>
     {
         private readonly NullNode<TKey, TValue> nullNode = new NullNode<TKey, TValue>();
@@ -38,31 +39,30 @@ namespace DataStructures.RedBlackTreeSpace
         /// <summary>
         /// Find an element, otherwise return default
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        public T Find(T e)
+        public TValue Find(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(e != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
-            nullNode.Data = e;
             Node<TKey, TValue> current = header.Right;
             while (true)
             {
-                if (e.CompareTo(current.Data) < 0)
+                if (key.CompareTo(current.Key) < 0)
                 {
                     current = current.Left;
                 }
-                else if (e.CompareTo(current.Data) > 0)
+                else if (key.CompareTo(current.Key) > 0)
                 {
                     current = current.Right;
                 }
                 else if (!(current == nullNode))
                 {
-                    return current.Data;
+                    return current.Value;
                 }
                 else
                 {
-                    return default(T);
+                    return default(TValue);
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// Insert key to Red Black Tree
         /// </summary>
         /// <param name="key"></param>
-        public void Insert(T key)
+        public void Insert(TKey key, TValue value)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
@@ -80,12 +80,12 @@ namespace DataStructures.RedBlackTreeSpace
             current = parent;
             nullNode.Data = key;
 
-            while (current.Data.CompareTo(key) != 0)
+            while (current.Key.CompareTo(key) != 0)
             {
                 Node<TKey, TValue> greatParent = grandParent;
                 grandParent = parent;
                 parent = current;
-                if (key.CompareTo(current.Data) < 0)
+                if (key.CompareTo(current.Key) < 0)
                 {
                     current = current.Left;
                 }
@@ -107,8 +107,8 @@ namespace DataStructures.RedBlackTreeSpace
                 return;
             }
             //Allocate new node
-            current = new Node<TKey, TValue>(key, nullNode, nullNode);
-            if (key.CompareTo(parent.Data) < 0)
+            current = new Node<TKey, TValue>(key, value, nullNode, nullNode);
+            if (key.CompareTo(parent.Key) < 0)
             {
                 parent.Left = current;
             }
@@ -143,7 +143,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// Returns max element of the tree
         /// </summary>
         /// <returns></returns>
-        public T FindMax()
+        public KeyValuePair<TKey, TValue> FindMax()
         {
             if (this.IsEmpty())
             {
@@ -155,14 +155,14 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 itrNode = itrNode.Right;
             }
-            return itrNode.Data;
+            return new KeyValuePair<TKey,TValue>(itrNode.Key, itrNode.Value);
         }
 
         /// <summary>
         /// Returns min element of the tree
         /// </summary>
         /// <returns></returns>
-        public T FindMin()
+        public KeyValuePair<TKey, TValue> FindMin()
         {
             if (this.IsEmpty())
             {
@@ -175,7 +175,7 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 itrNode = itrNode.Left;
             }
-            return itrNode.Data;
+            return new KeyValuePair<TKey,TValue>(itrNode.Key, itrNode.Value);
         }
 
         public void Print()
@@ -196,14 +196,14 @@ namespace DataStructures.RedBlackTreeSpace
             if (n != nullNode)
             {
                 Print(n.Left);
-                Console.WriteLine(n.Data);
+                Console.WriteLine(n.Key);
                 Print(n.Right);
             }
         }
 
-        private void HandleReorient(T item)
+        private void HandleReorient(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(key != null);
 
             current.Color = NodeType.Red;
             current.Left.Color = NodeType.Black;
@@ -211,20 +211,20 @@ namespace DataStructures.RedBlackTreeSpace
             if (parent.Color == NodeType.Red)
             {
                 grandParent.Color = NodeType.Red;
-                if ((item.CompareTo(grandParent.Data) < 0) !=
-                    (item.CompareTo(parent.Data) == 0))
+                if ((key.CompareTo(grandParent.Key) < 0) !=
+                    (key.CompareTo(parent.Key) == 0))
                 {
                     //Balance grandParent subtree by item
-                    current = Rotate(item, grandParent);
+                    current = Rotate(key, grandParent);
                     current.Color = NodeType.Black;
                 }
                 header.Right.Color = NodeType.Black;
             }
         }
 
-        private Node<TKey, TValue> Rotate(T item, Node<TKey, TValue> parent)
+        private Node<TKey, TValue> Rotate(TKey key, Node<TKey, TValue> parent)
         {
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(key != null);
             Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
             if(parent == null)
@@ -233,9 +233,9 @@ namespace DataStructures.RedBlackTreeSpace
             }
 
             //Left subtree is unbalanced
-            if (item.CompareTo(parent.Data) < 0)
+            if (key.CompareTo(parent.Key) < 0)
             {
-                if (item.CompareTo(parent.Left.Data) < 0)
+                if (key.CompareTo(parent.Left.Key) < 0)
                 {
                     //Left subtree of Right Left subtree is unbalanced
                     parent.Left = RotateRight(parent.Left);
@@ -250,7 +250,7 @@ namespace DataStructures.RedBlackTreeSpace
             //Right subtree is unbalanced
             else
             {
-                if (item.CompareTo(parent.Right.Data) < 0)
+                if (key.CompareTo(parent.Right.Key) < 0)
                 {
                     //Left subtree of Right subtree is unbalanced
                     parent.Right = RotateRight(parent.Right);
