@@ -42,31 +42,31 @@ namespace DataStructures.AvlTreeSpace
         /// Adds newly added element
         /// </summary>
         /// <param name="root">root of the tree the element to be added</param>
-        /// <param name="element">true if added, false if already added</param>
+        /// <param name="key">true if added, false if already added</param>
         /// <returns>Newly added elements</returns>
-        private Node<TKey, TValue> Add(Node<TKey, TValue> root, TKey element, int height = 1)
+        private Node<TKey, TValue> Add(Node<TKey, TValue> root, TKey key, TValue value, int height = 1)
         {
-            Contract.Requires<ArgumentNullException>(element != null, "Can't insert null values");
+            Contract.Requires<ArgumentNullException>(key != null, "Can't insert null values");
             Contract.Requires<ArgumentOutOfRangeException>(height >= 0);
             Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
             if (root == null)
             {
-                root = new Node<TKey, TValue>(element, root, height);
+                root = new Node<TKey, TValue>(key, value, root, height);
                 return root;
             }
             else
             {
-                int i = root.Key.CompareTo(element);
+                int i = root.Key.CompareTo(key);
 
                 if (i > 0)
                 {
-                    root.Left = Add(root.Left, element, height + 1);
+                    root.Left = Add(root.Left, key, value, height + 1);
                     root = RebalanceLeft(root);
                 }
                 else if (i < 0)
                 {
-                    root.Right = Add(root.Right, element, height + 1);
+                    root.Right = Add(root.Right, key, value, height + 1);
                     root = RebalanceRight(root);
                 }
                 //Element is already added to the tree

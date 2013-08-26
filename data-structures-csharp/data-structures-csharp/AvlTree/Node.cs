@@ -43,14 +43,14 @@ namespace DataStructures.AvlTreeSpace
             public Node<TKey, TValue> Left { get; set; }
             public Node<TKey, TValue> Right { get; set; }
 
-            public Node(TKey key, TValue val, Node<TKey, TValue> parent)
+            public Node(TKey key, TValue val, Node<TKey, TValue> parent, int height)
             {
                 Contract.Requires<ArgumentNullException>(key != null);
                 Contract.Requires<ArgumentNullException>(val != null);
-                Contract.Requires(parent != null);
 
                 this.val = val;
                 Parent = parent;
+                Height = height;
                 Left = null;
                 Right = null;
             }
