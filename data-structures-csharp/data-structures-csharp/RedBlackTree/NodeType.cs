@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.RedBlackTreeSpace
 {
-    public partial class RedBlackTree<T>
+    public partial class RedBlackTree<TKey, TValue>
     {
         private enum NodeType
         {

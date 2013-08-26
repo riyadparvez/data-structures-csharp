@@ -9,16 +9,16 @@ namespace DataStructures.RedBlackTreeSpace
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class RedBlackTree<T>
-        where T : IComparable<T>
+    public class RedBlackTree<TKey, TValue>
+        where TKey : IComparable<TKey>
     {
-        private readonly NullNode<T> nullNode = new NullNode<T>();
+        private readonly NullNode<TKey, TValue> nullNode = new NullNode<TKey, TValue>();
 
-        private Node<T> current;
-        private Node<T> parent;
-        private Node<T> grandParent;
-        private Node<T> greatParent;
-        private Node<T> header;
+        private Node<TKey, TValue> current;
+        private Node<TKey, TValue> parent;
+        private Node<TKey, TValue> grandParent;
+        private Node<TKey, TValue> greatParent;
+        private Node<TKey, TValue> header;
 
         public int Count { get; private set; }
 
@@ -26,13 +26,13 @@ namespace DataStructures.RedBlackTreeSpace
         {
             Contract.Requires<ArgumentNullException>(data != null);
 
-            current = new Node<T>(default(T), nullNode, nullNode);
-            parent = new Node<T>(default(T), nullNode, nullNode);
-            grandParent = new Node<T>(default(T), nullNode, nullNode);
-            greatParent = new Node<T>(default(T), nullNode, nullNode);
+            current = new Node<TKey, TValue>(default(T), nullNode, nullNode);
+            parent = new Node<TKey, TValue>(default(T), nullNode, nullNode);
+            grandParent = new Node<TKey, TValue>(default(T), nullNode, nullNode);
+            greatParent = new Node<TKey, TValue>(default(T), nullNode, nullNode);
             nullNode.Left = nullNode;
             nullNode.Right = nullNode;
-            header = new Node<T>(data, nullNode, nullNode);
+            header = new Node<TKey, TValue>(data, nullNode, nullNode);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace DataStructures.RedBlackTreeSpace
             Contract.Requires<ArgumentNullException>(e != null);
 
             nullNode.Data = e;
-            Node<T> current = header.Right;
+            Node<TKey, TValue> current = header.Right;
             while (true)
             {
                 if (e.CompareTo(current.Data) < 0)
@@ -82,7 +82,7 @@ namespace DataStructures.RedBlackTreeSpace
 
             while (current.Data.CompareTo(key) != 0)
             {
-                Node<T> greatParent = grandParent;
+                Node<TKey, TValue> greatParent = grandParent;
                 grandParent = parent;
                 parent = current;
                 if (key.CompareTo(current.Data) < 0)
@@ -107,7 +107,7 @@ namespace DataStructures.RedBlackTreeSpace
                 return;
             }
             //Allocate new node
-            current = new Node<T>(key, nullNode, nullNode);
+            current = new Node<TKey, TValue>(key, nullNode, nullNode);
             if (key.CompareTo(parent.Data) < 0)
             {
                 parent.Left = current;
@@ -150,7 +150,7 @@ namespace DataStructures.RedBlackTreeSpace
                 return default(T);
             }
             //Rightmost child is the max child
-            Node<T> itrNode = header.Right;
+            Node<TKey, TValue> itrNode = header.Right;
             while (itrNode.Right != nullNode)
             {
                 itrNode = itrNode.Right;
@@ -169,7 +169,7 @@ namespace DataStructures.RedBlackTreeSpace
                 return default(T);
             }
             //Leftmost child is the min child
-            Node<T> itrNode = header.Right;
+            Node<TKey, TValue> itrNode = header.Right;
 
             while (itrNode.Left != nullNode)
             {
@@ -190,7 +190,7 @@ namespace DataStructures.RedBlackTreeSpace
             }
         }
 
-        private void Print(Node<T> n)
+        private void Print(Node<TKey, TValue> n)
         {
             Contract.Requires<ArgumentNullException>(n != null);
             if (n != nullNode)
@@ -222,10 +222,10 @@ namespace DataStructures.RedBlackTreeSpace
             }
         }
 
-        private Node<T> Rotate(T item, Node<T> parent)
+        private Node<TKey, TValue> Rotate(T item, Node<TKey, TValue> parent)
         {
             Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Ensures(Contract.Result<Node<T>>() != null);
+            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
             if(parent == null)
             {
@@ -264,25 +264,25 @@ namespace DataStructures.RedBlackTreeSpace
             }
         }
 
-        public Node<T> RotateRight(Node<T> root)
+        public Node<TKey, TValue> RotateRight(Node<TKey, TValue> root)
         {
             if(root == null)
             {
                 return null;
             }
-            Node<T> k1 = root.Left;
+            Node<TKey, TValue> k1 = root.Left;
             root.Left = k1.Right;
             k1.Right = root;
             return k1;
         }
 
-        public Node<T> RotateLeft(Node<T> root)
+        public Node<TKey, TValue> RotateLeft(Node<TKey, TValue> root)
         {
             if (root == null)
             {
                 return null;
             }
-            Node<T> k2 = root.Right;
+            Node<TKey, TValue> k2 = root.Right;
             root.Right = k2.Left;
             k2.Left = root;
             return k2;

@@ -29,11 +29,11 @@ namespace DataStructures.AvlTreeSpace
             Contract.Invariant(count >= 0);
         }
 
-        public void Add(TKey key)
+        public void Add(TKey key, TValue value)
         {
             Contract.Requires<ArgumentNullException>(key != null, "Can't insert null values");
 
-            root = Add(root, key);
+            root = Add(root, key, value);
             root.Height = 1;
             FixHeight(root);
         }
@@ -257,6 +257,21 @@ namespace DataStructures.AvlTreeSpace
                 return false;
             }
             return IsBalanced(node.Left) && IsBalanced(node.Right);
+        }
+
+        public TValue Find(TKey key) 
+        {
+            Contract.Requires<ArgumentNullException>(key != null);
+
+        }
+
+        public void Remove(TKey key) 
+        {
+            Contract.Requires<ArgumentNullException>(key != null);
+            if(Find(key).Equals(default(TValue)))
+            {
+            
+            }
         }
 
         private void PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)

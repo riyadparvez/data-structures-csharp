@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DataStructures.RedBlackTreeSpace
 {
-    public partial class RedBlackTree<T>
+    public partial class RedBlackTree<TKey, TValue>
     {
         [Serializable]
-        private class NullNode<T> : Node<T>
-            where T : IComparable<T>
+        private class NullNode<TKey, TValue> : Node<TKey, TValue>
+            where TKey : IComparable<TKey>
         {
 
         }
