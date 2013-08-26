@@ -3,6 +3,8 @@ Data Structures C#
 
 A library for all the data structures in C#. Every class will be generic and reusable. It uses [http://research.microsoft.com/contracts](http://research.microsoft.com/contracts "Code Contract") library.
 
+**Caution:** This library is under development and not tested. Anything can break.
+
 Implemented data structures are:
 
 - AVL Tree
