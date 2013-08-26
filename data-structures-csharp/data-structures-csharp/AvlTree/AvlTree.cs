@@ -57,7 +57,7 @@ namespace DataStructures.AvlTreeSpace
             }
             else
             {
-                int i = root.Data.CompareTo(element);
+                int i = root.Key.CompareTo(element);
 
                 if (i > 0)
                 {

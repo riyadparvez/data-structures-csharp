@@ -34,7 +34,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="key">element to be searched</param>
         /// <returns>Returns that element, otherwise default of that type</returns>
-        public Node<TKey, TValue> FindNode(TKey key)
+        private Node<TKey, TValue> FindNode(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
@@ -129,7 +129,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public Node<TKey, TValue> Predecessor(Node<TKey, TValue> node)
+        private Node<TKey, TValue> Predecessor(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have predecesspr");
 
@@ -150,13 +150,21 @@ namespace DataStructures.BinarySearchTreeSpace
             return node;
         }
 
+        public KeyValuePair<TKey, TValue> Predecessor(TKey key) 
+        {
+            Contract.Requires<ArgumentNullException>(key != null);
+
+            var node = FindNode(key);
+            var predecessor = Predecessor(node);
+            return new KeyValuePair<TKey, TValue>(predecessor.Key, predecessor.Value);
+        }
 
         /// <summary>
         /// Returns in order successor, returns if it's the last element
         /// </summary>
         /// <param name="node"></param>
         /// <returns>returns null if in order successor doesn't exist</returns>
-        public Node<TKey, TValue> Successor(Node<TKey, TValue> node)
+        private Node<TKey, TValue> Successor(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have successor");
 
@@ -177,6 +185,14 @@ namespace DataStructures.BinarySearchTreeSpace
             return node;
         }
 
+        public KeyValuePair<TKey, TValue> Successor(TKey key) 
+        {
+            Contract.Requires<ArgumentNullException>(key != null);
+
+            var node = FindNode(key);
+            var successor = Successor(node);
+            return new KeyValuePair<TKey,TValue>(successor.Key, successor.Value);
+        }
 
         /// <summary>
         /// Remove specified element
@@ -191,6 +207,12 @@ namespace DataStructures.BinarySearchTreeSpace
             if (node == null)                            //node isn't there
             {
                 return false;
+            }
+            if(node == root)
+            {
+
+                count--;
+                return true;
             }
             if (node.Left == null && node.Right == null)     //node doesn't have any children
             {
@@ -278,6 +300,7 @@ namespace DataStructures.BinarySearchTreeSpace
         private bool IsLeafNode(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
+         
             return (node.Left == null) && (node.Right == null);
         }
 
@@ -306,7 +329,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 var node = queue.Dequeue();
                 if (node == null)
                 {
-                    break;
+                    continue;
                 }
                 list.Add(new KeyValuePair<TKey, TValue>(node.Key, node.Value));
                 queue.Enqueue(node.Left);
