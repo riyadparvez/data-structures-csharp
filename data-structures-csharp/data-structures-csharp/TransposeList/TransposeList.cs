@@ -168,6 +168,8 @@ namespace DataStructures.TransposeListSpace
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            Contract.Requires<ArgumentNullException>(array != null);
+
             throw new NotImplementedException();
         }
 
@@ -176,7 +178,7 @@ namespace DataStructures.TransposeListSpace
             get { throw new NotImplementedException(); }
         }
 
-        bool ICollection<T>.Remove(T item)
+        public bool Remove(T item)
         {
             throw new NotImplementedException();
         }

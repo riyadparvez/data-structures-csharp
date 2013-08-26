@@ -204,6 +204,7 @@ namespace DataStructures.AvlTreeSpace
             return temp;
         }
 
+        [Pure]
         private bool Exists(TKey item, Node<TKey, TValue> root) 
         {
             if(root == null)
@@ -226,6 +227,7 @@ namespace DataStructures.AvlTreeSpace
             }
         }
 
+        [Pure]
         public bool Exists(TKey key) 
         {
             Contract.Requires<ArgumentNullException>(key != null);
@@ -233,11 +235,13 @@ namespace DataStructures.AvlTreeSpace
             return Exists(key, root);
         }
 
+        [Pure]
         public bool IsBalanced()
         {
             return IsBalanced(root);
         }
 
+        [Pure]
         private bool IsBalanced(Node<TKey, TValue> node)
         {
             if (node == null)
@@ -259,6 +263,7 @@ namespace DataStructures.AvlTreeSpace
             return IsBalanced(node.Left) && IsBalanced(node.Right);
         }
         //TODO: implement find
+        [Pure]
         public TValue Find(TKey key) 
         {
             Contract.Requires<ArgumentNullException>(key != null);

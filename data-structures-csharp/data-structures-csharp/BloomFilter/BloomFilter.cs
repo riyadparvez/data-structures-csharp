@@ -137,6 +137,7 @@ namespace DataStructures.BloomFilterSpace
             return true;
         }
 
+        [Pure]
         public bool Contains(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);

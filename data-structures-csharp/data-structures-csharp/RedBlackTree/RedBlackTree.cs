@@ -41,6 +41,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+        [Pure]
         public TValue Find(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
@@ -134,6 +135,7 @@ namespace DataStructures.RedBlackTreeSpace
         /// Check if the tree is empty
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public bool IsEmpty()
         {
             return (header.Right == nullNode);
@@ -225,7 +227,6 @@ namespace DataStructures.RedBlackTreeSpace
         private Node<TKey, TValue> Rotate(TKey key, Node<TKey, TValue> parent)
         {
             Contract.Requires<ArgumentNullException>(key != null);
-            Contract.Ensures(Contract.Result<Node<TKey, TValue>>() != null);
 
             if(parent == null)
             {

@@ -30,6 +30,7 @@ namespace DataStructures.CompressedTrieSpace
         /// </summary>
         /// <param name="word">word to search for</param>
         /// <returns>True if that word exists</returns>
+        [Pure]
         public bool Exists(string word)
         {
             Contract.Requires(!string.IsNullOrEmpty(word), "Trie doesn't include empty string or null values");

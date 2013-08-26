@@ -45,6 +45,7 @@ namespace DataStructures.BPlusTreeSpace
             }
         }
 
+        [Pure]
         public TValue Find(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);

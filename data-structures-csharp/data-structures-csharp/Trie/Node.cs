@@ -11,7 +11,7 @@ namespace DataStructures.TrieSpace
     public partial class Trie : IEnumerable<string>
     {
         [Serializable]
-        private class Node
+        private sealed class Node
         {
             private HashSet<Node> children;
             private readonly char ch;
@@ -63,6 +63,7 @@ namespace DataStructures.TrieSpace
             /// </summary>
             /// <param name="ch">character to search in children</param>
             /// <returns>Null if that children is not present otherwise node having param character</returns>
+            [Pure]
             public Node HasChild(char ch)
             {
                 return children.SingleOrDefault(n => n.ch.Equals(ch));
