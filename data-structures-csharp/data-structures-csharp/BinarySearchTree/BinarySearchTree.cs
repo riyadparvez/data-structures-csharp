@@ -394,6 +394,20 @@ namespace DataStructures.BinarySearchTreeSpace
             return pairs;
         }
 
+        public TValue this[TKey key]
+        {
+            get
+            {
+                Contract.Requires<ArgumentNullException>(key != null);
+
+                return Find(key);
+            }
+            set
+            {
+                Add(key, value);
+            }
+        }
+
         private Stack<Node<TKey, TValue>> PushLeft(Stack<Node<TKey, TValue>> stack, Node<TKey, TValue> x)
         {
             Contract.Requires<ArgumentNullException>(stack != null);

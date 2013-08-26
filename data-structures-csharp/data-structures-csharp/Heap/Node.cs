@@ -18,17 +18,21 @@ namespace DataStructures.HeapSpace
 
             public T Value
             {
-                get { return val; }
-                internal set
+                get 
+                { 
+                    return val; 
+                }
+                set
                 {
                     Contract.Requires<ArgumentNullException>(value != null);
+                    
                     val = value;
                 }
             }
-            public int Height { get; internal set; }
-            internal Node<T> Parent { get; set; }
-            internal Node<T> Left { get; set; }
-            internal Node<T> Right { get; set; }
+            public int Height { get; set; }
+            public Node<T> Parent { get; set; }
+            public Node<T> Left { get; set; }
+            public Node<T> Right { get; set; }
 
             public Node(T val, Node<T> parent)
             {
