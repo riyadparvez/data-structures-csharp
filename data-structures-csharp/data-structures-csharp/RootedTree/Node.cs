@@ -11,7 +11,7 @@ namespace DataStructures.RootedTreeSpace
         /// <typeparam name="T">Data type</typeparam>
         [Serializable]
         private class Node<T>
-            where T : IComparable<T>, IEquatable<T>
+            where T : IComparable<T>
         {
             public readonly T data;
 

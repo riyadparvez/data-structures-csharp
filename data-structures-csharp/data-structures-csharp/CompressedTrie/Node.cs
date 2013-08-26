@@ -16,7 +16,7 @@ namespace DataStructures.CompressedTrieSpace
         [Serializable]
         private class Node
         {
-            private HashSet<Node> children;
+            private readonly HashSet<Node> children = new HashSet<Node>();
             private string stringFragment;
             private readonly Comparer<Node> comparer = new NodeComparare();
             private readonly string wordFromRoot;
@@ -49,7 +49,6 @@ namespace DataStructures.CompressedTrieSpace
             {
                 Contract.Requires<ArgumentNullException>(wordFromRoot != null);
 
-                children = new HashSet<Node>();
                 this.wordFromRoot = wordFromRoot;
                 this.stringFragment = string.Empty;
             }

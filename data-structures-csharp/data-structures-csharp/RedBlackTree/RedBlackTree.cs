@@ -147,7 +147,7 @@ namespace DataStructures.RedBlackTreeSpace
         {
             if (this.IsEmpty())
             {
-                return default(T);
+                return new KeyValuePair<TKey,TValue>();
             }
             //Rightmost child is the max child
             Node<TKey, TValue> itrNode = header.Right;
@@ -166,7 +166,7 @@ namespace DataStructures.RedBlackTreeSpace
         {
             if (this.IsEmpty())
             {
-                return default(T);
+                return new KeyValuePair<TKey,TValue>();
             }
             //Leftmost child is the min child
             Node<TKey, TValue> itrNode = header.Right;

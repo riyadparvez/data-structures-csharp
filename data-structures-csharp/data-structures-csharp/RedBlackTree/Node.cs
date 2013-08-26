@@ -15,10 +15,10 @@ namespace DataStructures.RedBlackTreeSpace
             public Node<TKey, TValue> Left { get; set; }
             public Node<TKey, TValue> Right { get; set; }
 
-            public Node()
+            public Node(TKey key)
             {
                 Color = NodeType.Black;
-                Key = default(TKey);
+                Key = key;
                 Left = null;
                 Right = null;
             }

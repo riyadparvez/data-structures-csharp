@@ -211,7 +211,7 @@ namespace DataStructures.BinarySearchTreeSpace
             }
             if(node == root)
             {
-
+                //TODO: handle root case
                 count--;
                 return true;
             }
@@ -394,6 +394,8 @@ namespace DataStructures.BinarySearchTreeSpace
             }
             return pairs;
         }
+
+        
 
         public TValue this[TKey key]
         {

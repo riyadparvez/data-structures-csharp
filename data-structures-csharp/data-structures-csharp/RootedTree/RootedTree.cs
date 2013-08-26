@@ -15,7 +15,10 @@ namespace DataStructures.RootedTreeSpace
             Contract.Requires<ArgumentNullException>(stack != null);
 
             while (x != null)
-            { stack.Push(x); x = x.Left; }
+            { 
+                stack.Push(x); 
+                x = x.Left; 
+            }
         }
 
         /// <summary>

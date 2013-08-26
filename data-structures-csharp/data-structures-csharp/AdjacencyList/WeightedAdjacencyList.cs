@@ -45,7 +45,7 @@ namespace DataStructures.AdjacencyList
             dict[vertex] = new HashSet<Node<T>>();
         }
 
-        public void AddEdge(T vertex1, T vertex2, int weight) 
+        public void AddEdge(T vertex1, T vertex2, double weight) 
         {
             Contract.Requires<ArgumentNullException>(vertex1 != null);
             Contract.Requires<ArgumentNullException>(vertex2 != null);
@@ -70,30 +70,30 @@ namespace DataStructures.AdjacencyList
             return dict.ContainsKey(vertex) && dict[vertex].Contains(neighbour);
         }
 
-        public IList<int> GetAllWeights(T vertex) 
+        public IList<double> GetAllWeights(T vertex) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
             return dict.ContainsKey(vertex) ?
                    dict[vertex].Select(n =>n.weight).ToList() :
-                   new List<int>();
+                   new List<double>();
         }
 
-        public IList<Tuple<T, int>> GetNeighbours(T vertex) 
+        public IList<Tuple<T, double>> GetNeighbours(T vertex) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
 
-            return dict.ContainsKey(vertex)? 
-                   dict[vertex].Select(n => new Tuple<T, int>(n.item, n.weight)).ToList(): 
-                   new List<Tuple<T, int>>();
+            return dict.ContainsKey(vertex)?
+                   dict[vertex].Select(n => new Tuple<T, double>(n.item, n.weight)).ToList() :
+                   new List<Tuple<T, double>>();
         }
 
         private class Node<T>
             where T : class
         {
             public T item;
-            public int weight;
+            public double weight;
 
-            public Node(T item, int weight)
+            public Node(T item, double weight)
             {
                 this.item = item;
                 this.weight = weight;

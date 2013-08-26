@@ -258,13 +258,13 @@ namespace DataStructures.AvlTreeSpace
             }
             return IsBalanced(node.Left) && IsBalanced(node.Right);
         }
-
+        //TODO: implement find
         public TValue Find(TKey key) 
         {
             Contract.Requires<ArgumentNullException>(key != null);
-
+            throw new NotImplementedException();
         }
-
+        //TODO: implement remove
         public void Remove(TKey key) 
         {
             Contract.Requires<ArgumentNullException>(key != null);
