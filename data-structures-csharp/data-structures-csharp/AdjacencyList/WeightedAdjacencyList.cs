@@ -70,6 +70,14 @@ namespace DataStructures.AdjacencyList
             return dict.ContainsKey(vertex) && dict[vertex].Contains(neighbour);
         }
 
+        public IList<int> GetAllWeights(T vertex) 
+        {
+            Contract.Requires<ArgumentNullException>(vertex != null);
+            return dict.ContainsKey(vertex) ?
+                   dict[vertex].Select(n =>n.weight).ToList() :
+                   new List<int>();
+        }
+
         public IList<Tuple<T, int>> GetNeighbours(T vertex) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
