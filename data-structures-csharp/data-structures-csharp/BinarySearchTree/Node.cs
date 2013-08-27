@@ -7,7 +7,7 @@ namespace DataStructures.BinarySearchTreeSpace
     public partial class BinarySearchTree<TKey, TValue>
     {
         /// <summary>
-        /// Node of Heap
+        /// Node of Binary Search Tree
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
         [Serializable]
