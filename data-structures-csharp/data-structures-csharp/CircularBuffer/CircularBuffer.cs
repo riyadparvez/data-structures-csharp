@@ -40,6 +40,7 @@ namespace DataStructures.CircularBufferSpace
         public CircularBuffer(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
+
             internalList = new List<T>(capacity);
         }
 

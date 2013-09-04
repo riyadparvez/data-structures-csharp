@@ -1,0 +1,3 @@
+Judy Array
+disjoint set data structure
+dancing link (knuth)

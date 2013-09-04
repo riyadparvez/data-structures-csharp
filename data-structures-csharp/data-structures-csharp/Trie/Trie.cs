@@ -99,6 +99,7 @@ namespace DataStructures.TrieSpace
             }
         }
 
+        [Pure]
         private bool HasOneChild(Node node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
@@ -137,6 +138,7 @@ namespace DataStructures.TrieSpace
             return true;
         }
 
+        [Pure]
         private IList<string> AllStrings(Node node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
@@ -154,6 +156,7 @@ namespace DataStructures.TrieSpace
             return words;
         }
 
+        [Pure]
         public IList<string> GetStringsContainingPrefix(string prefix)
         {
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(prefix));

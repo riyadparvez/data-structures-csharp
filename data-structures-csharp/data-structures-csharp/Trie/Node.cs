@@ -11,7 +11,7 @@ namespace DataStructures.TrieSpace
     public partial class Trie : IEnumerable<string>
     {
         [Serializable]
-        private sealed class Node
+        private class Node
         {
             private HashSet<Node> children;
             private readonly char ch;

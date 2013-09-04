@@ -7,7 +7,7 @@ using System.Linq;
 namespace DataStructures.RootedTreeSpace
 {
     [Serializable]
-    public class RootedTree<T>
+    public partial class RootedTree<T>
         where T : IComparable<T>, IEquatable<T>
     {
         private void PushLeft(Stack<Node<T>> stack, Node<T> x)

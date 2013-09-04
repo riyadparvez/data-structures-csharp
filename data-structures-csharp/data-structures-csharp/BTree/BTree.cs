@@ -23,7 +23,7 @@ namespace DataStructures.BTreeSpace
         {
             Contract.Invariant(root != null);
             Contract.Invariant(Count >= 0);
-            Contract.Invariant(Height > 0);
+            Contract.Invariant(Height >= 0);
         }
 
         public BTree()
