@@ -88,7 +88,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
             if (root == null)
             {
-                root = new Node<TKey, TValue>(key, value, null);
+                root = new Node<TKey, TValue>(key, value, new NullNode<TKey,TValue>());
                 count++;
                 return true;
             }
