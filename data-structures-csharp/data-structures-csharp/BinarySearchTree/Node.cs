@@ -45,8 +45,9 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 Contract.Requires<ArgumentNullException>(key != null);
                 Contract.Requires<ArgumentNullException>(val != null);
-                Contract.Requires(parent != null);
-
+                //Removed the code because it throws error when we add the root Item (First item) where parent would be null
+               // Contract.Requires(parent != null);
+                this.key = key;
                 this.val = val;
                 Parent = parent;
                 Left = null;

@@ -12,7 +12,7 @@ namespace DataStructures.BinarySearchTreeSpace
     /// </summary>
     /// <typeparam name="T">Type must inherit IComparable</typeparam>
     [Serializable]
-    public class BinarySearchTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+    public partial class BinarySearchTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
         where TKey : IComparable<TKey>
     {
         protected int count;
@@ -83,7 +83,8 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Contract.Requires<ArgumentNullException>(key != null, "BST can't have null values");
             Contract.Requires<ArgumentNullException>(value != null);
-            Contract.Ensures(count == (Contract.OldValue(count) + 1));
+            //If the same key is added once again it will update the Value rather that adding a new Node
+            Contract.Ensures(count == (Contract.OldValue(count) + 1) || count == (Contract.OldValue(count)));
 
             if (root == null)
             {
@@ -120,6 +121,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 else
                 {
                     current.Value = value;
+                    break;
                 }
             }
             return true;
@@ -151,7 +153,7 @@ namespace DataStructures.BinarySearchTreeSpace
             return node;
         }
 
-        public KeyValuePair<TKey, TValue> Predecessor(TKey key) 
+        public KeyValuePair<TKey, TValue> Predecessor(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
@@ -186,7 +188,7 @@ namespace DataStructures.BinarySearchTreeSpace
             return node;
         }
 
-        public KeyValuePair<TKey, TValue> Successor(TKey key) 
+        public KeyValuePair<TKey, TValue> Successor(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
@@ -209,7 +211,7 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 return false;
             }
-            if(node == root)
+            if (node == root)
             {
                 //TODO: handle root case
                 count--;
@@ -276,32 +278,45 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(end != null);
             Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
 
+            Node<TKey, TValue> result = null;
             var current = root;
-            while (current != null)
+            while (true)
             {
                 int startCompare = start.CompareTo(current.Key);
                 int endCompare = end.CompareTo(current.Key);
 
-                if (startCompare != endCompare)
+                if (startCompare == 0 || endCompare == 0)
                 {
-                    return current;
+                    result = current;
+                    break;
                 }
-                else if (endCompare <= 0)
+                else if (startCompare < 0 && endCompare > 0)
                 {
-                    current = current.Left;
+                    result = current;
+                    break;
                 }
-                else if (endCompare > 0)
+                else if (startCompare > 0 && endCompare > 0)
                 {
+                    //If no Right node exists then the range specified is greater the highest node in the Tree
+                    if (current.Right == null)
+                    { break; }
                     current = current.Right;
                 }
+                else if (startCompare < 0 && endCompare < 0)
+                {
+                    //If no Left node exists then the range specified is below the least node in the Tree
+                    if (current.Left == null)
+                    { break; }
+                    current = current.Left;
+                }
             }
-            return null;
+            return result;
         }
 
         private bool IsLeafNode(Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(node != null);
-         
+
             return (node.Left == null) && (node.Right == null);
         }
 
@@ -312,31 +327,74 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(end != null);
             Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
             Contract.Requires<ArgumentNullException>(node != null);
-            
+
             return (start.CompareTo(node.Key) >= 0) &&
                    (end.CompareTo(node.Key) <= 0);
         }
 
+        /// <summary>
+        /// Traverse through all the nodes from root node and write the data in In-Order Traversal. This returns the result in ascending order
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
         private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
-            Contract.Ensures(Contract.Result<List<Node<TKey, TValue>>>() != null);
+            Contract.Requires<ArgumentNullException>(this.root != null);
+            Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
 
             var list = new List<KeyValuePair<TKey, TValue>>();
-            Queue<Node<TKey, TValue>> queue = new Queue<Node<TKey, TValue>>();
-            queue.Enqueue(root);
-            while (queue.Any())
+            if (root.Left != null)
             {
-                var node = queue.Dequeue();
-                if (node == null)
-                {
-                    continue;
-                }
-                list.Add(new KeyValuePair<TKey, TValue>(node.Key, node.Value));
-                queue.Enqueue(node.Left);
-                queue.Enqueue(node.Right);
+                list.AddRange(GetAllNodes(root.Left));
             }
+            list.Add(new KeyValuePair<TKey, TValue>(root.Key, root.Value));
+            if (root.Right != null)
+            {
+                list.AddRange(GetAllNodes(root.Right));
+            }
+
             return list;
+        }
+
+        /// <summary>
+        /// Traverse through all the nodes from root node within the range and write the data in In-Order Traversal. This returns the result in ascending order
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root, TKey start, TKey end)
+        {
+            Contract.Requires<ArgumentNullException>(root != null);
+            Contract.Requires<ArgumentNullException>(this.root != null);
+            Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
+
+            var list = new List<KeyValuePair<TKey, TValue>>();
+            if (root.Left != null && (root.Left.Key.CompareTo(start) >= 0))
+            {
+                list.AddRange(GetAllNodes(root.Left,start,end));
+            }
+            list.Add(new KeyValuePair<TKey, TValue>(root.Key, root.Value));
+            if (root.Right != null && (root.Right.Key.CompareTo(end) <= 0))
+            {
+                list.AddRange(GetAllNodes(root.Right,start,end));
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Get All the Nodes in the Tree in In-Order Traversal. Get all the nodes in ascending order 
+        /// </summary>
+        /// <returns>All the values in the Tree in Sorted Order</returns>
+        public IList<KeyValuePair<TKey, TValue>> GetAllNodes()
+        {
+            Contract.Ensures(Contract.Result<IList<KeyValuePair<TKey, TValue>>>() != null);
+
+            Node<TKey, TValue> node = root;
+            var pairs = new List<KeyValuePair<TKey, TValue>>();
+
+            pairs.AddRange(GetAllNodes(node));
+            return pairs;
         }
 
         /// <summary>
@@ -344,58 +402,23 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <returns>All the values exclusive range</returns>
+        /// <returns>All the values inclusive range</returns>
         public IList<KeyValuePair<TKey, TValue>> GetAllNodes(TKey start, TKey end)
         {
             Contract.Requires<ArgumentNullException>(start != null);
             Contract.Requires<ArgumentNullException>(end != null);
             Contract.Requires<ArgumentException>(start.CompareTo(end) <= 0);
-            Contract.Ensures(Contract.Result<IList<Node<TKey, TValue>>>() != null);
+            Contract.Ensures(Contract.Result<IList<KeyValuePair<TKey, TValue>>>() != null);
 
             Node<TKey, TValue> node = FindSplitNode(start, end);
             var pairs = new List<KeyValuePair<TKey, TValue>>();
-            if (IsLeafNode(node))
+            //If null then the range is either higher or lower than the available data.
+            if (node != null)
             {
-                if (IsInRange(start, end, node))
-                {
-                    pairs.Add(new KeyValuePair<TKey, TValue>(node.Key, node.Value));
-                }
-            }
-            else
-            {
-                //Enumerate left subtree of split node
-                var current = node.Left;
-                while (!IsLeafNode(current))
-                {
-                    if (start.CompareTo(current.Key) < 0)
-                    {
-                        pairs.AddRange(GetAllNodes(current.Right));
-                        current = current.Left;
-                    }
-                    else
-                    {
-                        current = current.Right;
-                    }
-                }
-                //Enumerate right subtree of split node
-                current = node.Right;
-                while (!IsLeafNode(current))
-                {
-                    if (end.CompareTo(current.Key) > 0)
-                    {
-                        pairs.AddRange(GetAllNodes(current.Left));
-                        current = current.Right;
-                    }
-                    else
-                    {
-                        current = current.Left;
-                    }
-                }
+                pairs.AddRange(GetAllNodes(node,start,end));
             }
             return pairs;
         }
-
-        
 
         public TValue this[TKey key]
         {
@@ -415,14 +438,14 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Contract.Requires<ArgumentNullException>(stack != null);
             while (x != null)
-            { 
-                stack.Push(x); 
-                x = x.Left; 
+            {
+                stack.Push(x);
+                x = x.Left;
             }
             return stack;
         }
 
-        public IEnumerator<KeyValuePair<TKey,TValue>> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             Stack<Node<TKey, TValue>> stack = new Stack<Node<TKey, TValue>>();
             stack = PushLeft(stack, root);
