@@ -58,9 +58,9 @@ namespace DataStructures.BinarySearchTreeSpace
                 Right = null;
             }
 
-            public bool Equals(Node<TKey, TValue> otherNode)
+            public virtual bool Equals(Node<TKey, TValue> otherNode)
             {
-                if (otherNode == null)
+                if (otherNode == null || otherNode.Parent == null)        //Only NullNode have Parent to be null
                 {
                     return false;
                 }
@@ -70,7 +70,7 @@ namespace DataStructures.BinarySearchTreeSpace
             public override bool Equals(object obj)
             {
                 Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
-                if (otherNode == null)
+                if (otherNode == null || otherNode.Parent == null)        //Only NullNode have Parent to be null
                 {
                     return false;
                 }
@@ -109,6 +109,25 @@ namespace DataStructures.BinarySearchTreeSpace
             public override Node<TKey, TValue> Parent { get { return null; } }
             public override Node<TKey, TValue> Left { get { return null; } }
             public override Node<TKey, TValue> Right { get { return null; } }
+
+            public override bool Equals(Node<TKey, TValue> otherNode)
+            {
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                if (otherNode.Parent == null)        //Only NullNode have Parent to be null
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            public override bool Equals(object obj)
+            {
+                Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
+                return this.Equals(otherNode);
+            }
 
         }
 

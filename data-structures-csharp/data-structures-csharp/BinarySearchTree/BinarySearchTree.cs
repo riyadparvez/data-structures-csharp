@@ -86,9 +86,9 @@ namespace DataStructures.BinarySearchTreeSpace
             //If the same key is added once again it will update the Value rather that adding a new Node
             Contract.Ensures(count == (Contract.OldValue(count) + 1) || count == (Contract.OldValue(count)));
 
-            if (root == null)
+            if (root == null || root.Equals(new NullNode<TKey, TValue>()))
             {
-                root = new Node<TKey, TValue>(key, value, new NullNode<TKey,TValue>());
+                root = new Node<TKey, TValue>(key, value, new NullNode<TKey, TValue>());
                 count++;
                 return true;
             }
@@ -163,7 +163,7 @@ namespace DataStructures.BinarySearchTreeSpace
         }
 
         /// <summary>
-        /// Returns in order successor, returns if it's the last element
+        /// Returns in order successor (next min element), returns if it's the last element
         /// </summary>
         /// <param name="node"></param>
         /// <returns>returns null if in order successor doesn't exist</returns>
@@ -194,7 +194,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
             var node = FindNode(key);
             var successor = Successor(node);
-            return new KeyValuePair<TKey,TValue>(successor.Key, successor.Value);
+            return new KeyValuePair<TKey, TValue>(successor.Key, successor.Value);
         }
 
         /// <summary>
@@ -211,14 +211,14 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 return false;
             }
-            if (node == root)
-            {
-                //TODO: handle root case
-                count--;
-                return true;
-            }
             if (node.Left == null && node.Right == null)     //node doesn't have any children
             {
+                //If the node if a root node
+                if (node == root)
+                {
+                    root = new NullNode<TKey, TValue>();
+                    return true;
+                }
                 if (node.Parent.Right == node)
                 {
                     node.Parent.Right = null;
@@ -231,44 +231,92 @@ namespace DataStructures.BinarySearchTreeSpace
             }
             if (node.Left == null)                           //node has only right child
             {
+                if (root == node)                           //If the node is a root node
+                {
+                    root = node.Right;
+                    node.Right.Parent = node.Parent;
+                    return true;
+                }
                 if (node.Parent.Right == node)
                 {
                     node.Parent.Right = node.Right;
+                    node.Right.Parent = node.Parent;
                 }
                 else
                 {
                     node.Parent.Left = node.Right;
+                    node.Right.Parent = node.Parent;
                 }
                 return true;
             }
             if (node.Right == null)                         //node has only right child
             {
+                if (root == node)                           //If the node is a root node
+                {
+                    root = node.Left;
+                    node.Left.Parent = node.Parent;
+                    return true;
+                }
                 if (node.Parent.Right == node)
                 {
                     node.Parent.Right = node.Left;
+                    node.Left.Parent = node.Parent;
                 }
                 else
                 {
                     node.Parent.Left = node.Left;
+                    node.Left.Parent = node.Parent;
                 }
                 return true;
             }
 
-            Node<TKey, TValue> current = node.Right;
             //node has both children
-            if (node.Parent.Right == node)
+            Node<TKey, TValue> successorNode = Successor(node); //Finding the next minimum number from the node Value
+
+            //Successor node is the Min Node in the branch. So it will not have Left Node
+           
+            if (node.Right == successorNode)                    //If successor node is the node's rightNode, we will assign the node's parent and left node only.
             {
-                node.Parent.Right = current;
+                successorNode.Left = node.Left;
+                node.Left.Parent = successorNode;
+                successorNode.Parent = node.Parent;
+
+                if (node == root)
+                {
+                    root = successorNode;
+                    return true;
+                }
+                if (node.Parent.Right == node)
+                {
+                    node.Parent.Right = successorNode;
+                }
+                else
+                {
+                    node.Parent.Left = successorNode;
+                }
+                return true;
+            }
+
+            if (successorNode.Right != null)                    //If the sucessor node have Right Node then we will assign that node to succesor's Parent Left
+            {
+                successorNode.Parent.Left = successorNode.Right;
+                successorNode.Right.Parent = successorNode.Parent;
             }
             else
             {
-                node.Parent.Left = current;
+                successorNode.Parent.Left = null;
             }
-            if (current.Left == null)
+            if (node == root)
             {
-                current.Left = node.Left;
+                root = successorNode;
             }
-            Predecessor(current).Left = node.Left;
+            //Substitute the node with the sucessor's node
+            successorNode.Left = node.Left;
+            node.Left.Parent = successorNode;
+            successorNode.Right = node.Right;
+            node.Right.Parent = successorNode;
+            successorNode.Parent = node.Parent;
+
             return true;
         }
 
@@ -320,7 +368,6 @@ namespace DataStructures.BinarySearchTreeSpace
             return (node.Left == null) && (node.Right == null);
         }
 
-
         private bool IsInRange(TKey start, TKey end, Node<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(start != null);
@@ -337,13 +384,18 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="root"></param>
         /// <returns></returns>
-        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
+        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)   
         {
             Contract.Requires<ArgumentNullException>(root != null);
             Contract.Requires<ArgumentNullException>(this.root != null);
             Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
 
             var list = new List<KeyValuePair<TKey, TValue>>();
+
+            if (root.Equals(new NullNode<TKey, TValue>()))              //If root node is a NullNode
+            {
+                return list;
+            }
             if (root.Left != null)
             {
                 list.AddRange(GetAllNodes(root.Left));
@@ -369,14 +421,20 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
 
             var list = new List<KeyValuePair<TKey, TValue>>();
+
+            if (root.Equals(new NullNode<TKey, TValue>()))              //If root node is a NullNode
+            {
+                return list;
+            }
+
             if (root.Left != null && (root.Left.Key.CompareTo(start) >= 0))
             {
-                list.AddRange(GetAllNodes(root.Left,start,end));
+                list.AddRange(GetAllNodes(root.Left, start, end));
             }
             list.Add(new KeyValuePair<TKey, TValue>(root.Key, root.Value));
             if (root.Right != null && (root.Right.Key.CompareTo(end) <= 0))
             {
-                list.AddRange(GetAllNodes(root.Right,start,end));
+                list.AddRange(GetAllNodes(root.Right, start, end));
             }
 
             return list;
@@ -415,7 +473,7 @@ namespace DataStructures.BinarySearchTreeSpace
             //If null then the range is either higher or lower than the available data.
             if (node != null)
             {
-                pairs.AddRange(GetAllNodes(node,start,end));
+                pairs.AddRange(GetAllNodes(node, start, end));
             }
             return pairs;
         }
