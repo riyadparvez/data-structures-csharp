@@ -17,7 +17,7 @@ namespace DataStructures.BinarySearchTreeSpace
             private TKey key;
             private TValue val;
 
-            public TKey Key
+            public virtual TKey Key
             {
                 get { return key; }
                 set
@@ -27,7 +27,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 }
 
             }
-            public TValue Value
+            public virtual TValue Value
             {
                 get { return val; }
                 set
@@ -36,17 +36,21 @@ namespace DataStructures.BinarySearchTreeSpace
                     val = value;
                 }
             }
-            public int Height { get; set; }
-            public Node<TKey, TValue> Parent { get; set; }
-            public Node<TKey, TValue> Left { get; set; }
-            public Node<TKey, TValue> Right { get; set; }
+            public virtual int Height { get; set; }
+            public virtual Node<TKey, TValue> Parent { get; set; }
+            public virtual Node<TKey, TValue> Left { get; set; }
+            public virtual Node<TKey, TValue> Right { get; set; }
+
+            protected Node()
+            {
+                //Do Nothing
+            }
 
             public Node(TKey key, TValue val, Node<TKey, TValue> parent)
             {
                 Contract.Requires<ArgumentNullException>(key != null);
                 Contract.Requires<ArgumentNullException>(val != null);
-                //Removed the code because it throws error when we add the root Item (First item) where parent would be null
-               // Contract.Requires(parent != null);
+                Contract.Requires(parent != null);
                 this.key = key;
                 this.val = val;
                 Parent = parent;
@@ -54,9 +58,9 @@ namespace DataStructures.BinarySearchTreeSpace
                 Right = null;
             }
 
-            public bool Equals(Node<TKey, TValue> otherNode)
+            public virtual bool Equals(Node<TKey, TValue> otherNode)
             {
-                if (otherNode == null)
+                if (otherNode == null || otherNode.Parent == null)        //Only NullNode have Parent to be null
                 {
                     return false;
                 }
@@ -66,7 +70,7 @@ namespace DataStructures.BinarySearchTreeSpace
             public override bool Equals(object obj)
             {
                 Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
-                if (otherNode == null)
+                if (otherNode == null || otherNode.Parent == null)        //Only NullNode have Parent to be null
                 {
                     return false;
                 }
@@ -84,5 +88,48 @@ namespace DataStructures.BinarySearchTreeSpace
                 }
             }
         }
+
+        [Serializable]
+        protected sealed class NullNode<TKey, TValue> : Node<TKey, TValue>
+            where TKey : IComparable<TKey>
+        {
+            private TKey key;
+            private TValue val;
+
+            public override TKey Key
+            {
+                get { return key; }
+
+            }
+            public override TValue Value
+            {
+                get { return val; }
+            }
+            public override int Height { get { return 0; } }
+            public override Node<TKey, TValue> Parent { get { return null; } }
+            public override Node<TKey, TValue> Left { get { return null; } }
+            public override Node<TKey, TValue> Right { get { return null; } }
+
+            public override bool Equals(Node<TKey, TValue> otherNode)
+            {
+                if (otherNode == null)
+                {
+                    return false;
+                }
+                if (otherNode.Parent == null)        //Only NullNode have Parent to be null
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            public override bool Equals(object obj)
+            {
+                Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
+                return this.Equals(otherNode);
+            }
+
+        }
+
     }
 }
