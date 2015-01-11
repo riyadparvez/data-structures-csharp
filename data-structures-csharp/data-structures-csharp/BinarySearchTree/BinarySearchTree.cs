@@ -16,7 +16,7 @@ namespace DataStructures.BinarySearchTreeSpace
         where TKey : IComparable<TKey>
     {
         protected int count;
-        protected Node<TKey, TValue> root;
+        protected Node<TKey, TValue> root = new NullNode<TKey, TValue>();
 
         public int Count
         {
@@ -37,6 +37,11 @@ namespace DataStructures.BinarySearchTreeSpace
         protected Node<TKey, TValue> FindNode(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
+
+            if (root.Equals(new NullNode<TKey, TValue>()))
+            {
+                return null;
+            }
 
             var current = root;
 
@@ -61,18 +66,26 @@ namespace DataStructures.BinarySearchTreeSpace
         }
 
         /// <summary>
-        /// Find element in BST, returns null if not found
+        /// Find element in BST, returns false if not found
         /// </summary>
         /// <param name="key">Element to be found</param>
         /// <returns></returns>
-        public virtual TValue Find(TKey key)
+        public virtual bool Find(TKey key, out TValue value)
         {
             Contract.Requires<ArgumentNullException>(key != null, "BST can't have null values");
+            value = default(TValue);
 
             Node<TKey, TValue> node = FindNode(key);
-            return (node != null) ? node.Value : default(TValue);
+            if (node != null)
+            {
+                value = node.Value;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-
 
         /// <summary>
         /// Adds newly added element
@@ -86,7 +99,7 @@ namespace DataStructures.BinarySearchTreeSpace
             //If the same key is added once again it will update the Value rather that adding a new Node
             Contract.Ensures(count == (Contract.OldValue(count) + 1) || count == (Contract.OldValue(count)));
 
-            if (root == null || root.Equals(new NullNode<TKey, TValue>()))
+            if (root.Equals(new NullNode<TKey, TValue>()))
             {
                 root = new Node<TKey, TValue>(key, value, new NullNode<TKey, TValue>());
                 count++;
@@ -153,12 +166,21 @@ namespace DataStructures.BinarySearchTreeSpace
             return node;
         }
 
+        /// <summary>
+        ///  Returns in order predecessor, returns NullReferenceException if it has no predecessor
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public KeyValuePair<TKey, TValue> Predecessor(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
             var node = FindNode(key);
             var predecessor = Predecessor(node);
+            if (predecessor == null)
+            {
+                throw new NullReferenceException();
+            }
             return new KeyValuePair<TKey, TValue>(predecessor.Key, predecessor.Value);
         }
 
@@ -188,12 +210,21 @@ namespace DataStructures.BinarySearchTreeSpace
             return node;
         }
 
+        /// <summary>
+        ///  Returns in order predecessor, returns NullReferenceException if it has no predecessor
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public KeyValuePair<TKey, TValue> Successor(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
             var node = FindNode(key);
             var successor = Successor(node);
+            if (successor == null)
+            {
+                throw new NullReferenceException();
+            }
             return new KeyValuePair<TKey, TValue>(successor.Key, successor.Value);
         }
 
@@ -274,7 +305,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Node<TKey, TValue> successorNode = Successor(node); //Finding the next minimum number from the node Value
 
             //Successor node is the Min Node in the branch. So it will not have Left Node
-           
+
             if (node.Right == successorNode)                    //If successor node is the node's rightNode, we will assign the node's parent and left node only.
             {
                 successorNode.Left = node.Left;
@@ -327,6 +358,10 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
 
             Node<TKey, TValue> result = null;
+            if (root.Equals(new NullNode<TKey, TValue>()))
+            {
+                return result;
+            }
             var current = root;
             while (true)
             {
@@ -384,7 +419,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="root"></param>
         /// <returns></returns>
-        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)   
+        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
             Contract.Requires<ArgumentNullException>(this.root != null);
@@ -483,8 +518,9 @@ namespace DataStructures.BinarySearchTreeSpace
             get
             {
                 Contract.Requires<ArgumentNullException>(key != null);
-
-                return Find(key);
+                TValue value;
+                Find(key, out value);
+                return value;
             }
             set
             {
