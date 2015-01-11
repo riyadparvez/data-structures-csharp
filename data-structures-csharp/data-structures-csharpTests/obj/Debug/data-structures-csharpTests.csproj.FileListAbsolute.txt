@@ -1,0 +1,7 @@
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\bin\Debug\data-structures-csharpTests.dll
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\bin\Debug\data-structures-csharpTests.pdb
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\bin\Debug\DataStructures.dll
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\bin\Debug\DataStructures.pdb
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\obj\Debug\data-structures-csharpTests.csprojResolveAssemblyReference.cache
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\obj\Debug\data-structures-csharpTests.dll
+D:\Exercises\GITHub\data-structures-csharp\data-structures-csharp\data-structures-csharpTests\obj\Debug\data-structures-csharpTests.pdb
