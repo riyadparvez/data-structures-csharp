@@ -1,9 +1,5 @@
-/data-structures-csharp/data-structures-csharp/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
-/data-structures-csharp/data-structures-csharp/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
-/data-structures-csharp/data-structures-csharp/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
-/data-structures-csharp/data-structures-csharp/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/data-structures-csharp/data-structures-csharp/obj/Debug/DataStructures.dll
-/data-structures-csharp/data-structures-csharp/obj/Debug/DataStructures.pdb
+*.exe
+*.dll
 /data-structures-csharp/data-structures-csharp/obj/*
 /data-structures-csharp/data-structures-csharp/obj/bin/*
 /data-structures-csharp/data-structures-test/obj/*
