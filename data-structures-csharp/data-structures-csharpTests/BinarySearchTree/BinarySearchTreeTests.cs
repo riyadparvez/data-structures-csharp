@@ -18,19 +18,23 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         private int nonExistingKey;
         private int[] input = new int[] { 10, 0, 2, 26, -1, -6, 1, 24, 25, 44, 100 };
 
-        private void UnLoadInput()
+        protected void UnLoadInput(BinarySearchTree<int, int> binaryTree)
         {
             binaryTree = new BinarySearchTree<int, int>();
         }
 
-        private void LoadInput()
+        protected int CalculateValue(int i)
         {
-            Contract.Assert(binaryTree != null, "Tree cannot be null");
-            Random random = new Random();
+            return (i * 10) / 5;
+        }
+
+        protected void LoadInput(BinarySearchTree<int, int> binaryTree)
+        {
+            Contract.Assert(binaryTree != null, "Tree cannot be null"); Random random = new Random();
 
             foreach (int i in input)
             {
-                var value = random.Next(-100, 200);
+                var value = CalculateValue(i);
                 binaryTree.Add(i, value);
                 if (i == 1)
                 {
@@ -51,14 +55,14 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
             int actualValue = value;
 
             //Find value with out any nodes
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             bool actual = binaryTree.Find(key, out actualValue);
             bool expected = false;
             Assert.AreEqual(expected, actual, "Invalid result in finding a element without any nodes");
             Assert.AreEqual(expectedValue, actualValue, "Invalid value in finding a element without any nodes");
 
             //Find the existing value with nodes
-            LoadInput();
+            LoadInput(binaryTree);
             actual = binaryTree.Find(existingKey, out actualValue);
             expected = true;
             expectedValue = existingValue;
@@ -83,7 +87,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
             int actualValue = value;
 
             //Add first element
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             bool actual = binaryTree.Add(key, value);
             bool expected = true;
             expectedValue = value;
@@ -95,7 +99,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
             Assert.AreEqual(expectedCount, actualCount, "Invalid count in adding first element");
 
             //Add with many data
-            LoadInput();
+            LoadInput(binaryTree);
             if (binaryTree.Find(key, out actualValue))   //Already existing key wont be added once again
             {
                 expectedCount = binaryTree.Count;
@@ -120,7 +124,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void PredecessorTestWithNoData()
         {
             //Finding predecessor with no data
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             binaryTree.Predecessor(0);
         }
 
@@ -129,7 +133,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void PredecessorTestOnLeafNode()
         {
             //Finding predecessor with no data
-            LoadInput();
+            LoadInput(binaryTree);
             binaryTree.Predecessor(-6);
         }
 
@@ -138,14 +142,14 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void PredecessorTestOnNodeWithNoPredecessors()
         {
             //Finding predecessor with no data
-            LoadInput();
+            LoadInput(binaryTree);
             binaryTree.Predecessor(24);
         }
 
         [TestMethod()]
         public void PredecessorTest()
         {
-            LoadInput();
+            LoadInput(binaryTree);
             //Finding the node with predecessor
             var node = binaryTree.Predecessor(0);
             int expected = -1;
@@ -158,14 +162,14 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void SuccessorTestWithNoData()
         {
             //Finding predecessor with no data
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             binaryTree.Successor(0);
         }
 
         [TestMethod()]
         public void SuccessorTest()
         {
-            LoadInput();
+            LoadInput(binaryTree);
             //Finding the node with predecessor
             var node = binaryTree.Successor(0);
             int expected = 1;
@@ -178,7 +182,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void SuccessorTestOnLeafNode()
         {
             //Finding predecessor with no data
-            LoadInput();
+            LoadInput(binaryTree);
             binaryTree.Successor(-6);
         }
 
@@ -187,7 +191,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void SuccessorTestOnNodeWithNoPredecessors()
         {
             //Finding predecessor with no data
-            LoadInput();
+            LoadInput(binaryTree);
             binaryTree.Successor(2);
         }
 
@@ -205,7 +209,7 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
             //Test for the existing node
             if (binaryTree.Count == 0)
             {
-                LoadInput();
+                LoadInput(binaryTree);
             }
             //Removing a existing Item
             count = binaryTree.Count();
@@ -228,13 +232,13 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void GetAllNodesTest()
         {
             //With no data
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             IList<KeyValuePair<int, int>> returnedValues = binaryTree.GetAllNodes();
             int expectedCount = 0;
             Assert.AreEqual(expectedCount, returnedValues.Count, "Returning values when no data is in the tree");
 
             //With Data
-            LoadInput();
+            LoadInput(binaryTree);
             returnedValues = binaryTree.GetAllNodes();
             expectedCount = input.Distinct().Count();
             Assert.AreEqual(expectedCount, returnedValues.Count, "Not returning exact number when data is in the tree");
@@ -247,13 +251,13 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void GetAllNodesTestWithRange()
         {
             //With no data
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             IList<KeyValuePair<int, int>> returnedValues = binaryTree.GetAllNodes(0, 100);
             int expectedCount = 0;
             Assert.AreEqual(expectedCount, returnedValues.Count, "Returning values when no data is in the tree");
 
             //With data
-            LoadInput();
+            LoadInput(binaryTree);
             int min = -6; //Minimum of all values tree
             int max = 100; //Max of all values in tree
             returnedValues = binaryTree.GetAllNodes(min, max);
@@ -272,13 +276,37 @@ namespace DataStructures.BinarySearchTreeSpace.Tests
         public void GetEnumeratorTest()
         {
             //With no data
-            UnLoadInput();
+            UnLoadInput(binaryTree);
             var node = binaryTree.GetEnumerator();
             Assert.IsNotNull(node, "Null is returned when no data");
 
-            LoadInput();
+            LoadInput(binaryTree);
             node = binaryTree.GetEnumerator();
             Assert.IsNotNull(node, "Null is returned when data");
+        }
+
+        [TestMethod()]
+        public void ValidateTreeTest()
+        {
+            bool actual = binaryTree.ValidateTree();
+            bool expected = true;
+            Assert.AreEqual(expected, actual, "Validation of Tree failed");
+        }
+
+        [TestMethod()]
+        public void GetAllNodesInPreOrderTest()
+        {
+            //With no data
+            UnLoadInput(binaryTree);
+            IList<KeyValuePair<int, int>> returnedValues = binaryTree.GetAllNodes();
+            int expectedCount = 0;
+            Assert.AreEqual(expectedCount, returnedValues.Count, "Returning values when no data is in the tree");
+
+            //With Data
+            LoadInput(binaryTree);
+            returnedValues = binaryTree.GetAllNodes();
+            expectedCount = input.Distinct().Count();
+            Assert.AreEqual(expectedCount, returnedValues.Count, "Not returning exact number when data is in the tree");
         }
     }
 }
