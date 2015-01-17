@@ -19,11 +19,11 @@ namespace DataStructures.BinarySearchTreeSpace
             {
                 //Left child
                 //Rotate right
-                return RotateRight(node);
+                return RotateRight(parent);
             }
             else if (parent.Right == node)
             {
-                return RotateLeft(node);
+                return RotateLeft(parent);
             }
             else
             {
@@ -34,14 +34,18 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private void Reorient(Node<TKey, TValue> node)
         {
-            if(node == null)
+            if (node == null)
+            {
+                return;
+            }
+            if (node == root)
             {
                 return;
             }
             Node<TKey, TValue> parent = node.Parent;
             if (parent == root)
             {
-                root = Transpose(parent);
+                root = Transpose(node);
             }
             else
             {
@@ -62,42 +66,67 @@ namespace DataStructures.BinarySearchTreeSpace
 
         private Node<TKey, TValue> RotateLeft(Node<TKey, TValue> root)
         {
-            if(root == null)
+            if (root == null)
             {
                 return null;
             }
-
+            //temp- original node to be swapped with
             Node<TKey, TValue> temp = root.Right;
-            root.Right.Left = root;
-            root.Right = temp.Left;
+            Node<TKey, TValue> tempLeft = temp.Left;
+            root.Right = tempLeft;
+            if (tempLeft != null)
+            {
+                tempLeft.Parent = root;
+            }
+
+            temp.Left = root;
+            temp.Parent = root.Parent;
+            root.Parent = temp;
             return temp;
         }
 
         private Node<TKey, TValue> RotateRight(Node<TKey, TValue> root)
         {
-            if(root == null)
+            if (root == null)
             {
                 return null;
             }
-
+            //temp- original node to be swapped with
             Node<TKey, TValue> temp = root.Left;
-            root.Left.Right = root;
-            root.Left = temp.Right;
+            Node<TKey, TValue> tempRight = temp.Right;
+
+            root.Left = tempRight;
+            if (tempRight != null)
+            {
+                tempRight.Parent = root;
+            }
+
+            temp.Right = root;
+            temp.Parent = root.Parent;
+            root.Parent = temp;
             return temp;
         }
 
         /// <summary>
-        /// Find element in BST, returns null if not found
+        /// Find element in BST, returns false if not found
         /// </summary>
         /// <param name="element">Element to be found</param>
         /// <returns></returns>
-        public override TValue Find(TKey element)
+        public override bool Find(TKey element, out TValue value)
         {
             Contract.Requires<ArgumentNullException>(element != null, "BST can't have null values");
-
             Node<TKey, TValue> node = FindNode(element);
             Reorient(node);
-            return (node != null) ? node.Value : default(TValue);
+            if (node != null)
+            {
+                value = node.Value;
+                return true;
+            }
+            else
+            {
+                value = default(TValue);
+                return false;
+            }
         }
     }
 }
