@@ -419,11 +419,11 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="root"></param>
         /// <returns></returns>
-        private List<KeyValuePair<TKey, TValue>> GetAllNodesInPreOrder(Node<TKey, TValue> root)
+        private IList<KeyValuePair<TKey, TValue>> GetAllNodesInPreOrder(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
             Contract.Requires<ArgumentNullException>(this.root != null);
-            Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
+            Contract.Ensures(Contract.Result<IList<KeyValuePair<TKey, TValue>>>() != null);
 
             var list = new List<KeyValuePair<TKey, TValue>>();
 
@@ -450,11 +450,11 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="root"></param>
         /// <returns></returns>
-        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
+        private IList<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root)
         {
             Contract.Requires<ArgumentNullException>(root != null);
             Contract.Requires<ArgumentNullException>(this.root != null);
-            Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
+            Contract.Ensures(Contract.Result<IList<KeyValuePair<TKey, TValue>>>() != null);
 
             var list = new List<KeyValuePair<TKey, TValue>>();
 
@@ -480,11 +480,11 @@ namespace DataStructures.BinarySearchTreeSpace
         /// </summary>
         /// <param name="root"></param>
         /// <returns></returns>
-        private List<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root, TKey start, TKey end)
+        private IList<KeyValuePair<TKey, TValue>> GetAllNodes(Node<TKey, TValue> root, TKey start, TKey end)
         {
             Contract.Requires<ArgumentNullException>(root != null);
             Contract.Requires<ArgumentNullException>(this.root != null);
-            Contract.Ensures(Contract.Result<List<KeyValuePair<TKey, TValue>>>() != null);
+            Contract.Ensures(Contract.Result<IList<KeyValuePair<TKey, TValue>>>() != null);
 
             var list = new List<KeyValuePair<TKey, TValue>>();
 
