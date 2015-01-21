@@ -16,7 +16,7 @@ namespace DataStructures.BinarySearchTreeSpace
         where TKey : IComparable<TKey>
     {
         protected int count;
-        protected Node<TKey, TValue> root = new NullNode<TKey, TValue>();
+        protected Node<TKey, TValue> root = NullNode<TKey,TValue>.Instance;
 
         public int Count
         {
@@ -38,7 +38,7 @@ namespace DataStructures.BinarySearchTreeSpace
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
-            if (root.Equals(new NullNode<TKey, TValue>()))
+            if (root.Equals(NullNode<TKey,TValue>.Instance))
             {
                 return null;
             }
@@ -99,9 +99,9 @@ namespace DataStructures.BinarySearchTreeSpace
             //If the same key is added once again it will update the Value rather that adding a new Node
             Contract.Ensures(count == (Contract.OldValue(count) + 1) || count == (Contract.OldValue(count)));
 
-            if (root.Equals(new NullNode<TKey, TValue>()))
+            if (root.Equals(NullNode<TKey,TValue>.Instance))
             {
-                root = new Node<TKey, TValue>(key, value, new NullNode<TKey, TValue>());
+                root = new Node<TKey, TValue>(key, value, NullNode<TKey,TValue>.Instance);
                 count++;
                 return true;
             }
@@ -247,7 +247,7 @@ namespace DataStructures.BinarySearchTreeSpace
                 //If the node if a root node
                 if (node == root)
                 {
-                    root = new NullNode<TKey, TValue>();
+                    root = NullNode<TKey,TValue>.Instance;
                     return true;
                 }
                 if (node.Parent.Right == node)
@@ -358,7 +358,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentException>(start.CompareTo(end) < 0);
 
             Node<TKey, TValue> result = null;
-            if (root.Equals(new NullNode<TKey, TValue>()))
+            if (root.Equals(NullNode<TKey,TValue>.Instance))
             {
                 return result;
             }
@@ -427,7 +427,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
             var list = new List<KeyValuePair<TKey, TValue>>();
 
-            if (root.Equals(new NullNode<TKey, TValue>()))              //If root node is a NullNode
+            if (root.Equals(NullNode<TKey,TValue>.Instance))              //If root node is a NullNode
             {
                 return list;
             }
@@ -458,7 +458,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
             var list = new List<KeyValuePair<TKey, TValue>>();
 
-            if (root.Equals(new NullNode<TKey, TValue>()))              //If root node is a NullNode
+            if (root.Equals(NullNode<TKey,TValue>.Instance))              //If root node is a NullNode
             {
                 return list;
             }
@@ -488,7 +488,7 @@ namespace DataStructures.BinarySearchTreeSpace
 
             var list = new List<KeyValuePair<TKey, TValue>>();
 
-            if (root.Equals(new NullNode<TKey, TValue>()))              //If root node is a NullNode
+            if (root.Equals(NullNode<TKey,TValue>.Instance))              //If root node is a NullNode
             {
                 return list;
             }
@@ -562,7 +562,7 @@ namespace DataStructures.BinarySearchTreeSpace
         //Check whether all the nodes childs and parents are valid (i.e a node's parent should have that node as child)
         public bool ValidateTree()
         {
-            if (root.Equals(new NullNode<TKey, TValue>()))
+            if (root.Equals(NullNode<TKey,TValue>.Instance))
             {
                 return true;
             }
