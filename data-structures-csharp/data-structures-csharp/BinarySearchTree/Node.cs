@@ -96,6 +96,28 @@ namespace DataStructures.BinarySearchTreeSpace
             private TKey key;
             private TValue val;
 
+            private static readonly NullNode<TKey, TValue> instance = new NullNode<TKey, TValue>();
+
+            // Explicit static constructor to tell C# compiler
+            // not to mark type as beforefieldinit
+            static NullNode()
+            {
+                //Do Nothing
+            }
+
+            private NullNode()
+            {
+                //Do Nothing
+            }
+
+            public static NullNode<TKey, TValue> Instance
+            {
+                get
+                {
+                    return instance;
+                }
+            }
+
             public override TKey Key
             {
                 get { return key; }
