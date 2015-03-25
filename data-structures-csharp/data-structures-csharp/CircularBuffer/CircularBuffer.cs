@@ -6,19 +6,20 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.CircularBufferSpace
 {
     [Serializable]
-    public class CircularBuffer<T> : IEnumerable<T>, ICollection<T>
+    public class CircularBuffer<T> : IEnumerable<T>
     {
-        private List<T> internalList;
+        private int getIndex, addIndex;
+        private T[] buffer;
 
-        public int Count { get; private set; }
+        public int Count
+        { get; private set; }
+
         public int Capacity
         {
-            get { return internalList.Capacity; }
+            get;
+            private set;
         }
-        public bool IsFull 
-        {
-            get { return (Count == Capacity); }
-        }
+
         public bool IsEmpty
         {
             get { return (Count == 0); }
@@ -32,52 +33,81 @@ namespace DataStructures.CircularBufferSpace
             Contract.Invariant(Count <= Capacity);
         }
 
-        public CircularBuffer() 
-        {
-            internalList = new List<T>();
-        }
-
+        /// <summary>
+        /// Instantiate a new circular buffer.
+        /// </summary>
+        /// <param name="capacity">The maximum size of the buffer before it begins overwriting itself.</param>
         public CircularBuffer(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
-
-            internalList = new List<T>(capacity);
+            buffer = new T[capacity];
+            Capacity = capacity;
+            Count = 0;
+            addIndex = 0;
+            getIndex = 0;
         }
 
+        /// <summary>
+        /// Add an element to the circular buffer.
+        /// </summary>
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            Contract.Requires<ArgumentNullException>(item != null);
+            buffer[addIndex] = item;
+
+            if (Count < Capacity)
+                Count++;
+
+            if (addIndex == getIndex)
+                getIndex = getIndex < Capacity - 1 ? getIndex + 1 : 0;
+
+            addIndex = addIndex < Capacity - 1 ? addIndex + 1 : 0;
         }
 
+        /// <summary>
+        /// Clears the circular buffer of all elements.
+        /// </summary>
         public void Clear()
         {
-            internalList.Clear();
+            buffer = new T[Capacity];
+            Count = 0;
+            addIndex = 0;
+            getIndex = 0;
         }
 
+        /// <summary>
+        /// Determines whether a sequence contains a specified element by using the default equality comparer.
+        /// </summary>
         public bool Contains(T item)
         {
             Contract.Requires<ArgumentNullException>(item != null);
-            return internalList.Contains(item);
+            return buffer.Contains(item);
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        /// <summary>
+        /// Copy the circular buffer to an array starting at the specified index in the destination array.
+        /// </summary>
+        public void CopyTo(T[] array, int index = 0)
         {
-            throw new NotImplementedException();
+            Contract.Requires<ArgumentNullException>(array != null);
+            buffer.CopyTo(array, index);
         }
 
-        public bool IsReadOnly
+        /// <summary>
+        /// Get the oldest element in the circular buffer.
+        /// </summary>
+        public T Get()
         {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool Remove(T item)
-        {
-            return internalList.Remove(item);
+            Contract.Requires<InvalidOperationException>(Count > 0);
+            var temp = getIndex;
+            getIndex = getIndex < Capacity - 1 ? getIndex + 1 : 0;
+            return buffer[temp];
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return internalList.GetEnumerator();
+            for (int i = 0; i < buffer.Length; i++)
+                yield return buffer[i];
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
