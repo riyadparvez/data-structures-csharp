@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Collections;
 
 namespace DataStructures.CircularBufferSpace
 {
@@ -34,7 +35,7 @@ namespace DataStructures.CircularBufferSpace
         }
 
         /// <summary>
-        /// Instantiate a new circular buffer.
+        /// Instantiates a new circular buffer.
         /// </summary>
         /// <param name="capacity">The maximum size of the buffer before it begins overwriting itself.</param>
         public CircularBuffer(int capacity)
@@ -48,7 +49,46 @@ namespace DataStructures.CircularBufferSpace
         }
 
         /// <summary>
-        /// Add an element to the circular buffer.
+        /// Instantiates a new circular buffer with the input collection's capacity and elements.
+        /// </summary>
+        /// <param name="collection">The collection with elements to insert into the buffer.</param>
+        public CircularBuffer(ICollection<T> collection)
+        {
+            Contract.Requires<ArgumentNullException>(collection != null && collection.Count > 0);
+            buffer = new T[collection.Count];
+            Capacity = buffer.Length;
+            Count = 0;
+            addIndex = 0;
+            getIndex = 0;
+
+            foreach (T item in collection)
+            {
+                Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Instantiates a new circular buffer with the input enumerable's capacity and elements.
+        /// </summary>
+        /// <param name="enumerable">The enumerable with elements to insert into the buffer.</param>
+        public CircularBuffer(IEnumerable<T> enumerable)
+        {
+            var enumCount = enumerable.Count();
+            Contract.Requires<ArgumentNullException>(enumerable != null && enumCount > 0);
+            buffer = new T[enumCount];
+            Capacity = buffer.Length;
+            Count = 0;
+            addIndex = 0;
+            getIndex = 0;
+
+            foreach (T item in enumerable)
+            {
+                Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Adds an element to the circular buffer.
         /// </summary>
         public void Add(T item)
         {
@@ -69,7 +109,9 @@ namespace DataStructures.CircularBufferSpace
         /// </summary>
         public void Clear()
         {
-            buffer = new T[Capacity];
+            for (int i = 0; i < buffer.Length; i++)
+                buffer[i] = default(T);
+
             Count = 0;
             addIndex = 0;
             getIndex = 0;
@@ -85,31 +127,39 @@ namespace DataStructures.CircularBufferSpace
         }
 
         /// <summary>
-        /// Copy the circular buffer to an array starting at the specified index in the destination array.
+        /// Copies the circular buffer to an array starting at the specified index in the destination array.
         /// </summary>
         public void CopyTo(T[] array, int index = 0)
         {
             Contract.Requires<ArgumentNullException>(array != null);
+            Contract.Requires<ArgumentOutOfRangeException>(index + Count < array.Length);
             buffer.CopyTo(array, index);
         }
 
         /// <summary>
-        /// Get the oldest element in the circular buffer.
+        /// Gets the oldest element in the circular buffer.
         /// </summary>
         public T Get()
         {
             Contract.Requires<InvalidOperationException>(Count > 0);
-            var temp = getIndex;
+            var retVal = buffer[getIndex];
+            buffer[getIndex] = default(T);
             getIndex = getIndex < Capacity - 1 ? getIndex + 1 : 0;
-            return buffer[temp];
+            return retVal;
         }
 
+        /// <summary>
+        /// Supports a simple iteration over a generic collection.
+        /// </summary>
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < buffer.Length; i++)
                 yield return buffer[i];
         }
 
+        /// <summary>
+        /// Supports a simple iteration over a nongeneric collection.
+        /// </summary>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
