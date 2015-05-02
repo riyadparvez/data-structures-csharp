@@ -83,7 +83,7 @@ namespace DataStructures.IntervalTreeSpace
 
         private IList<Interval> Find(Node treeNode, double x)
         {
-            Contract.Ensures(Contract.Result<ReadOnlyCollection<Interval>>() != null);
+            Contract.Ensures(Contract.Result<IList<Interval>>() != null);
 
             if (treeNode == null)
             {

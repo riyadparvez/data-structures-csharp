@@ -81,7 +81,7 @@ namespace DataStructures.FrequencyListSpace
         public T Get(int index) 
         {
             Contract.Requires<ArgumentOutOfRangeException>(index >= 0);
-            Contract.Requires<ArgumentOutOfRangeException>(index < count);
+            Contract.Requires<ArgumentOutOfRangeException>(index < Count);
             
             return GetNode(index).Value;
         }
@@ -89,7 +89,7 @@ namespace DataStructures.FrequencyListSpace
         private Node<T> GetNode(int index) 
         {
             Contract.Requires<ArgumentOutOfRangeException>(index >= 0);
-            Contract.Requires<ArgumentOutOfRangeException>(index < count);
+            Contract.Requires<ArgumentOutOfRangeException>(index < Count);
 
             var current = head;
             int i = 0;
