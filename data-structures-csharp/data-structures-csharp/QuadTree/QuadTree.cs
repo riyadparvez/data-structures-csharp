@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 namespace DataStructures.QuadTreeSpace
 {
     [Serializable]
-    public class QuadTree<T>
+    public partial class QuadTree<T>
     {
         public readonly int MaximumElementsPerNode;
         private readonly Rectangle region;

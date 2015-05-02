@@ -12,7 +12,7 @@ namespace DataStructures.DAWGSpace
         private class Node
         {
             public List<Edge> edges = new List<Edge>();
-            public readonly Guid Id { get; private set; }
+            public Guid Id { get; private set; }
 
             private Node(Guid id)
             {

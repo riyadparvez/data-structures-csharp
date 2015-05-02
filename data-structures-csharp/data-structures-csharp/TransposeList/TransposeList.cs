@@ -101,18 +101,19 @@ namespace DataStructures.TransposeListSpace
             return null;
         }
 
-        public void Remove(T element)
+        public bool Remove(T element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
             var node = GetNode(element);
             if (node == null)
             {
-                return;
+                return false;
             }
             node.Previous.Next = node.Next;
             node.Next.Previous = node.Previous;
             count--;
+            return true;
         }
 
 
@@ -176,11 +177,6 @@ namespace DataStructures.TransposeListSpace
         public bool IsReadOnly
         {
             get { throw new NotImplementedException(); }
-        }
-
-        public bool Remove(T item)
-        {
-            throw new NotImplementedException();
         }
     }
 }

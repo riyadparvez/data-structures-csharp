@@ -8,7 +8,7 @@ namespace DataStructures.RedBlackTreeSpace
 {
     public partial class RedBlackTree<TKey, TValue>
     {
-        private enum NodeType
+        public enum NodeType
         {
             Red,
             Black,

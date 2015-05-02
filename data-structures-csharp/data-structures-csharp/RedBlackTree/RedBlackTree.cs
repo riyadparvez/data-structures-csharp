@@ -23,17 +23,17 @@ namespace DataStructures.RedBlackTreeSpace
 
         public int Count { get; private set; }
 
-        public RedBlackTree(T data)
+        public RedBlackTree(TKey data)
         {
             Contract.Requires<ArgumentNullException>(data != null);
 
-            current = new Node<TKey, TValue>(default(T), nullNode, nullNode);
-            parent = new Node<TKey, TValue>(default(T), nullNode, nullNode);
-            grandParent = new Node<TKey, TValue>(default(T), nullNode, nullNode);
-            greatParent = new Node<TKey, TValue>(default(T), nullNode, nullNode);
+            current = new Node<TKey, TValue>(default(TKey), default(TValue), nullNode, nullNode);
+            parent = new Node<TKey, TValue>(default(TKey), default(TValue), nullNode, nullNode);
+            grandParent = new Node<TKey, TValue>(default(TKey), default(TValue), nullNode, nullNode);
+            greatParent = new Node<TKey, TValue>(default(TKey), default(TValue), nullNode, nullNode);
             nullNode.Left = nullNode;
             nullNode.Right = nullNode;
-            header = new Node<TKey, TValue>(data, nullNode, nullNode);
+            header = new Node<TKey, TValue>(data, default(TValue), nullNode, nullNode);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace DataStructures.RedBlackTreeSpace
             grandParent = header;
             parent = grandParent;
             current = parent;
-            nullNode.Data = key;
+            //nullNode.Data = key;
 
             while (current.Key.CompareTo(key) != 0)
             {

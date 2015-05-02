@@ -128,7 +128,7 @@ namespace DataStructures.HashSpace
             return (GetIndex(key) != -1) ;
         }
 
-        public void Remove(Tkey key)
+        public bool Remove(Tkey key)
         {
             Contract.Requires<ArgumentNullException>(key != null, "key");
 
@@ -137,7 +137,11 @@ namespace DataStructures.HashSpace
             {
                 pairs[index] = null;
                 count--;
+                return true;
             }
+            Remove(new KeyValuePair<Tkey, TValue>());
+            return false;
+
         }
 
         public bool TryGetValue(Tkey key, out TValue value)
@@ -209,15 +213,16 @@ namespace DataStructures.HashSpace
             }
         }
 
-        public void Remove(KeyValuePair<Tkey, TValue> item)
+        public bool Remove(KeyValuePair<Tkey, TValue> item)
         {
             int index = GetIndex(item.Key);
             if (index == -1)
             {
-                return;
+                return false;
             }
             pairs[index] = null;
             count--;
+            return true;
         }
 
         public IEnumerator<KeyValuePair<Tkey, TValue>> GetEnumerator()

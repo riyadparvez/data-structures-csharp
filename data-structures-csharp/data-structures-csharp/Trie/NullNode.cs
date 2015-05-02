@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace DataStructures.TrieSpace
 {
-    [Serializable]
     public partial class Trie : IEnumerable<string>
     {
         [Serializable]

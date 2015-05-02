@@ -15,10 +15,18 @@ namespace DataStructures.MoveToFrontListSpace
         private List<T> list;
         private readonly object syncRoot = new object();
 
+        bool ICollection<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
         public int Count 
         { 
             get { return list.Count; } 
         }
+
+        public bool IsReadOnly { get; private set; }
+
         public int Capacity
         {
             get { return list.Capacity; }
@@ -78,6 +86,21 @@ namespace DataStructures.MoveToFrontListSpace
             Contract.Requires<ArgumentNullException>(element != null);
             
             list.Add(element);
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

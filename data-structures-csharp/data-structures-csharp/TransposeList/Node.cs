@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,15 @@ namespace DataStructures.TransposeListSpace
                 }
                 return Data.Equals(other);
             }
+
+            //public bool Remove(T key)
+            //{
+            //    Contract.Requires<ArgumentNullException>(key != null, "key");
+            //    Previous.Next = Next;
+            //    Next.Previous = Previous;
+            //    Data = default(T);
+            //    return true;
+            //}
         }
     }
 }

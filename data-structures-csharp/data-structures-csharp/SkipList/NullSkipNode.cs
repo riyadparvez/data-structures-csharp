@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace DataStructures.SkipListSpace
 {
-    [Serializable]
     public partial class SkipList<TKey, TValue> : IEnumerable<TValue>, ICollection<TValue>
             where TKey : IComparable<TKey>
     {
@@ -27,5 +26,32 @@ namespace DataStructures.SkipListSpace
                 return true;
             }
         }
+
+        public void Add(TValue item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(TValue item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(TValue[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(TValue item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsReadOnly { get; private set; }
     }
 }

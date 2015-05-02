@@ -18,10 +18,18 @@ namespace DataStructures.ListSpace
         {
             get { return list.Capacity; }
         }
+
+        bool ICollection<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
         public int Count
         {
             get { return list.Count; }
         }
+
+        public bool IsReadOnly { get; private set; }
         public bool IsSynchronized { get { return false; } }
 
         [ContractInvariantMethod]
@@ -65,6 +73,21 @@ namespace DataStructures.ListSpace
             }
             Contract.Assert(list[count - 1].CompareTo(element) < 0);
             list.Insert(count, element);
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
         }
 
         public void Remove(T element)

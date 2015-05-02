@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 namespace DataStructures.BloomFilterSpace
 {
     [Serializable]
-    public class BloomFilter<T>
+    public abstract class BloomFilter<T>
     {
         private readonly BitArray bits;
         private readonly int bitsPerElement;
@@ -46,7 +46,7 @@ namespace DataStructures.BloomFilterSpace
             }
 
         }
-        public object SyncRoot { get; }
+        public abstract object SyncRoot { get; }
 
         [ContractInvariantMethod]
         private void ObjectInvariant()

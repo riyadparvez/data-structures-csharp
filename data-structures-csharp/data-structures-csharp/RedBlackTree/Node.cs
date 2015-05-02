@@ -6,7 +6,7 @@ namespace DataStructures.RedBlackTreeSpace
     public partial class RedBlackTree<TKey, TValue>
     {
         [Serializable]
-        private class Node<TKey, TValue>
+        public class Node<TKey, TValue>
             where TKey : IComparable<TKey>
         {
             public TKey Key { get; set; }
@@ -14,6 +14,14 @@ namespace DataStructures.RedBlackTreeSpace
             public NodeType Color { get; set; }
             public Node<TKey, TValue> Left { get; set; }
             public Node<TKey, TValue> Right { get; set; }
+
+            public Node()
+            {
+                Color = NodeType.Black;
+                Key = default(TKey);
+                Left = null;
+                Right = null;
+            }
 
             public Node(TKey key)
             {
@@ -32,6 +40,14 @@ namespace DataStructures.RedBlackTreeSpace
                 Left = left;
                 Right = right;
             }
+
+            //public Node(TKey key, TValue value, Node<TKey, TValue> left, Node<TKey, TValue> right)
+            //{
+            //    Key = key;
+            //    Value = value;
+            //    Left = left;
+            //    Right = right;
+            //}
         }
     }
 }

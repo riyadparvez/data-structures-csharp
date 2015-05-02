@@ -4,7 +4,6 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.SkipListSpace
 {
-    [Serializable]
     public partial class SkipList<TKey, TValue> : IEnumerable<TValue>, ICollection<TValue>
             where TKey : IComparable<TKey>
     {

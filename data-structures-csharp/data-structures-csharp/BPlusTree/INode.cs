@@ -6,7 +6,6 @@ namespace DataStructures.BPlusTreeSpace
     public partial class BPlusTree<TKey, TValue>
         where TKey : IComparable<TKey>
     {
-        [Serializable]
         public interface INode<TKey, TValue>
             where TKey : IComparable<TKey>
         {

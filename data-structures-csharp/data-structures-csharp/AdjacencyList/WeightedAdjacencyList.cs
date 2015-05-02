@@ -62,7 +62,7 @@ namespace DataStructures.AdjacencyList
             dict[vertex2].Add(new Node<T>(vertex1, weight));
         }
 
-        public bool IsNeighbourOf(T vertex, T neighbour) 
+        public bool IsNeighbourOf(T vertex, Node<T> neighbour) 
         {
             Contract.Requires<ArgumentNullException>(vertex != null);
             Contract.Requires<ArgumentNullException>(neighbour != null);
@@ -87,11 +87,11 @@ namespace DataStructures.AdjacencyList
                    new List<Tuple<T, double>>();
         }
 
-        private class Node<T>
+        public class Node<T>
             where T : class
         {
             public T item;
-            public double weight;
+            public readonly double weight;
 
             public Node(T item, double weight)
             {
@@ -125,7 +125,7 @@ namespace DataStructures.AdjacencyList
 
             public override int GetHashCode()
             {
-                return item.GetHashCode() ^ weight;
+                return item.GetHashCode() ^ int.Parse(weight.ToString());
             }
         }
     }
