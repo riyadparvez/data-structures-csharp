@@ -64,17 +64,19 @@ namespace DataStructures.HeapSpace
                 }
                 else
                 {
-                    Contract.Assert(node.Value.CompareTo(node.Left.Value) < 0);
+                    //cannot guarantee heap order before heapify has run
+                    //Contract.Assert(node.Value.CompareTo(node.Left.Value) < 0, "node.Left.Value diff " + node.Value.CompareTo(node.Left.Value) + " was not < 0");
                     queue.Enqueue(node.Left);
                 }
                 if (node.Right == null)
                 {
-                    node.Left = new Node<T>(element, node);
+                    node.Right = new Node<T>(element, node);
                     break;
                 }
                 else
                 {
-                    Contract.Assert(node.Value.CompareTo(node.Right.Value) < 0);
+                    //cannot guarantee heap order before heapify has run
+                    //Contract.Assert(node.Value.CompareTo(node.Right.Value) > 0, "node.Right.Value diff " + node.Value.CompareTo(node.Right.Value) + " was not > 0");
                     queue.Enqueue(node.Right);
                 }
             }
@@ -85,9 +87,13 @@ namespace DataStructures.HeapSpace
 
         private Node<T> Heapify(Node<T> root)
         {
-            Contract.Requires<ArgumentNullException>(root != null, "root");
+            Contract.Requires<ArgumentNullException>(root != null, "root was null");
             Contract.Ensures(Contract.Result<Node<T>>() != null);
-
+            //don't heapify on null children
+            if (root.Right == null)
+                return root;
+            if (root.Left == null)
+                return root;
             root.Right = Heapify(root.Right);
             root.Left = Heapify(root.Left);
             int compareRight = root.Value.CompareTo(root.Right.Value);

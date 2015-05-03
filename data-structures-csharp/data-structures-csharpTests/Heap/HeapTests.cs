@@ -10,7 +10,7 @@ using System.Diagnostics.Contracts;
 namespace data_structures_csharpTests.Heap
 {
     [TestClass()]
-    class HeapTests
+    public class HeapTests
     {
         private Heap<int> _heap = new Heap<int>();
         private readonly int[] _input = new int[] { 10, 0, 2, 26, -1, -6, 1, 24, 25, 44, 100 };
@@ -39,11 +39,11 @@ namespace data_structures_csharpTests.Heap
 
             //Add first element
             UnLoadInput();
-            _heap.Add(key);
+            _heap.Add(_input[key]);
             var actualCount = _heap.Count;
             var expectedCount = 1;
             Assert.IsTrue(_heap.Peek == expectedValue, "The added element was not found in the heap");
-            Assert.AreEqual(_heap.GetMin(), expectedValue, "The extracted element does not equal the inserted one");
+            Assert.AreEqual(_heap.GetMin(), expectedValue, "The extracted element: "+ _heap.GetMin() + " does not equal the inserted one " +expectedValue);
             Assert.AreEqual(expectedCount, actualCount, "Invalid count in adding first element");
 
             //Add with many data
@@ -98,7 +98,6 @@ namespace data_structures_csharpTests.Heap
             }
             //Removing a existing Item
             count = _heap.Count;
-            int value;
             expected = _input.Min();
             actual = _heap.GetMin();
             var actualCount = _heap.Count;
