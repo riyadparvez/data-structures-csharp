@@ -94,6 +94,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdjacencyList\AdjacencyListTests.cs" />
+    <Compile Include="AdjacencyList\WeightedAdjacencyListTest.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTreeTests.cs" />
     <Compile Include="Heap\HeapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
