@@ -45,11 +45,12 @@ namespace DataStructures.AdjacencyList
             dict[vertex] = new HashSet<Node<T>>();
         }
 
-        public void AddEdge(T vertex1, T vertex2, double weight) 
+        public Node<T>[] AddEdge(T vertex1, T vertex2, double weight)
         {
             Contract.Requires<ArgumentNullException>(vertex1 != null);
             Contract.Requires<ArgumentNullException>(vertex2 != null);
-            
+            //need to return the nodes in order to allow the search for them later on
+            var weightedEdgeNodes = new Node<T>[2];
             if(!dict.ContainsKey(vertex1))
             {
                 dict[vertex1] = new HashSet<Node<T>>();
@@ -58,8 +59,11 @@ namespace DataStructures.AdjacencyList
             {
                 dict[vertex2] = new HashSet<Node<T>>();
             }
-            dict[vertex1].Add(new Node<T>(vertex2, weight));
-            dict[vertex2].Add(new Node<T>(vertex1, weight));
+            weightedEdgeNodes[0] = new Node<T>(vertex2, weight);
+            weightedEdgeNodes[1] = new Node<T>(vertex1, weight);
+            dict[vertex1].Add(weightedEdgeNodes[0]);
+            dict[vertex2].Add(weightedEdgeNodes[1]);
+            return weightedEdgeNodes;
         }
 
         public bool IsNeighbourOf(T vertex, Node<T> neighbour) 
