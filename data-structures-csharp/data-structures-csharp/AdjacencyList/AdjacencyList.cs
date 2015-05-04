@@ -94,7 +94,13 @@ namespace DataStructures.AdjacencyList
         public IList<Tuple<T, T>> GetEdgeList()
         {
             var list = new List<Tuple<T, T>>();
-            
+
+            foreach (var entry in dict)
+            {
+                var key = entry.Key;
+                var hashSet = entry.Value;
+                list.AddRange(hashSet.Select(hashEntry => new Tuple<T, T>(key, hashEntry)));
+            }
             return list;
         }
     }
