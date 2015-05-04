@@ -7,7 +7,7 @@ using DataStructures.HeapSpace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.Contracts;
 
-namespace data_structures_csharpTests.Heap
+namespace DataStructures.Heap.Tests
 {
     [TestClass()]
     public class HeapTests
