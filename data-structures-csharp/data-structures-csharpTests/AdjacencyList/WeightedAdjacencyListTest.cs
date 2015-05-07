@@ -15,7 +15,6 @@ namespace DataStructures.WeightedAdjacencyList.Tests
         private WeightedAdjacencyList<string> _weightedAdjacencyList = new WeightedAdjacencyList<string>();
 
         private readonly string[] _nodes = new string[] { "1", "2", "3", "4","5", "6" };
-        //private Dictionary<int,HashSet<int>> _dictHashSet = new Dictionary<int, HashSet<int>>();
 
         [TestInitialize, TestCleanup]
         protected void UnLoadInput()
