@@ -17,7 +17,8 @@ namespace DataStructures.MoveToFrontListSpace
 
         bool ICollection<T>.Remove(T item)
         {
-            throw new NotImplementedException();
+            var removedItem = ((ICollection<T>) list).Remove(item);
+            return removedItem;
         }
 
         public int Count 
@@ -39,13 +40,7 @@ namespace DataStructures.MoveToFrontListSpace
         { 
             get { return false; } 
         }
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            //Contract.Requires(arg != null);
-        }
-
+        
         public MoveToFrontList()
         {
             list = new List<T>();
@@ -67,7 +62,7 @@ namespace DataStructures.MoveToFrontListSpace
         {
             Contract.Requires<ArgumentNullException>(element != null);
         
-            T node = list.Where(e => e.Equals(element)).FirstOrDefault();
+            var node = list.FirstOrDefault(e => e.Equals(element));
             if (node == null)
             {
                 return default(T);
@@ -90,17 +85,25 @@ namespace DataStructures.MoveToFrontListSpace
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            list = new List<T>();
         }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            return list.Contains(item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            Contract.Requires<ArgumentNullException>(array != null, "array");
+            Contract.Requires<ArgumentOutOfRangeException>(arrayIndex >= 0, "index");
+            Contract.Requires<ArgumentException>(arrayIndex <= Count);
+
+            var i = arrayIndex;
+            foreach (var element in list)
+            {
+                array.SetValue(element, i++);
+            }
         }
 
         /// <summary>
@@ -118,15 +121,14 @@ namespace DataStructures.MoveToFrontListSpace
         {
             Contract.Requires<ArgumentNullException>(array != null, "array");
             Contract.Requires<ArgumentOutOfRangeException>(index >= 0, "index");
-            Contract.Requires<ArgumentException>(array.Length < Count);
+            Contract.Requires<ArgumentException>(index <= Count);
 
             int i = index;
-            foreach (T element in list)
+            foreach (var element in list)
             {
-                array.SetValue(element, i);
+                array.SetValue(element, i++);
             }
         }
-
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -136,6 +138,20 @@ namespace DataStructures.MoveToFrontListSpace
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+    }
+
+    public static class MoveToFrontListExtension
+    {
+        public static T[] CopyToArray<T>(this MoveToFrontList<T> self)
+        {
+            var returnedArray = new T[self.Count];
+            var count = 0;
+            foreach (var element in self)
+            {
+                returnedArray[count++] = element;
+            }
+            return returnedArray;
         }
     }
 }
