@@ -98,7 +98,10 @@
     <Compile Include="AdjacencyList\WeightedAdjacencyListTest.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTreeTests.cs" />
     <Compile Include="Heap\HeapTests.cs" />
+    <Compile Include="List\MoveToFrontListTests.cs" />
+    <Compile Include="List\SortedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue\DequeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\data-structures-csharp\data-structures-csharp.csproj">
