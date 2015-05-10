@@ -98,6 +98,7 @@
     <Compile Include="AdjacencyList\WeightedAdjacencyListTest.cs" />
     <Compile Include="BinarySearchTree\BinarySearchTreeTests.cs" />
     <Compile Include="Heap\HeapTests.cs" />
+    <Compile Include="List\CircularQueueTests.cs" />
     <Compile Include="List\MoveToFrontListTests.cs" />
     <Compile Include="List\SortedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
