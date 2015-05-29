@@ -1,6 +1,11 @@
 Data Structures C#
 ======================
 
+**Looking for maintainers**
+
+I don't have time to maintain this project anymore. If you are interested into maintaining this project, please drop me an email.
+
+------------------------------------------------------------------------
 A library for all the data structures in C#. Every class will be generic and reusable. It uses [http://research.microsoft.com/contracts](http://research.microsoft.com/contracts "Code Contract") library.
 
 **Caution:** This library is under development and not tested. Anything can break.
