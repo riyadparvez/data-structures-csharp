@@ -2,7 +2,6 @@
 
 namespace DataStructures.BTreeSpace
 {
-    [Serializable]
     public partial class BTree<TKey, TValue>
         where TKey : IComparable<TKey>
     {

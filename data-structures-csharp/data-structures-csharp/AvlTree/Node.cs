@@ -4,7 +4,6 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.AvlTreeSpace
 {
-    [Serializable]
     public partial class AvlTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
         where TKey : IComparable<TKey>
     {

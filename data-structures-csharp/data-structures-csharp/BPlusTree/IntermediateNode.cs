@@ -39,6 +39,19 @@ namespace DataStructures.BPlusTreeSpace
 
             //public INode<TKey, TValue>
 
+            public int GetLocation(TKey key)
+            {
+                const int errorNum = -1;
+                // Simple linear search. Faster for small values of N or M
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    if (keys[i].CompareTo(key) > 0)
+                    {
+                        return i;
+                    }
+                }
+                return errorNum;
+            }
         }
     }
 }

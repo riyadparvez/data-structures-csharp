@@ -16,7 +16,7 @@ namespace DataStructures.CompressedTrieSpace
         [Serializable]
         private class Node
         {
-            private readonly HashSet<Node> children = new HashSet<Node>();
+            private HashSet<Node> children = new HashSet<Node>();
             private string stringFragment;
             private readonly Comparer<Node> comparer = new NodeComparare();
             private readonly string wordFromRoot;

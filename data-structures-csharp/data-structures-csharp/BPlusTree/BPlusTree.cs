@@ -34,19 +34,19 @@ namespace DataStructures.BPlusTreeSpace
             NumberOfKeysInIntermediateNode = n;
         }
 
-        private TValue Find(TKey key, INode<TKey, TValue> node)
+        private bool Find(TKey key, INode<TKey, TValue> node)
         {
             Contract.Requires<ArgumentNullException>(key != null);
             Contract.Requires<ArgumentNullException>(node != null);
 
             if (node is LeafNode<TKey, TValue>)
             {
-
             }
+            return false;
         }
 
         [Pure]
-        public TValue Find(TKey key)
+        public bool Find(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
             return Find(key, root);

@@ -6,7 +6,7 @@ namespace DataStructures.FrequencyListSpace
     public partial class FrequencyList<T>
     {
         [Serializable]
-        private class Node<T>
+        public class Node<T>
             where T : IComparable<T>
         {
             public int AccessCount { get; set; }

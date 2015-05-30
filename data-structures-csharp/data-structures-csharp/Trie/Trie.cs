@@ -5,7 +5,6 @@ using System.Diagnostics.Contracts;
 
 namespace DataStructures.TrieSpace
 {
-    [Serializable]
     public partial class Trie : IEnumerable<string>
     {
         private Node root;
@@ -21,7 +20,7 @@ namespace DataStructures.TrieSpace
 
         public Trie()
         {
-            root = new Node(string.Empty, null);
+            root = new Node(string.Empty.ToCharArray()[0], string.Empty, null);
         }
 
 

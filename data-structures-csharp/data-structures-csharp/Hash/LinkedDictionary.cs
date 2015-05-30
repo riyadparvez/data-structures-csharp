@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -12,73 +13,95 @@ namespace DataStructures.HashSpace
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     [Serializable]
-    public class LinkedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class LinkedDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TValue : LinkedDictionary<TKey, TValue>.Value<TKey, TValue>
     {
         private Dictionary<TKey, Value<TKey, TValue>> dic;
         private readonly Value<TKey, TValue> headValue = new Value<TKey, TValue>(default(TValue));
         private Value<TKey, TValue> lastAdded;
+        private Pair<TKey, TValue> lastAddedPair;
 
         public LinkedDictionary(int capacity)
         {
             Contract.Requires<ArgumentOutOfRangeException>(capacity > 0);
 
-            dic = new Dictionary<TKey, Value<TKey, TValue>>(capacity);
+            Dic = new Dictionary<TKey, Value<TKey, TValue>>(capacity);
             lastAdded = headValue;
-            dic.Add(default(TKey), headValue);
+            Dic.Add(default(TKey), headValue);
         }
 
         public bool ContainsValue(TValue value)
         {
-            return dic.ContainsValue(new Value<TKey, TValue>(value));
+            return Dic.ContainsValue(new Value<TKey, TValue>(value));
         }
 
         public void Add(TKey key, TValue value)
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
-            var newValue = new Value<TKey, TValue>(value, lastAdded);
-            var newPair = new Pair<TKey, Value<TKey, TValue>>(key, newValue);
+            var newValue = new Value<TKey, TValue>(value, lastAddedPair);
+            var newPair = new Pair<TKey, TValue>(key, newValue);
             lastAdded.next = newPair;
-            lastAdded = newPair;
-            dic.Add(newPair.key, newPair.value);
+            lastAdded = newValue;
+            lastAddedPair = newPair;
+            Dic.Add(newPair.key, newPair.value);
+        }
+
+        public bool Remove(TKey key)
+        {
+            if (!Dic.ContainsKey(key))
+            {
+                return false;
+            }
+            if (lastAdded.Equals(Dic[key]))
+            {
+                lastAddedPair = lastAdded.prev;
+            }
+            var prev = lastAdded.prev;
+            //TODO: remove element
+            return false;
         }
 
         public bool ContainsKey(TKey key)
         {
             Contract.Requires<ArgumentNullException>(key != null);
             
-            return dic.ContainsKey(key);
+            return Dic.ContainsKey(key);
         }
 
         public ICollection<TKey> Keys
         {
             get 
             {
-                return dic.Keys; 
+                return Dic.Keys; 
             }
         }
 
-        public bool Remove(TKey key)
+        public bool Remove(KeyValuePair<TKey, TValue> item)
         {
-            if(!dic.ContainsKey(key))
+            if(!Dic.ContainsKey(item.Key))
             {
                 return false;
             }
-            if(lastAdded.Equals(dic[key]))
+            if(lastAdded.Equals(Dic[item.Key]))
             {
-                lastAdded = lastAdded.prev;
+                lastAddedPair = lastAdded.prev;
             }
-            var prev = ;
+            var prev = lastAdded.prev;
+            //TODO: remove element
+            return false;
         }
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return dic.TryGetValue(new Value<TKey>(key), out value);
+            value = default(TValue);
+            var valueDic = new Value<TKey, TValue>(value);
+            return Dic.TryGetValue(key, out valueDic);
         }
 
         public ICollection<TValue> Values
         {
-            get { return dic.Values; }
+            //TODO: fix
+            get { return null; }
         }
 
         public TValue this[TKey key]
@@ -87,13 +110,13 @@ namespace DataStructures.HashSpace
             {
                 Contract.Requires<ArgumentNullException>(key != null);
 
-                return dic[new Value<TKey>(key)];
+                return Dic[key].value;
             }
             set
             {
                 Contract.Requires<ArgumentNullException>(key != null);
 
-                dic[new Value<TKey>(key)] = value;
+                Dic[key] = value;
             }
         }
 
@@ -104,34 +127,31 @@ namespace DataStructures.HashSpace
 
         public void Clear()
         {
-            dic.Clear();
+            Dic.Clear();
             lastAdded = headValue;
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return (dic.ContainsKey(new Value<TKey>(item.Key)) ? 
-                    dic[new Value<TKey>(item.Key)].Equals(item.Value) : false);          
+            return (Dic.ContainsKey(item.Key) && Dic[item.Key].Equals(item.Value));
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            Contract.Requires<ArgumentException>(array.Length >= dic.Count+arrayIndex);
+            Contract.Requires<ArgumentException>(array.Length >= Dic.Count+arrayIndex);
         }
 
         public int Count
         {
-            get { return dic.Count; }
+            get { return Dic.Count; }
         }
 
-        public bool IsReadOnly
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public bool IsReadOnly { get; private set; }
 
-        public bool Remove(KeyValuePair<TKey, TValue> item)
+        public Dictionary<TKey, Value<TKey, TValue>> Dic
         {
-            throw new NotImplementedException();
+            get { return dic; }
+            set { dic = value; }
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
@@ -140,17 +160,19 @@ namespace DataStructures.HashSpace
             while (key != null)
             {
                 var tempKey = key;
-                key = key.next;
-                yield return new KeyValuePair<TKey, TValue>(tempKey.value, dic[tempKey]);
+                key = key.value.next;
+                yield return new KeyValuePair<TKey, TValue>(tempKey.key, Dic[tempKey.key].value);
             }
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        private class Pair<TKey, Value<TKey, TValue>>
+      
+
+        public class Pair<TKey, TValue> where TValue : Value<TKey, TValue>
         {
             public TKey key;
             public Value<TKey, TValue> value;
@@ -161,14 +183,14 @@ namespace DataStructures.HashSpace
                 this.value = value;
             }
         }
-
-        private class Value<TKey, TValue>
+        
+        public class Value<TKey, TValue> where TValue:Value<TKey,TValue>
         {
             public TValue value;
-            public Pair<TKey, Value<TKey, TValue>> next;
-            public Pair<TKey, Value<TKey, TValue>> prev;
+            public Pair<TKey, TValue> next;
+            public Pair<TKey, TValue> prev;
 
-            public Value(TValue value, Pair<TKey, Value<TKey, TValue>> prev = null, Pair<TKey, Value<TKey, TValue>> next = null)
+            public Value(TValue value, Pair<TKey, TValue> prev = null, Pair<TKey, TValue> next = null)
             {
                 this.value = value;
                 this.prev = prev;
