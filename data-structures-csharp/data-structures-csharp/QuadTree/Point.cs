@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.QuadTreeSpace
+namespace CSharp.DataStructures.QuadTreeSpace
 {
     [Serializable]
     public struct Point

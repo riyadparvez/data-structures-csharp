@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.ListSpace
+namespace CSharp.DataStructures.ListSpace
 {
     /// <summary>
     /// Use insertion sort for every element added

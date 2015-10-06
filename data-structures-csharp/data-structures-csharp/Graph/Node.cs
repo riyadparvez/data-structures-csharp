@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.GraphSpace
+namespace CSharp.DataStructures.GraphSpace
 {
     /// <summary>
     /// GraphNode of Graph

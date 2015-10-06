@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace DataStructures.ConcurrentAdjacencyList
+namespace CSharp.DataStructures.ConcurrentAdjacencyList
 {
     //TODO: incomplete, requires inspection
     [Serializable]

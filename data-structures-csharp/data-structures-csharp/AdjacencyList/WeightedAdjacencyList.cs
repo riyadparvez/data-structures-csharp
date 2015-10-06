@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace DataStructures.AdjacencyList
+namespace CSharp.DataStructures.AdjacencyList
 {
     [Serializable]
     public class WeightedAdjacencyList<T>

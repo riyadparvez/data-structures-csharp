@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.IntervalTreeSpace
+namespace CSharp.DataStructures.IntervalTreeSpace
 {
     [Serializable]
     public struct Interval : IEquatable<Interval>

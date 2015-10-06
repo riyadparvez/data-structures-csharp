@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.TransposeListSpace
+namespace CSharp.DataStructures.TransposeListSpace
 {
     /// <summary>
     /// Linked list which makes most recently accessed element head of the list

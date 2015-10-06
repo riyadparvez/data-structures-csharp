@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataStructures.TransposeListSpace
+namespace CSharp.DataStructures.TransposeListSpace
 {
     public partial class TransposeList<T>
     {

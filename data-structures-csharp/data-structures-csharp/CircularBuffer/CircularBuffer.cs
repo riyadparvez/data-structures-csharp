@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Collections;
 
-namespace DataStructures.CircularBufferSpace
+namespace CSharp.DataStructures.CircularBufferSpace
 {
     [Serializable]
     public class CircularBuffer<T> : IEnumerable<T>

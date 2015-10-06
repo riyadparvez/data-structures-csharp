@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.DAWGSpace
+namespace CSharp.DataStructures.DAWGSpace
 {
     public partial class DirectedAcyclicWordGraph
     {

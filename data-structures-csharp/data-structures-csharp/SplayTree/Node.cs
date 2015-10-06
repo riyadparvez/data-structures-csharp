@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.SplayTreeSpace
+namespace CSharp.DataStructures.SplayTreeSpace
 {
     public partial class SplayTree<T>
     {

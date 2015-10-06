@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.HashSpace
+namespace CSharp.DataStructures.HashSpace
 {
     /// <summary>
     /// 

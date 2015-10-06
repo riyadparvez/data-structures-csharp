@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.HeapSpace
+namespace CSharp.DataStructures.HeapSpace
 {
     public partial class Heap<T>
     {

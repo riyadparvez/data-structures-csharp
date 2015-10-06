@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.RootedTreeSpace
+namespace CSharp.DataStructures.RootedTreeSpace
 {
     [Serializable]
     public partial class RootedTree<T>

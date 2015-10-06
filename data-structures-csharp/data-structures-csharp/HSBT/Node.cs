@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.HsbtSpace
+namespace CSharp.DataStructures.HsbtSpace
 {
     public partial class HeapStructuredBinaryTree<TKey, TValue>
     {

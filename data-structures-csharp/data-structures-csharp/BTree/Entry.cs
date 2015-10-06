@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.BTreeSpace
+namespace CSharp.DataStructures.BTreeSpace
 {
     public partial class BTree<TKey, TValue>
         where TKey : IComparable<TKey>

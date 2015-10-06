@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CSharp.DataStructures</id>
+    <version>1.2.0.0</version>
+    <title>CSharp.DataStructures</title>
+    <authors>Fabio Costa, Riyad Parvez</authors>
+    <owners>Fabio Costa, Riyad Parvez</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/riyadparvez/data-structures-csharp</projectUrl>
+    <iconUrl>https://cdn3.iconfinder.com/data/icons/3d-printing-icon-set/256/Model.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A library for all the data structures in C#. Every class is generic and reusable.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2013-2016</copyright>
+    <tags>DS,data structures,AVL Tree,B+ Tree,BTree,Binary Search Tree,Binary Search Tree,Binomial Heap,Bloom Filter,Compressed Trie,Concurrent Hash Set,Directed Acyclic Word Graph,Graph,Heap,Heap Structured Binary Tree,Interval Tree,List (Move to front heuristics),List (Frequency count heuristics),List (Transpose heuristics),Red Black Tree,Region Quad Tree,Rooted Tree,Splay Tree,Skip List,Trie,QuadTree</tags>
+  </metadata>
+</package>

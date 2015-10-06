@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.QueueSpace
+namespace CSharp.DataStructures.QueueSpace
 {
     /// <summary>
     /// 

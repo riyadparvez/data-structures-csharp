@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.SkipListSpace
+namespace CSharp.DataStructures.SkipListSpace
 {
     public partial class SkipList<TKey, TValue> : IEnumerable<TValue>, ICollection<TValue>
             where TKey : IComparable<TKey>

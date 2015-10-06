@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DataStructures.GraphSpace
+namespace CSharp.DataStructures.GraphSpace
 {
     /// <summary>
     /// NodeList

@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.HeapSpace
+namespace CSharp.DataStructures.HeapSpace
 {
     /// <summary>
     /// Heap

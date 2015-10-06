@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.QuadTreeSpace
+namespace CSharp.DataStructures.QuadTreeSpace
 {
     public partial class QuadTree<T>
     {

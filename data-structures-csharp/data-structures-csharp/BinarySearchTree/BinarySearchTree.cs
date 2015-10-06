@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.BinarySearchTreeSpace
+namespace CSharp.DataStructures.BinarySearchTreeSpace
 {
     /// <summary>
     /// Binary search tree providing O(n) worst case search time

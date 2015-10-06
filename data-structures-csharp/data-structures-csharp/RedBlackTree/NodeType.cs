@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataStructures.RedBlackTreeSpace
+namespace CSharp.DataStructures.RedBlackTreeSpace
 {
     public partial class RedBlackTree<TKey, TValue>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.FrequencyListSpace
+namespace CSharp.DataStructures.FrequencyListSpace
 {
     public partial class FrequencyList<T>
     {

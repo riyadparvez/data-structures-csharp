@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.IntervalTreeSpace
+namespace CSharp.DataStructures.IntervalTreeSpace
 {
     /// <summary>
     /// Interval tree

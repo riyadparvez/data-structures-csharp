@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.AvlTreeSpace
+namespace CSharp.DataStructures.AvlTreeSpace
 {
     /// <summary>
     /// Balanced binary search tree

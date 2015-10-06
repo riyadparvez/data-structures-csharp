@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.RedBlackTreeSpace
+namespace CSharp.DataStructures.RedBlackTreeSpace
 {
     public partial class RedBlackTree<TKey, TValue>
     {

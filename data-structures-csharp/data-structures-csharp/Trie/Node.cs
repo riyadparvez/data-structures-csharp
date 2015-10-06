@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.TrieSpace
+namespace CSharp.DataStructures.TrieSpace
 {
     [Serializable]
     public partial class Trie : IEnumerable<string>

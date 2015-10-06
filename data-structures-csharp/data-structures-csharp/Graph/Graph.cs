@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace DataStructures.GraphSpace
+namespace CSharp.DataStructures.GraphSpace
 {
     /// <summary>
     /// Graph

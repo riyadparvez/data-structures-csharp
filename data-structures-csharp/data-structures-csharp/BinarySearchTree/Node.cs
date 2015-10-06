@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.BinarySearchTreeSpace
+namespace CSharp.DataStructures.BinarySearchTreeSpace
 {
     public partial class BinarySearchTree<TKey, TValue>
     {

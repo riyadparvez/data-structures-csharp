@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataStructures.MoveToFrontListSpace;
-using DataStructures.QueueSpace;
+using CSharp.DataStructures.MoveToFrontListSpace;
+using CSharp.DataStructures.QueueSpace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace data_structures_csharpTests.Queue

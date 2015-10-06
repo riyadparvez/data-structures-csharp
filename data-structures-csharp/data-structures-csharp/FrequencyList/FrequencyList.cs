@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.FrequencyListSpace
+namespace CSharp.DataStructures.FrequencyListSpace
 {
     /// <summary>
     /// Linked List which places frequently accessed items near the head

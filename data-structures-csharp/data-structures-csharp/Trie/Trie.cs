@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.TrieSpace
+namespace CSharp.DataStructures.TrieSpace
 {
     public partial class Trie : IEnumerable<string>
     {

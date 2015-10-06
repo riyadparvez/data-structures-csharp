@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.SkipListSpace
+namespace CSharp.DataStructures.SkipListSpace
 {
     /// <summary>
     /// Key value pair implemented in Skip List

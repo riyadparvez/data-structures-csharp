@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.QuadTreeSpace
+namespace CSharp.DataStructures.QuadTreeSpace
 {
     public partial class QuadTree<T>
     {    

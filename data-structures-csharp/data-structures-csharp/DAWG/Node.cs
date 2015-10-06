@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.DAWGSpace
+namespace CSharp.DataStructures.DAWGSpace
 {
     public partial class DirectedAcyclicWordGraph
     {

@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 //TODO: Add word
-namespace DataStructures.DAWGSpace
+namespace CSharp.DataStructures.DAWGSpace
 {
     /// <summary>
     /// 
