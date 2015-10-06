@@ -111,6 +111,10 @@
     <Compile Include="CircularBuffer\CircularBuffer.cs" />
     <Compile Include="ConcurrentAdjacencyList\ConcurrentAdjacencyList.cs" />
     <Compile Include="ConcurrentHashSet\ConcurrentHashSet.cs" />
+    <Compile Include="Graph\Graph.cs" />
+    <Compile Include="Graph\Node.cs" />
+    <Compile Include="Graph\NullNode.cs" />
+    <Compile Include="Graph\NodeList.cs" />
     <Compile Include="Hash\DoubleHashedDictionary.cs" />
     <Compile Include="Hash\LinearProbingDictionary.cs" />
     <Compile Include="Hash\LinkedDictionary.cs" />

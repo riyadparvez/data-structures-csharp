@@ -5,3 +5,5 @@
 /data-structures-csharp/data-structures-test/obj/*
 /data-structures-csharp/data-structures-test/bin/*
 /data-structures-csharp/data-structures-test/TestResults/*
+data-structures-csharp/data-structures-csharpTests/obj/
+data-structures-csharp/data-structures-csharp/bin/Debug/
