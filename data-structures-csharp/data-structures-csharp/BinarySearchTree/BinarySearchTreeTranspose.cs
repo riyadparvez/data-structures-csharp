@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.BinarySearchTreeSpace
+namespace CSharp.DataStructures.BinarySearchTreeSpace
 {
     /// <summary>
     /// A binary search tree which moves accessed element a level closer to root

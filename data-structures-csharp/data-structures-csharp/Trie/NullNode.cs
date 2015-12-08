@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace DataStructures.TrieSpace
+namespace CSharp.DataStructures.TrieSpace
 {
     public partial class Trie : IEnumerable<string>
     {

@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.CompressedTrieSpace
+namespace CSharp.DataStructures.CompressedTrieSpace
 {
     /// <summary>
     /// Compressed trie which saves node space by compressing non branching

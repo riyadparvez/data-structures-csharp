@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.SplayTreeSpace
+namespace CSharp.DataStructures.SplayTreeSpace
 {
     //TODO: Splay Tree
     /// <summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.RedBlackTreeSpace
+namespace CSharp.DataStructures.RedBlackTreeSpace
 {
     /// <summary>
     ///

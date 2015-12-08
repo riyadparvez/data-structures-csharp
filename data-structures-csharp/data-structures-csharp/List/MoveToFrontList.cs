@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
-namespace DataStructures.MoveToFrontListSpace
+namespace CSharp.DataStructures.MoveToFrontListSpace
 {
     /// <summary>
     /// Moves most recently accessed element to the root

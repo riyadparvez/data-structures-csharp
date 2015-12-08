@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 
 
-namespace DataStructures.BloomFilterSpace
+namespace CSharp.DataStructures.BloomFilterSpace
 {
     [Serializable]
     public abstract class BloomFilter<T>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataStructures.ListSpace;
+using CSharp.DataStructures.ListSpace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.SortedList.Tests
+namespace CSharp.DataStructures.SortedList.Tests
 {
     [TestClass()]
     public class SortedListTests

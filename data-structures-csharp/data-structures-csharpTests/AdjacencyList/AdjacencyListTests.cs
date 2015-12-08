@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.AdjacencyList.Tests
+namespace CSharp.DataStructures.AdjacencyList.Tests
 {
     [TestClass()]
     public class AdjacencyListTests

@@ -7,8 +7,8 @@
     <ProjectGuid>{4FBD79E3-616A-4F3E-B2CA-65FED347C8E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataStructures</RootNamespace>
-    <AssemblyName>DataStructures</AssemblyName>
+    <RootNamespace>CSharp.DataStructures</RootNamespace>
+    <AssemblyName>CSharp.DataStructures</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -70,7 +70,7 @@
     <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -111,6 +111,10 @@
     <Compile Include="CircularBuffer\CircularBuffer.cs" />
     <Compile Include="ConcurrentAdjacencyList\ConcurrentAdjacencyList.cs" />
     <Compile Include="ConcurrentHashSet\ConcurrentHashSet.cs" />
+    <Compile Include="Graph\Graph.cs" />
+    <Compile Include="Graph\Node.cs" />
+    <Compile Include="Graph\NullNode.cs" />
+    <Compile Include="Graph\NodeList.cs" />
     <Compile Include="Hash\DoubleHashedDictionary.cs" />
     <Compile Include="Hash\LinearProbingDictionary.cs" />
     <Compile Include="Hash\LinkedDictionary.cs" />
@@ -168,6 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SuffixArray\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data-structures-csharp.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

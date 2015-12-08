@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 
 //TODO: unweighted adjacency list and weighted adjacency list
-namespace DataStructures.AdjacencyList
+namespace CSharp.DataStructures.AdjacencyList
 {
     [Serializable]
     public class AdjacencyList<T>

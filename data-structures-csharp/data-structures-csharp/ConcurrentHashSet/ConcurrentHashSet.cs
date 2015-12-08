@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace DataStructures.ConcurrentHashSet
+namespace CSharp.DataStructures.ConcurrentHashSet
 {
     [Serializable]
     public class ConcurrentHashSet<T>

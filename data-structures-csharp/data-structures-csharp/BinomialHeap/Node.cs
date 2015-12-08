@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.BinomialHeapSpace
+namespace CSharp.DataStructures.BinomialHeapSpace
 {
     public partial class BinomialHeap<T>
         where T : IComparable<T>

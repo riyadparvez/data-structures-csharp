@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DataStructures.Rope
+namespace CSharp.DataStructures.Rope
 {
     [Serializable]
     public partial class Rope

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using DataStructures.Utils;
+using CSharp.DataStructures.Utils;
 
 
-namespace DataStructures.CompressedTrieSpace
+namespace CSharp.DataStructures.CompressedTrieSpace
 {
     public partial class CompressedTrie
     {

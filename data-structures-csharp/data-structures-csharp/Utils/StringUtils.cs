@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.Utils
+namespace CSharp.DataStructures.Utils
 {
     public static class StringUtils
     {

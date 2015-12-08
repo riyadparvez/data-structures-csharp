@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.MoveToFrontListSpace.Tests
+namespace CSharp.DataStructures.MoveToFrontListSpace.Tests
 {
     [TestClass()]
     public class MoveToFrontListTests

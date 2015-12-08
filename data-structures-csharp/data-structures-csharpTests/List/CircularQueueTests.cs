@@ -1,8 +1,8 @@
 ﻿using System;
-using DataStructures.ListSpace;
+using CSharp.DataStructures.ListSpace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.CircularQueueSpace.Tests
+namespace CSharp.DataStructures.CircularQueueSpace.Tests
 {
     [TestClass()]
     public class CircularQueueTests

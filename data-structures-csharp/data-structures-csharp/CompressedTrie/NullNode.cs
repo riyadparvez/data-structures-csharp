@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace DataStructures.CompressedTrieSpace
+namespace CSharp.DataStructures.CompressedTrieSpace
 {
     public partial class CompressedTrie
     {

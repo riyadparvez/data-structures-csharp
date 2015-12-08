@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataStructures.BinarySearchTreeSpace;
+using CSharp.DataStructures.BinarySearchTreeSpace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.BinarySearchTreeSpace.Tests
+namespace CSharp.DataStructures.BinarySearchTreeSpace.Tests
 {
     [TestClass()]
     public class BinarySearchTreeTests

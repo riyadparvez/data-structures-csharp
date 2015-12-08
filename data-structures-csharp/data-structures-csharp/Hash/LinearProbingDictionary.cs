@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 
-namespace DataStructures.HashSpace
+namespace CSharp.DataStructures.HashSpace
 {
     /// <summary>
     /// A hash table which uses user specified step size probing

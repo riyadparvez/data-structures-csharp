@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.QuadTreeSpace
+namespace CSharp.DataStructures.QuadTreeSpace
 {
     [Serializable]
     public partial class QuadTree<T>

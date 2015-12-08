@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.HsbtSpace
+namespace CSharp.DataStructures.HsbtSpace
 {
     /// <summary>
     /// Root &lt left &lt right

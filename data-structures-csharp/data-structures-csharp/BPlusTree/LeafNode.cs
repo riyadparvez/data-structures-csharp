@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.BPlusTreeSpace
+namespace CSharp.DataStructures.BPlusTreeSpace
 {
     public partial class BPlusTree<TKey, TValue>
         where TKey : IComparable<TKey>

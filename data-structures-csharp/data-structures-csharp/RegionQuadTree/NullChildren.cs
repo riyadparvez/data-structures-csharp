@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.RegionQuadTreeSpace
+namespace CSharp.DataStructures.RegionQuadTreeSpace
 {
     public partial class RegionQuadTree<T>
     {

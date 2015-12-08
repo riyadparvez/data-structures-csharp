@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataStructures.HeapSpace;
+using CSharp.DataStructures.HeapSpace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.Heap.Tests
+namespace CSharp.DataStructures.Heap.Tests
 {
     [TestClass()]
     public class HeapTests

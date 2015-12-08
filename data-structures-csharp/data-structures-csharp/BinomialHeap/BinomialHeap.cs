@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 
-namespace DataStructures.BinomialHeapSpace
+namespace CSharp.DataStructures.BinomialHeapSpace
 {
     [Serializable]
     public partial class BinomialHeap<T>

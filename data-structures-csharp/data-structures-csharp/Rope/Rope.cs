@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.RopeSpace
+namespace CSharp.DataStructures.RopeSpace
 {
     [Serializable]
     public partial class Rope

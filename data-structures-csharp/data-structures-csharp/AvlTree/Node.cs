@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.AvlTreeSpace
+namespace CSharp.DataStructures.AvlTreeSpace
 {
     public partial class AvlTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
         where TKey : IComparable<TKey>

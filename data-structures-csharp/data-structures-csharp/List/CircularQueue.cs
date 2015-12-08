@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.CircularQueueSpace
+namespace CSharp.DataStructures.CircularQueueSpace
 {
     [Serializable]
     public class CircularQueue<T>:ICollection<T>,IEnumerable<T>

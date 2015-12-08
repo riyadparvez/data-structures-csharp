@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataStructures.AdjacencyList;
+using CSharp.DataStructures.AdjacencyList;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.WeightedAdjacencyList.Tests
+namespace CSharp.DataStructures.WeightedAdjacencyList.Tests
 {
     [TestClass()]
     public class WeightedAdjacencyListTest

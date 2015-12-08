@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.BTreeSpace
+namespace CSharp.DataStructures.BTreeSpace
 {
     [Serializable]
     public partial class BTree<TKey, TValue>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace DataStructures.RootedTreeSpace
+namespace CSharp.DataStructures.RootedTreeSpace
 {
     public partial class RootedTree<T>
     {
