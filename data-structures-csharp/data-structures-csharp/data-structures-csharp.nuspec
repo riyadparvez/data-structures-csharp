@@ -4,8 +4,8 @@
     <id>CSharp.DataStructures</id>
     <version>1.2.0.0</version>
     <title>CSharp.DataStructures</title>
-    <authors>Fabio Costa, Riyad Parvez</authors>
-    <owners>Fabio Costa, Riyad Parvez</owners>
+    <authors>Riyad Parvez</authors>
+    <owners>Riyad Parvez</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/riyadparvez/data-structures-csharp</projectUrl>
     <iconUrl>https://cdn3.iconfinder.com/data/icons/3d-printing-icon-set/256/Model.png</iconUrl>
