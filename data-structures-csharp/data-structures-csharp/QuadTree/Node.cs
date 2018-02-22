@@ -86,7 +86,6 @@ namespace DataStructures.QuadTreeSpace
                 if (Count == MaximumValuesPerNode)
                 {
                     SplitRegionIntoChildNodes();
-
                 }
                 else
                 {
@@ -105,7 +104,7 @@ namespace DataStructures.QuadTreeSpace
 
             public override bool Equals(object obj)
             {
-                Node<T> otherNode = obj as Node<T>;
+                var otherNode = obj as Node<T>;
                 if (otherNode == null)
                 {
                     return false;

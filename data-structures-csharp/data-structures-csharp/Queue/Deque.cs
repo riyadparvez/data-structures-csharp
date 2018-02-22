@@ -19,24 +19,16 @@ namespace DataStructures.QueueSpace
         public int Capacity { get { return internalList.Capacity; } }
         public T PeekFirst
         {
-            get 
+            get
             {
-                if (!internalList.Any())
-                {
-                    return default(T);
-                }
-                return internalList[0]; 
+                return !internalList.Any() ? default(T) : internalList[0];
             }
         }
         public T PeekLast
         {
-            get 
-            { 
-                if(!internalList.Any())
-                {
-                    return default(T);
-                }
-                return internalList[internalList.Count - 1]; 
+            get
+            {
+                return !internalList.Any() ? default(T) : internalList[internalList.Count - 1];
             }
         }
 
@@ -87,7 +79,7 @@ namespace DataStructures.QueueSpace
             {
                 return default(T);
             }
-            T element = internalList[0];
+            var element = internalList[0];
             internalList.RemoveAt(0);
             return element;
         }
@@ -102,7 +94,7 @@ namespace DataStructures.QueueSpace
             {
                 return default(T);
             }
-            T element = internalList[Count - 1];
+            var element = internalList[Count - 1];
             internalList.RemoveAt(Count - 1);
             return element;
         }

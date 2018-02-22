@@ -75,7 +75,7 @@ namespace DataStructures.BinarySearchTreeSpace
             Contract.Requires<ArgumentNullException>(key != null, "BST can't have null values");
             value = default(TValue);
 
-            Node<TKey, TValue> node = FindNode(key);
+            var node = FindNode(key);
             if (node != null)
             {
                 value = node.Value;
@@ -147,7 +147,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns></returns>
         private Node<TKey, TValue> Predecessor(Node<TKey, TValue> node)
         {
-            Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have predecesspr");
+            Contract.Requires<ArgumentNullException>(node != null, $"{nameof(node)}");
 
             if (node.Left == null)
             {
@@ -191,7 +191,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>returns null if in order successor doesn't exist</returns>
         private Node<TKey, TValue> Successor(Node<TKey, TValue> node)
         {
-            Contract.Requires<ArgumentNullException>(node != null, "Null values doesn't have successor");
+            Contract.Requires<ArgumentNullException>(node != null, $"{nameof(node)}");
 
             if (node.Right == null)
             {
@@ -235,7 +235,7 @@ namespace DataStructures.BinarySearchTreeSpace
         /// <returns>true if removed</returns>
         public virtual bool Remove(TKey key)
         {
-            Contract.Requires<ArgumentNullException>(key != null, "BST doesn't contain null values");
+            Contract.Requires<ArgumentNullException>(key != null, $"{nameof(key)}");
 
             Node<TKey, TValue> node = FindNode(key);
             if (node == null)                            //node isn't there

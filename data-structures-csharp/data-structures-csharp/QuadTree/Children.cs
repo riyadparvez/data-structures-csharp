@@ -53,7 +53,7 @@ namespace DataStructures.QuadTreeSpace
             /// <returns>Null if no children contains the point</returns>
             public virtual Node<T> GetContainingChild(Point point)
             {
-                List<Node<T>> childrenList = ToList();
+                var childrenList = ToList();
 
                 foreach (var child in childrenList)
                 {

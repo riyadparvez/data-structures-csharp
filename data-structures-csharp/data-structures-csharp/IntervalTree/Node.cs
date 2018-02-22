@@ -42,9 +42,9 @@ namespace DataStructures.IntervalTreeSpace
                 leftSortedIntervals.Sort(new StartComparer());
             }
 
-            public List<Interval> GetIntervals(double x)
+            public IList<Interval> GetIntervals(double x)
             {
-                List<Interval> intervals = new List<Interval>();
+                var intervals = new List<Interval>();
                 if (x < X)
                 {
                     foreach (var interval in leftSortedIntervals)

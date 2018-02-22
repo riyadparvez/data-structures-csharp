@@ -30,11 +30,11 @@ namespace DataStructures.RootedTreeSpace
             Contract.Requires<ArgumentNullException>(root1 != null);
             Contract.Requires<ArgumentNullException>(root2 != null);
 
-            Stack<Node<T>> stack = new Stack<Node<T>>();
+            var stack = new Stack<Node<T>>();
             PushLeft(stack, root2);
             while (stack.Any())
             {
-                Node<T> x = stack.Pop();
+                var x = stack.Pop();
                 x.Root = root1.Root;
                 PushLeft(stack, x.Right);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 
 namespace DataStructures.IntervalTreeSpace
@@ -92,12 +93,12 @@ namespace DataStructures.IntervalTreeSpace
             List<Interval> intervals;
             if (x < treeNode.X)
             {
-                intervals = treeNode.GetIntervals(x);
+                intervals = treeNode.GetIntervals(x).ToList();
                 intervals.AddRange(Find(treeNode.Left, x));
             }
             else if (x > treeNode.X)
             {
-                intervals = treeNode.GetIntervals(x);
+                intervals = treeNode.GetIntervals(x).ToList();
                 intervals.AddRange(Find(treeNode.Right, x));
             }
             else
@@ -110,7 +111,7 @@ namespace DataStructures.IntervalTreeSpace
 
         private Node FindNode(Interval interval)
         {
-            Node current = root;
+            var current = root;
 
             while (current != null)
             {
@@ -137,7 +138,7 @@ namespace DataStructures.IntervalTreeSpace
         /// <param name="interval">Interval to be removed</param>
         public void Remove(Interval interval)
         {
-            Node node = FindNode(interval);
+            var node = FindNode(interval);
             if (node == null)
             {
                 return;
@@ -148,7 +149,7 @@ namespace DataStructures.IntervalTreeSpace
 
         public IEnumerable<Interval> Find(double x)
         {
-            Node current = root;
+            var current = root;
             return Find(current, x);
         }
     }

@@ -20,7 +20,7 @@ namespace DataStructures.BinomialHeapSpace
         {
             Contract.Requires<ArgumentNullException>(element != null);
 
-            Node<T> root = new Node<T>(element, null);
+            var root = new Node<T>(element, null);
             return new BinomialHeap<T>(root);
         }
 
@@ -67,7 +67,7 @@ namespace DataStructures.BinomialHeapSpace
                 current1 = otherHeap.root.RightSibling;
             }
             //pointer for currently building merged heap
-            Node<T> current = root;
+            var current = root;
             while (current1 != null && current2 != null)
             {
                 //merge phase like merge sort, insert smaller element first
@@ -115,8 +115,8 @@ namespace DataStructures.BinomialHeapSpace
             }
             //restore the property no two sub tree has same order
             Node<T> prev = null;
-            Node<T> current = root;
-            Node<T> next = current.RightSibling;
+            var current = root;
+            var next = current.RightSibling;
             while (next != null)
             {
                 bool needMerge = true;
@@ -178,8 +178,8 @@ namespace DataStructures.BinomialHeapSpace
 
         public T GetMin()
         {
-            Node<T> minNode = root;
-            Node<T> current = minNode.RightSibling;
+            var minNode = root;
+            var current = minNode.RightSibling;
             //for heap root is the minimum, so we are traversing over the
             //roots of heap
             while (current != null)
@@ -197,8 +197,8 @@ namespace DataStructures.BinomialHeapSpace
             Contract.Requires<ArgumentNullException>(heap != null, "heap");
             T min = heap.GetMin();
             //List of children to root node, because it's getting removed
-            List<Node<T>> rootList = new List<Node<T>>();
-            Node<T> current = heap.root.RightSibling;
+            var rootList = new List<Node<T>>();
+            var current = heap.root.RightSibling;
             while (current != null)
             {
                 //Assign parent field of children to null

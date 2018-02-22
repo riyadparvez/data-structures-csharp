@@ -30,7 +30,7 @@ namespace DataStructures.DAWGSpace
 
             public override bool Equals(object obj)
             {
-                Edge otherEdge = obj as Edge;
+                var otherEdge = obj as Edge;
                 if (otherEdge == null)
                 {
                     return false;

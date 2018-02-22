@@ -34,12 +34,12 @@ namespace DataStructures.DAWGSpace
             /// <returns>Null if there is no such edge</returns>
             public Edge FindEdge(char ch)
             {
-                return edges.Where(e => e.Char.Equals(ch)).SingleOrDefault();
+                return edges.SingleOrDefault(e => e.Char.Equals(ch));
             }
 
             public override bool Equals(object obj)
             {
-                Node otherNode = obj as Node;
+                var otherNode = obj as Node;
                 if (otherNode == null)
                 {
                     return false;

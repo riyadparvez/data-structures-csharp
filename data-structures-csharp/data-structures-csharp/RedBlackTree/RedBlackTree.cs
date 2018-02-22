@@ -46,7 +46,7 @@ namespace DataStructures.RedBlackTreeSpace
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
-            Node<TKey, TValue> current = header.Right;
+            var current = header.Right;
             while (true)
             {
                 if (key.CompareTo(current.Key) < 0)
@@ -57,7 +57,7 @@ namespace DataStructures.RedBlackTreeSpace
                 {
                     current = current.Right;
                 }
-                else if (!(current == nullNode))
+                else if (current != nullNode)
                 {
                     return current.Value;
                 }
@@ -83,7 +83,7 @@ namespace DataStructures.RedBlackTreeSpace
 
             while (current.Key.CompareTo(key) != 0)
             {
-                Node<TKey, TValue> greatParent = grandParent;
+                var greatParent = grandParent;
                 grandParent = parent;
                 parent = current;
                 if (key.CompareTo(current.Key) < 0)
@@ -102,7 +102,7 @@ namespace DataStructures.RedBlackTreeSpace
                     HandleReorient(key);
                 }
             }
-            if (!(current == nullNode))
+            if (current != nullNode)
             {
                 //This node is already inserted in RB Tree
                 return;
@@ -152,7 +152,7 @@ namespace DataStructures.RedBlackTreeSpace
                 return new KeyValuePair<TKey,TValue>();
             }
             //Rightmost child is the max child
-            Node<TKey, TValue> itrNode = header.Right;
+            var itrNode = header.Right;
             while (itrNode.Right != nullNode)
             {
                 itrNode = itrNode.Right;
@@ -171,7 +171,7 @@ namespace DataStructures.RedBlackTreeSpace
                 return new KeyValuePair<TKey,TValue>();
             }
             //Leftmost child is the min child
-            Node<TKey, TValue> itrNode = header.Right;
+            var itrNode = header.Right;
 
             while (itrNode.Left != nullNode)
             {
@@ -271,7 +271,7 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 return null;
             }
-            Node<TKey, TValue> k1 = root.Left;
+            var k1 = root.Left;
             root.Left = k1.Right;
             k1.Right = root;
             return k1;
@@ -283,7 +283,7 @@ namespace DataStructures.RedBlackTreeSpace
             {
                 return null;
             }
-            Node<TKey, TValue> k2 = root.Right;
+            var k2 = root.Right;
             root.Right = k2.Left;
             k2.Left = root;
             return k2;

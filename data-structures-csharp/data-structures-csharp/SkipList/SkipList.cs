@@ -89,7 +89,7 @@ namespace DataStructures.SkipListSpace
         {
             Contract.Requires<ArgumentNullException>(key != null, "key");
 
-            SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel];
+            var update = new SkipNode<TKey, TValue>[maxLevel];
             //Start search for each level from dummy header node
             SkipNode<TKey, TValue> cursor = header;
 
@@ -152,7 +152,7 @@ namespace DataStructures.SkipListSpace
         {
             Contract.Requires<ArgumentNullException>(key != null);
 
-            SkipNode<TKey, TValue>[] update = new SkipNode<TKey, TValue>[maxLevel + 1];
+            var update = new SkipNode<TKey, TValue>[maxLevel + 1];
             SkipNode<TKey, TValue> cursor = header;
 
             for (int i = level; i >= 0; i--)

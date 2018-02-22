@@ -18,13 +18,9 @@ namespace DataStructures.HeapSpace
 
         public T Peek
         {
-            get 
+            get
             {
-                if(root == null)
-                {
-                    return default(T);
-                }
-                return root.Value; 
+                return root == null ? default(T) : root.Value;
             }
         }
         public int Count { get; private set; }
@@ -51,7 +47,7 @@ namespace DataStructures.HeapSpace
                 return;
             }
 
-            Queue<Node<T>> queue = new Queue<Node<T>>();
+            var queue = new Queue<Node<T>>();
             queue.Enqueue(root);
             while (queue.Any())
             {
@@ -123,12 +119,7 @@ namespace DataStructures.HeapSpace
 
         public T GetMin()
         {
-            if (root == null)
-            {
-                return default(T);
-            }
-
-            return root.Value;
+            return root == null ? default(T) : root.Value;
         }
 
         private Node<T> LastNode()

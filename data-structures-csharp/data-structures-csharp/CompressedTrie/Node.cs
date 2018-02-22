@@ -160,8 +160,8 @@ namespace DataStructures.CompressedTrieSpace
 
             public override bool Equals(object obj)
             {
-                Node otherNode = obj as Node;
-                if (otherNode == null || this == null)
+                var otherNode = obj as Node;
+                if (otherNode == null)
                 {
                     return false;
                 }

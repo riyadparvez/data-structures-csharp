@@ -89,8 +89,10 @@ namespace DataStructures.CircularQueueSpace
         public T Dequeue()  // After removing from head, if that was the only element in Q
         // Mark Q to be empty by setting head and tail to -1
         {
-            if(_head==null)
+            if (_head == null)
+            {
                 throw new InvalidOperationException("Trying to dequeue from an empty queue");
+            }
             Contract.Assert(IsReadOnly == false, "The Circular queue is read only");
 
             var elem = QueueList[_head.Value];
@@ -117,8 +119,10 @@ namespace DataStructures.CircularQueueSpace
         public int? NextIndex(int? index)
         {
             //if the _queueList has capacity 0, create a list with capacity 1
-            if(QueueList.Capacity == 0)
+            if (QueueList.Capacity == 0)
+            {
                 QueueList = new List<T>(1);
+            }
             if (index == null)
                 return 0;
             return (index.Value + 1) % QueueList.Capacity;
@@ -178,8 +182,8 @@ namespace DataStructures.CircularQueueSpace
         /// <param name="arrayIndex">Starting index</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            Contract.Requires<ArgumentNullException>(array != null, "array parameter was null");
-            Contract.Requires<ArgumentOutOfRangeException>(arrayIndex >= 0, "arrayIndex parameter was null");
+            Contract.Requires<ArgumentNullException>(array != null, $"{nameof(array)}");
+            Contract.Requires<ArgumentOutOfRangeException>(arrayIndex >= 0, $"{nameof(arrayIndex)}");
             Contract.Requires<ArgumentException>(arrayIndex <= Count, "ArrayIndex less than count");
 
             var i = arrayIndex;

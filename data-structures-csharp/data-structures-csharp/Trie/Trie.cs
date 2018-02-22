@@ -36,7 +36,7 @@ namespace DataStructures.TrieSpace
                             "Trie doesn't include empty string or null values");
 
             Node current = root;
-            foreach (char ch in word)
+            foreach (var ch in word)
             {
                 Node childNode = current.HasChild(ch);
                 if (childNode == null)
@@ -162,7 +162,7 @@ namespace DataStructures.TrieSpace
             Contract.Ensures(Contract.Result<IList<string>>() != null);
 
             var current = root;
-            foreach (char ch in prefix)
+            foreach (var ch in prefix)
             {
                 Node childNode = current.HasChild(ch);
                 if (childNode == null)
