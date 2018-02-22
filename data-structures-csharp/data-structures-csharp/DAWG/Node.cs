@@ -22,8 +22,8 @@ namespace DataStructures.DAWGSpace
             public void AddEdge(Edge e)
             {
                 //Edge should have this node as one of the end nodes
-                Contract.Requires((e.StartNode.Equals(this)) ||
-                              (e.EndNode.Equals(this)));
+                Contract.Requires(e.StartNode.Equals(this) ||
+                              e.EndNode.Equals(this));
                 edges.Add(e);
             }
 

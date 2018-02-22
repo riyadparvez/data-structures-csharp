@@ -26,11 +26,11 @@ namespace DataStructures.DAWGSpace
         {
             Contract.Requires(!string.IsNullOrEmpty(word));
 
-            Node currentNode = root;
+            var currentNode = root;
             foreach (var ch in word)
             {
-                Edge e = currentNode.FindEdge(ch);
-                if (e.Equals(default(Edge)))
+                var e = currentNode.FindEdge(ch);
+                if (e == null)
                 {
                     return false;
                 }

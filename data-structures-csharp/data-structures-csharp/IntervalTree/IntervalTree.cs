@@ -47,7 +47,7 @@ namespace DataStructures.IntervalTreeSpace
                 return;
             }
 
-            Node current = root;
+            var current = root;
             while (true)
             {
                 int temp = current.CompareTo(interval);

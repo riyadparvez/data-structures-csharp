@@ -65,7 +65,7 @@ namespace DataStructures.AvlTreeSpace
 
             public override bool Equals(object obj)
             {
-                Node<TKey, TValue> otherNode = obj as Node<TKey, TValue>;
+                var otherNode = obj as Node<TKey, TValue>;
                 if (otherNode == null)
                 {
                     return false;

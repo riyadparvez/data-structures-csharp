@@ -153,7 +153,7 @@ namespace DataStructures.SkipListSpace
             Contract.Requires<ArgumentNullException>(key != null);
 
             var update = new SkipNode<TKey, TValue>[maxLevel + 1];
-            SkipNode<TKey, TValue> cursor = header;
+            var cursor = header;
 
             for (int i = level; i >= 0; i--)
             {

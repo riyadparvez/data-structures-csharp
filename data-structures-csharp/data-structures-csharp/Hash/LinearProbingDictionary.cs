@@ -74,7 +74,7 @@ namespace DataStructures.HashSpace
 
         public void Add(Tkey key, TValue value)
         {
-            Pair<Tkey, TValue> pair = new Pair<Tkey, TValue>(key, value);
+            var pair = new Pair<Tkey, TValue>(key, value);
             int pos = pair.GetHashCode();
             int visit = 0;
             while(pairs[pos] != null)
@@ -198,7 +198,7 @@ namespace DataStructures.HashSpace
 
         public bool Contains(KeyValuePair<Tkey, TValue> item)
         {
-            return ContainsKey(item.Key) ? item.Value.Equals(pairs[GetIndex(item.Key)].Value) : false;
+            return ContainsKey(item.Key) && item.Value.Equals(pairs[GetIndex(item.Key)].Value);
         }
 
         public void CopyTo(KeyValuePair<Tkey, TValue>[] array, int arrayIndex)

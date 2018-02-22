@@ -61,7 +61,7 @@ namespace DataStructures.CircularBufferSpace
             addIndex = 0;
             getIndex = 0;
 
-            foreach (T item in collection)
+            foreach (var item in collection)
             {
                 Add(item);
             }
@@ -81,7 +81,7 @@ namespace DataStructures.CircularBufferSpace
             addIndex = 0;
             getIndex = 0;
 
-            foreach (T item in enumerable)
+            foreach (var item in enumerable)
             {
                 Add(item);
             }
@@ -96,10 +96,14 @@ namespace DataStructures.CircularBufferSpace
             buffer[addIndex] = item;
 
             if (Count < Capacity)
+            {
                 Count++;
+            }
 
             if (addIndex == getIndex)
+            {
                 getIndex = getIndex < Capacity - 1 ? getIndex + 1 : 0;
+            }
 
             addIndex = addIndex < Capacity - 1 ? addIndex + 1 : 0;
         }
@@ -110,7 +114,9 @@ namespace DataStructures.CircularBufferSpace
         public void Clear()
         {
             for (int i = 0; i < buffer.Length; i++)
+            {
                 buffer[i] = default(T);
+            }
 
             Count = 0;
             addIndex = 0;
@@ -154,7 +160,9 @@ namespace DataStructures.CircularBufferSpace
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < buffer.Length; i++)
+            {
                 yield return buffer[i];
+            }
         }
 
         /// <summary>

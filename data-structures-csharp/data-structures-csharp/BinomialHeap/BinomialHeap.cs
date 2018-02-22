@@ -119,12 +119,8 @@ namespace DataStructures.BinomialHeapSpace
             var next = current.RightSibling;
             while (next != null)
             {
-                bool needMerge = true;
-                if (current.Degree != next.Degree)
-                {
-                    //orders are not same, don't need merging
-                    needMerge = false;
-                }
+                //orders are not same, don't need merging
+                var needMerge = current.Degree == next.Degree;
                 if (next.RightSibling != null && next.RightSibling.Degree == next.Degree)
                 {
                     //orders are not same, don't need merging
@@ -171,7 +167,7 @@ namespace DataStructures.BinomialHeapSpace
         {
             //first make 0 order binomial heap
             //then merge it with current heap
-            BinomialHeap<T> heap = CreateBinomialHeap(element);
+            var heap = CreateBinomialHeap(element);
             heap.root.Degree = 1;
             Unify(heap);
         }
@@ -205,7 +201,7 @@ namespace DataStructures.BinomialHeapSpace
                 current.Parent = null;
                 rootList.Add(current);
             }
-            BinomialHeap<T> newHeap = CreateBinomialHeap();
+            var newHeap = CreateBinomialHeap();
             newHeap.root = rootList[0];
             heap = heap.Unify(newHeap);
             return min;

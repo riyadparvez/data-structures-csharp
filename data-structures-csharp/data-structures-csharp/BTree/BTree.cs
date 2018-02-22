@@ -74,7 +74,7 @@ namespace DataStructures.BTreeSpace
             Contract.Requires<ArgumentOutOfRangeException>(ht >= 0);
 
             int j;
-            Entry<TKey, TValue> newEntry = new Entry<TKey, TValue>(key, value, null);
+            var newEntry = new Entry<TKey, TValue>(key, value, null);
 
             // external node
             if (ht == 0)
@@ -131,7 +131,7 @@ namespace DataStructures.BTreeSpace
         // split node in half, return the other half
         private Node<TKey, TValue> Split(Node<TKey, TValue> h)
         {
-            Node<TKey, TValue> t = new Node<TKey, TValue>(MaximumChildrenPerNode / 2);
+            var t = new Node<TKey, TValue>(MaximumChildrenPerNode / 2);
             h.numberOfChildren = MaximumChildrenPerNode / 2;
             for (int j = 0; j < MaximumChildrenPerNode / 2; j++)
             {
@@ -149,7 +149,7 @@ namespace DataStructures.BTreeSpace
             if (newNode == null) return;
 
             // need to split root
-            Node<TKey, TValue> t = new Node<TKey, TValue>(2);
+            var t = new Node<TKey, TValue>(2);
             t.Children[0] = new Entry<TKey, TValue>(root.Children[0].Key, default(TValue), root);
             t.Children[1] = new Entry<TKey, TValue>(newNode.Children[0].Key, default(TValue), newNode);
             root = t;
