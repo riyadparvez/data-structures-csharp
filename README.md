@@ -1,6 +1,8 @@
 Data Structures C#
 ======================
 
+[![HitCount](http://hits.dwyl.io/riyadparvez/riyadparvez/data-structures-csharp.svg)](http://hits.dwyl.io/riyadparvez/riyadparvez/data-structures-csharp)
+
 **Looking for maintainers**
 
 I don't have time to maintain this project anymore. If you are interested into maintaining this project, please drop me an email.
